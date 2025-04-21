@@ -44,7 +44,7 @@ const VerifyUser = () => {
         toast.success("OTP Verified Successfully!", { position: "top-center" });
 
         setTimeout(() => {
-            navigate("/"); // Simulate redirect
+            navigate("/login"); // Simulate redirect
         }, 2000);
     };
 

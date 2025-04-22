@@ -2,12 +2,33 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCategory, setRating, setPriceRange } from "../../store/shop/ShopSlice";
 import { FaBars, FaTimes } from 'react-icons/fa';
+import { MdNavigateNext } from "react-icons/md";
+import { IoChevronBackSharp } from "react-icons/io5";
+import { GrFormNext } from "react-icons/gr";
+
 
 const categories = [
-    "Accessories", "Barbie", "Bear", "Control Toys", "Disney", "Fashion Kid",
-    "Feeding Set", "Jigsaw Puzzle", "Lego", "Market", "Movement Toys", "Smart Toys",
-    "Strollers", "Stuffed Toys", "Toy & Game", "Wooden Toys"
+    "All",
+    "Supplements",
+    "Devices",
+    "Health Essentials",
+    "Medicines",
+    "Personal Care",
+    "Eye Care",
+    "Skin Care",
+    "Pain Relief",
+    "Allergy",
+    "Hydration",
+    "First Aid",
+    "Diabetes Care",
+    "Cold & Cough",
+    "Medical Devices",
+    "Covid Essentials",
+    "Stomach Care",
+    "Baby Care",
+    "Feminine Care"
 ];
+
 
 const Sidebar = () => {
     const dispatch = useDispatch();
@@ -26,20 +47,20 @@ const Sidebar = () => {
         <>
             <button
                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                className="fixed top-5 right-5 z-50 text-dark-color p-2 rounded transition md:hidden mt-1"
+                className="fixed top-20 left-2 z-50 text-dark-color p-2 rounded transition lg:hidden mt-1"
             >
-                {isSidebarOpen ? <FaTimes className="text-2xl" /> : <FaBars className="text-2xl" />}
+                {isSidebarOpen ? <IoChevronBackSharp className="text-2xl" /> : <GrFormNext className="text-2xl" />}
             </button>
 
             <div
-                className={`z-40 p-4 overflow-y-auto h-full w-80 fixed md:static top-0 left-0 transform transition-transform duration-300 ease-in-out
-          ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 
-          ${isSidebarOpen ? "bg-white shadow-lg" : ""} md:bg-transparent md:shadow-none ml-[5px]`}
+                className={`z-40 p-4 overflow-y-auto h-full w-80 fixed lg:static top-0 left-0 transform transition-transform duration-300 ease-in-out
+          ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 
+          ${isSidebarOpen ? "bg-white shadow-lg" : ""} lg:bg-transparent lg:shadow-none ml-[5px]`}
             >
                 <div className="space-y-6 text-gray-500 ">
 
 
-                    <div className="border border-dark-color rounded  p-4">
+                    <div className="border border-dark-color rounded  p-4 mt-28 lg:mt-0">
                         <h2 className="font-semibold text-2xl mb-3 border-b border-dark-color pb-2 text-dark-color " style={{ fontFamily: 'Fredoka, sans-serif' }}
                         >Categories</h2>
                         <div className="space-y-2">
@@ -50,11 +71,16 @@ const Sidebar = () => {
                                             type="radio"
                                             name="category"
                                             className="appearance-none w-4 h-4 border border-medium-color rounded-sm mr-2 checked:border-4 checked:border-dark-color checked:ring-1 checked:ring-medium-color"
-                                            onChange={() => dispatch(setCategory(cat))}
+                                            onChange={() => dispatch(setCategory(cat === "All" ? "" : cat))}
                                         />
                                         <span>{cat}</span>
                                     </div>
-                                    <span className="text-sm">({categoryCounts[cat] || 0})</span>
+                                    <span className="text-sm">
+                                        ({cat === "All"
+                                            ? Object.values(categoryCounts).reduce((a, b) => a + b, 0)
+                                            : categoryCounts[cat] || 0})
+                                    </span>
+
                                 </label>
                             ))}
                         </div>

@@ -7,8 +7,6 @@ export const createCheckoutSession = async (req, res) => {
   try {
     const userId = req.user._id;
     const { items, shippingAddress } = req.body;
-    console.log("Items:", items);
-    console.log("Shipping Address:", shippingAddress);
 
     const lineItems = items.map((item) => ({
       price_data: {
@@ -46,7 +44,6 @@ export const createCheckoutSession = async (req, res) => {
 
     res.json({ url: session.url });
   } catch (err) {
-    console.error("Error creating checkout session:", err);
     res.status(500).json({ error: err.message });
   }
 };

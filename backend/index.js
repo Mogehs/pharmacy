@@ -18,14 +18,15 @@ dotenv.config();
 
 const app = express();
 
-// Middleware
-app.use(cors());
-app.use(cookieParser());
-app.use(
+app.post(
   "/api/stripe/webhook",
   express.raw({ type: "application/json" }),
   stripeWebhook
 );
+
+// Middleware
+app.use(cors());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 

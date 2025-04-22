@@ -1,9 +1,11 @@
 import React from 'react'
-import Hero from "../components/shop/Hero"
+import Shopnav from '../components/shop/Shopnav'
 
 const Shop = () => {
     return (
-        <div><Hero /></div>
+        <div>
+            <Shopnav />
+        </div>
     )
 }
 

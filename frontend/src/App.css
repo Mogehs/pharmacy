@@ -1,23 +1,9 @@
-.txt-lt {
-    color: #dad9d8;
+.bgColor{
+    background: #454142;
 }
-
-.bg-dk {
-    background-color: #525052;
+.TextColor{
+    color: #dbdad9;
 }
-
-.bg-lt {
-    background-color: #dad9d8;
-}
-
-.txt-gd {
-    color: #a8754d;
-}
-
-.txt-gl {
-    color: #eac577;
-}
-
-.hover-gl:hover {
-    color: #eac577;
+.TextColor2{
+    color: #d09f5f;
 }

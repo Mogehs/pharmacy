@@ -1,8 +1,11 @@
 import Order from "../models/Order.js";
+import Stripe from "stripe";
 
 export const stripeWebhook = async (req, res) => {
   const sig = req.headers["stripe-signature"];
   let event;
+
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
   try {
     event = stripe.webhooks.constructEvent(

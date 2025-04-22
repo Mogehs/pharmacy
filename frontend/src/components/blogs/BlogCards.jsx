@@ -100,7 +100,7 @@ function BlogCards() {
                                 {blog.title.length > 40 ? `${blog.title.substring(0, 40)}...` : blog.title}
                             </h2>
 
-                            <Link to="/blogs">
+                            <Link to={`/blogs/${blog.id}`}>
                                 <button className="flex items-center gap-2 txt-lt font-medium hover-gl transition-colors duration-300">
                                     Read More
                                     <FaArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
@@ -117,8 +117,8 @@ function BlogCards() {
                     <button
                         key={i + 1}
                         onClick={() => setCurrentPage(i + 1)}
-                        className={`px-4 py-2 rounded-full border text-sm font-medium transition-all duration-300 
-                            ${currentPage === i + 1 ? 'bg-dk txt-gl' : 'bg-white txt-gd hover:bg-dk hover:txt-gl'}
+                        className={`px-4 py-2 rounded-full border text-sm font-medium transition-all duration-300 hover:cursor-pointer 
+                            ${currentPage === i + 1 ? 'bg-white txt-gl' : 'bg-dk txt-gd hover:bg-dk hover:txt-gl'}
                         `}
                     >
                         {i + 1}

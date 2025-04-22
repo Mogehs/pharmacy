@@ -1,10 +1,10 @@
-// controllers/orderController.js
 import Order from "../models/Order.js";
 
-// Create a new order
+// Create a new order (after Stripe session created)
 export const createOrder = async (req, res) => {
   try {
-    const { products, totalAmount, paymentIntentId } = req.body;
+    const { products, totalAmount, paymentIntentId, shippingAddress } =
+      req.body;
     const userId = req.user._id;
 
     const newOrder = new Order({
@@ -12,13 +12,16 @@ export const createOrder = async (req, res) => {
       products,
       totalAmount,
       paymentIntentId,
+      shippingAddress,
+      paymentMethod: "Stripe",
+      isPaid: false,
     });
 
     await newOrder.save();
     res.status(201).json(newOrder);
   } catch (error) {
-    res.status(500).json({ message: "Failed to create order", error });
     console.error("Error creating order:", error);
+    res.status(500).json({ message: "Failed to create order", error });
   }
 };
 
@@ -87,5 +90,27 @@ export const updateOrderStatus = async (req, res) => {
     res.status(200).json(updatedOrder);
   } catch (error) {
     res.status(500).json({ message: "Failed to update order status", error });
+  }
+};
+
+// ✅ Mark order as paid after successful Stripe payment (called from webhook)
+export const markOrderAsPaid = async (req, res) => {
+  try {
+    const { paymentIntentId, paymentResult } = req.body;
+
+    const order = await Order.findOne({ paymentIntentId });
+
+    if (!order) return res.status(404).json({ message: "Order not found" });
+
+    order.isPaid = true;
+    order.paidAt = new Date();
+    order.paymentResult = paymentResult;
+
+    await order.save();
+
+    res.status(200).json({ message: "Order marked as paid", order });
+  } catch (error) {
+    console.error("Error marking order as paid:", error);
+    res.status(500).json({ message: "Failed to mark order as paid", error });
   }
 };

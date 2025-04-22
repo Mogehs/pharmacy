@@ -71,7 +71,6 @@ export const registerUser = async (req, res) => {
 export const verifyOTP = async (req, res) => {
   try {
     const userId = req.params.id;
-    console.log(userId);
     const { otp } = req.body;
 
     const user = await User.findById(userId);

@@ -4,8 +4,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import userRoutes from "./routes/userRoutes.js";
 import cookieParser from "cookie-parser";
-// import productRoutes from "./routes/productRoutes.js";
-// import appointmentRoutes from "./routes/appointmentRoutes.js";
+import productRoutes from "./routes/productRoutes.js";
+import appointmentRoutes from "./routes/appointmentRoutes.js";
 // import courseRoutes from "./routes/courseRoutes.js";
 // import orderRoutes from "./routes/orderRoutes.js";
 
@@ -20,8 +20,8 @@ app.use(cookieParser());
 
 // Routes
 app.use("/api/users", userRoutes);
-// app.use("/api/products", productRoutes);
-// app.use("/api/appointments", appointmentRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/appointments", appointmentRoutes);
 // app.use("/api/courses", courseRoutes);
 // app.use("/api/orders", orderRoutes);
 

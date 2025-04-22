@@ -1,0 +1,19 @@
+.txt-lt {
+    color: #dad9d8;
+}
+
+.bg-dk {
+    background-color: #525052;
+}
+
+.txt-gd {
+    color: #a8754d;
+}
+
+.txt-gl {
+    color: #eac577;
+}
+
+.hover-gl:hover {
+    color: #eac577;
+}

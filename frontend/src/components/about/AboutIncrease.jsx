@@ -65,11 +65,11 @@ const StatCard = ({ title, count, suffix }) => {
       ref={ref}
       className="p-8 flex flex-col items-center text-center bg-[#F4F9FE] rounded-lg shadow-sm"
     >
-      <div className="text-4xl sm:text-6xl font-bold text-[#19AAE3]">
+      <div className="text-4xl sm:text-6xl font-bold txt-gl">
         {currentCount}
         {suffix}
       </div>
-      <div className="text-base  text-[#365B77] font-medium mt-2">
+      <div className="text-base  txt-gd font-medium mt-2">
         {title}
       </div>
     </div>

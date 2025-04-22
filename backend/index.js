@@ -12,14 +12,22 @@ import cartRoutes from "./routes/cartRoutes.js";
 import courseRoutes from "./routes/courseRoutes.js";
 import stripeRoutes from "./routes/stripeRoute.js";
 
+import { stripeWebhook } from "./stripe/stripeWebHook.js";
+
 dotenv.config();
 
 const app = express();
 
 // Middleware
 app.use(cors());
-app.use(express.json());
 app.use(cookieParser());
+app.use(
+  "/api/stripe/webhook",
+  express.raw({ type: "application/json" }),
+  stripeWebhook
+);
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Routes
 app.use("/api/users", userRoutes);

@@ -1,9 +1,13 @@
 import React from 'react'
-import Hero from "../components/contact/Hero"
+import ContactNewsletter from '../components/contact/ContactNewsletter'
+import ContactFrom from '../components/contact/ContactFrom'
 
 const Contact = () => {
     return (
-        <div><Hero /></div>
+        <div>
+            <ContactFrom/>
+          <ContactNewsletter/>
+        </div>
     )
 }
 

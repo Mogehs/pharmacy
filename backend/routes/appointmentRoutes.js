@@ -14,6 +14,6 @@ router.post("/create", authMiddleware, createAppointment);
 router.get("/", getAllAppointments);
 router.get("/:id", getAppointmentById);
 router.put("/:id/status", authMiddleware, updateAppointmentStatus);
-router.delete("/:id", deleteAppointment);
+router.delete("/:id", authMiddleware, deleteAppointment);
 
 export default router;

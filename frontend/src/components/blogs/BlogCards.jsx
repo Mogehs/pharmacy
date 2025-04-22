@@ -101,7 +101,7 @@ function BlogCards() {
                             </h2>
 
                             <Link to={`/blogs/${blog.id}`}>
-                                <button className="flex items-center gap-2 txt-lt font-medium hover-gl transition-colors duration-300">
+                                <button className="flex items-center gap-2 txt-lt font-medium hover-gl transition-colors duration-300 hover:cursor-pointer">
                                     Read More
                                     <FaArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
                                 </button>

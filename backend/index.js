@@ -10,15 +10,25 @@ import applicationRoutes from "./routes/applicationRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import courseRoutes from "./routes/courseRoutes.js";
+import stripeRoutes from "./routes/stripeRoute.js";
+
+import { stripeWebhook } from "./stripe/stripeWebHook.js";
 
 dotenv.config();
 
 const app = express();
 
+app.post(
+  "/api/stripe/webhook",
+  express.raw({ type: "application/json" }),
+  stripeWebhook
+);
+
 // Middleware
 app.use(cors());
-app.use(express.json());
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Routes
 app.use("/api/users", userRoutes);
@@ -28,6 +38,7 @@ app.use("/api/applications", applicationRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/courses", courseRoutes);
+app.use("/api/stripe", stripeRoutes);
 
 // DB connection & Server
 const PORT = process.env.PORT || 5000;

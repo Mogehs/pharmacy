@@ -14,7 +14,7 @@ const NewsLetter = () => {
                 <div className="flex flex-col sm:flex-row gap-4">
                     <input
                         type="email"
-                        placeholder="Enter your email"
+                        placeholder="Enter address"
                         className="flex-1 px-4 py-2 rounded-lg focus:outline-none bg-white text-black"
                     />
                     <button className="bg-dk txt-gl px-6 py-2 rounded-lg hover:brightness-110 transition-all duration-300">

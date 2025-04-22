@@ -10,6 +10,7 @@ import {
   resetPassword,
   getAllUsers,
   deleteUser,
+  logoutUser,
 } from "../controllers/userController.js";
 import authMiddleware from "../middlewares/authMiddleware.js";
 
@@ -34,5 +35,7 @@ router.put("/profile/:id", authMiddleware, updateUserProfile);
 // Admin-only
 router.get("/", authMiddleware, getAllUsers);
 router.delete("/:id", authMiddleware, deleteUser);
+
+router.post("/logout", logoutUser);
 
 export default router;

@@ -1,9 +1,13 @@
 import React from 'react'
-import Hero from "../components/blogs/Hero"
+import AllBlogs from "../components/blogs/Blogs";
+import NewsLetter from '../components/blogs/NewsLetter';
 
 const Blogs = () => {
     return (
-        <div><Hero /></div>
+        <div>
+            <AllBlogs />
+            <NewsLetter />
+        </div>
     )
 }
 

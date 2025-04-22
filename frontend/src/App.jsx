@@ -10,6 +10,7 @@ import UpdatePassword from './components/UpdatePassword';
 
 import Home from "./pages/Home";
 import Blogs from "./pages/Blogs";
+import BlogDetail from "./components/blogs/BlogDetail";
 import Shop from "./pages/Shop";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
     children: [
       { path: '/', element: <Home /> },
       { path: '/blogs', element: <Blogs /> },
+      { path: "/blogs/:id", element: <BlogDetail /> },
       { path: '/shop', element: <Shop /> },
       { path: '/about', element: <About /> },
       { path: '/contact', element: <Contact /> },

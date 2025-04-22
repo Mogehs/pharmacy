@@ -71,7 +71,6 @@ export const registerUser = async (req, res) => {
 export const verifyOTP = async (req, res) => {
   try {
     const userId = req.params.id;
-    console.log(userId);
     const { otp } = req.body;
 
     const user = await User.findById(userId);
@@ -293,7 +292,7 @@ export const resetPassword = async (req, res) => {
 // Admin: Get All Users
 export const getAllUsers = async (req, res) => {
   try {
-    if (!req.user.isAdmin) {
+    if (req.user.role !== "admin") {
       return res.status(403).json({ message: "Access denied" });
     }
 
@@ -306,7 +305,7 @@ export const getAllUsers = async (req, res) => {
 // Admin: Delete User
 export const deleteUser = async (req, res) => {
   try {
-    if (!req.user.isAdmin) {
+    if (req.user.role !== "admin") {
       return res.status(403).json({ message: "Access denied" });
     }
 

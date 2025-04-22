@@ -1,13 +1,16 @@
-import express from "express";
+import express, { application } from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import userRoutes from "./routes/userRoutes.js";
 import cookieParser from "cookie-parser";
-// import productRoutes from "./routes/productRoutes.js";
-// import appointmentRoutes from "./routes/appointmentRoutes.js";
-// import courseRoutes from "./routes/courseRoutes.js";
-// import orderRoutes from "./routes/orderRoutes.js";
+import productRoutes from "./routes/productRoutes.js";
+import appointmentRoutes from "./routes/appointmentRoutes.js";
+import applicationRoutes from "./routes/applicationRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
+import cartRoutes from "./routes/cartRoutes.js";
+import courseRoutes from "./routes/courseRoutes.js";
+import stripeRoutes from "./routes/stripeRoute.js";
 
 dotenv.config();
 
@@ -20,10 +23,13 @@ app.use(cookieParser());
 
 // Routes
 app.use("/api/users", userRoutes);
-// app.use("/api/products", productRoutes);
-// app.use("/api/appointments", appointmentRoutes);
-// app.use("/api/courses", courseRoutes);
-// app.use("/api/orders", orderRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/appointments", appointmentRoutes);
+app.use("/api/applications", applicationRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/courses", courseRoutes);
+app.use("/api/stripe", stripeRoutes);
 
 // DB connection & Server
 const PORT = process.env.PORT || 5000;

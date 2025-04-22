@@ -8,9 +8,9 @@ function Blogs() {
     return (
         <div className="bg-dk px-4 py-10">
             <div className="flex items-center gap-2 text-lg md:text-xl font-semibold text-white mb-6">
-                <button onClick={() => navigate("/")} className="txt-lt hover-gl transition-colors">Home</button>
+                <button onClick={() => navigate("/")} className="txt-lt hover-gl transition-colors hover:cursor-pointer">Home</button>
                 <MdOutlineNavigateNext className="txt-gl" />
-                <button onClick={() => navigate(`/blogs`)} className="txt-gl hover-gl transition-colors">Blogs</button>
+                <button onClick={() => navigate(`/blogs`)} className="txt-gl hover-gl transition-colors hover:cursor-pointer">Blogs</button>
             </div>
 
             <BlogCards />

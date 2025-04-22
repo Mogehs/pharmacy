@@ -4,6 +4,7 @@ import { MdOutlineNavigateNext } from 'react-icons/md';
 import InnerBlogDetail from './InnerBlogDetail';
 import blogs from './blogData';
 import Shop from './Shop';
+import CommentForm from './CommentForm';
 
 
 const BlogDetail = () => {
@@ -26,9 +27,9 @@ const BlogDetail = () => {
         <div className="min-h-screen bg-dk text-white px-2 md:px-4 py-8">
             {/* Breadcrumbs */}
             <div className="flex items-center gap-2 text-base font-medium mb-6 flex-wrap sticky top-0 z-10 bg-dk/80 py-2 backdrop-blur-sm rounded-md px-3">
-                <button onClick={() => navigate('/')} className="txt-lt hover-gl transition">Home</button>
+                <button onClick={() => navigate('/')} className="txt-lt hover-gl transition hover:cursor-pointer">Home</button>
                 <MdOutlineNavigateNext className="txt-gl" />
-                <button onClick={() => navigate('/blogs')} className="txt-gl hover-gl transition">Blogs</button>
+                <button onClick={() => navigate('/blogs')} className="txt-gl hover-gl transition hover:cursor-pointer">Blogs</button>
                 <MdOutlineNavigateNext className="txt-gl" />
                 <span className="txt-gd line-clamp-1">{blog.title.slice(0, 30)}...</span>
             </div>
@@ -74,13 +75,12 @@ const BlogDetail = () => {
                         <InnerBlogDetail image={blog.innerImage} title={blog.innerTitle} content={blog.innerContent} />
                     </div>
 
-                    <div className='h-full'>
-                        <Shop />
-                    </div>
+                    <Shop />
 
                 </div>
 
             </div>
+            <CommentForm />
 
             {/* Related / Next Blogs */}
             {nextBlogs.length > 0 && (

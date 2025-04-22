@@ -1,4 +1,5 @@
 import React from 'react'
+import { MdOutlineNavigateNext } from "react-icons/md";
 
 const Shop = () => {
     return (
@@ -11,7 +12,7 @@ const Shop = () => {
                     <h1 className='text-xl md:text-2xl font-semibold txt-gd'>Breathable <br />
                         Face Mask
                     </h1>
-                    <button className=' bg-dk txt-lt hover-gl px-3 py-1 rounded-full font-semibold shadow transition-all duration-500 hover:cursor-pointer'>Shop Now</button>
+                    <button className='group bg-dk txt-lt hover-gl px-3 py-1 rounded-full font-semibold shadow transition-all duration-500 hover:cursor-pointer flex items-center gap-2'>Shop Now                                     <MdOutlineNavigateNext size={15} className="transition-transform duration-300 group-hover:translate-x-1" /></button>
                 </div>
             </div>
             <div className='h-[50vh] bg-no-repeat bg-cover bg-center relative' style={{ backgroundImage: `url('/blogs/shop2.jpg')` }}>
@@ -22,7 +23,7 @@ const Shop = () => {
                     <h1 className='text-xl md:text-2xl font-semibold txt-gd'>Covid 19 pack <br />
                         Get it now 45% Off
                     </h1>
-                    <button className=' bg-dk txt-lt hover-gl px-3 py-1 rounded-full font-semibold shadow transition-all duration-500 hover:cursor-pointer'>Shop Now</button>
+                    <button className='group bg-dk txt-lt hover-gl px-3 py-1 rounded-full font-semibold shadow transition-all duration-500 hover:cursor-pointer flex items-center gap-2'>Shop Now                                     <MdOutlineNavigateNext size={15} className="transition-transform duration-300 group-hover:translate-x-1" /></button>
                 </div>
             </div>
         </div>

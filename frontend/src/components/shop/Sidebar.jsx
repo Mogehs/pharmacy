@@ -6,29 +6,7 @@ import { MdNavigateNext } from "react-icons/md";
 import { IoChevronBackSharp } from "react-icons/io5";
 import { GrFormNext } from "react-icons/gr";
 
-
-const categories = [
-    "All",
-    "Supplements",
-    "Devices",
-    "Health Essentials",
-    "Medicines",
-    "Personal Care",
-    "Eye Care",
-    "Skin Care",
-    "Pain Relief",
-    "Allergy",
-    "Hydration",
-    "First Aid",
-    "Diabetes Care",
-    "Cold & Cough",
-    "Medical Devices",
-    "Covid Essentials",
-    "Stomach Care",
-    "Baby Care",
-    "Feminine Care"
-];
-
+import { selectUniqueCategories } from "../../store/shop/ShopSelector";
 
 const Sidebar = () => {
     const dispatch = useDispatch();
@@ -36,6 +14,7 @@ const Sidebar = () => {
     const categoryCounts = useSelector(state => state.shop.categoryCounts);
     const [price, setPrice] = useState(960);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const categories = useSelector(selectUniqueCategories);
 
     const handlePriceChange = (e) => {
         const value = parseInt(e.target.value, 10);
@@ -107,24 +86,6 @@ const Sidebar = () => {
                         </button>
                     </div>
 
-
-                    <div className="border border-dark-color rounded-xl p-4">
-                        <h2 className="font-semibold text-md mb-3 border-b border-dark-color pb-2 text-black font-Fredoka text-2xl" style={{ fontFamily: 'Fredoka, sans-serif' }}
-                        >Rating</h2>
-                        {[3, 4, 5].map((stars, i) => (
-                            <label key={i} className="flex items-center text-sm mb-2">
-                                <input
-                                    type="radio"
-                                    name="rating"
-                                    className="appearance-none w-4 h-4 border border-dark-color rounded-sm mr-2 checked:border-4 checked:border-medium-color checked:ring-1 checked:ring-medium-color"
-                                    onChange={() => dispatch(setRating(stars))}
-                                />
-                                {Array.from({ length: 5 }, (_, j) => (
-                                    <span key={j} className={`text-lg ${j < stars ? 'text-yellow-400' : 'text-gray-300'}`}>★</span>
-                                ))}
-                            </label>
-                        ))}
-                    </div>
 
 
                     <div className="border border-dark-color rounded-xl p-4">

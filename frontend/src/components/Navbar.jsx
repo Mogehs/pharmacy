@@ -1,13 +1,21 @@
 import React, { useState } from "react";
 import { FaChevronDown, FaBars, FaTimes, FaShoppingCart } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
+import { selectUniqueCategories } from "../store/shop/ShopSelector";
+import { setCategory } from "../store/shop/ShopSlice";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [productDropdown, setProductDropdown] = useState(false);
+  const cartItems = useSelector((state) => state.cart.cartItems || []);
+
+  const dispatch = useDispatch();
+  const categories = useSelector(selectUniqueCategories);
 
   return (
-    <nav className="bg-white shadow-md px-4 py-3 sticky top-0 z-50">
+    <nav className="bg-white shadow-md px-4 py-3 sticky top-0 z-60">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex-shrink-0">
@@ -32,16 +40,21 @@ const Navbar = () => {
               Products <FaChevronDown className="text-sm mt-0.5" />
             </div>
             {productDropdown && (
-              <ul className="absolute top-8 left-0 bg-white shadow-lg rounded-md w-56 py-2 z-50">
-                {[
-                  { label: "Prescription Medicines", path: "/products/prescription" },
-                  { label: "OTC Medicines", path: "/products/otc" },
-                  { label: "Supplements & Vitamins", path: "/products/supplements" },
-                  { label: "Medical Equipment", path: "/products/equipment" },
-                  { label: "Baby Care", path: "/products/baby-care" },
-                ].map((item) => (
-                  <li key={item.label} className="px-4 py-2 hover:text-[#525052] text-[#a8754d] whitespace-nowrap">
-                    <Link to={item.path}>{item.label}</Link>
+              <ul className="absolute top-8 left-0 bg-white shadow-lg rounded-md w-56 py-2 z-50 overflow-y-auto h-[50vh] space-y-1 px-2 scrollbar-thin scrollbar-thumb-[#a8754d] scrollbar-track-gray-100 hover:scrollbar-thumb-[#925f3c] transition-all duration-300">
+
+                {categories.map((category) => (
+                  <li key={category} className=" hover:text-[#525052] text-[#a8754d] whitespace-nowrap">
+                    <Link
+                      to="/products"
+                      onClick={() => {
+                        dispatch(setCategory(category === "All" ? "" : category));
+                        setMenuOpen(false); // if you're closing the mobile menu
+                        setProductDropdown(false); // close dropdown
+                      }}
+                      className="block px-4 py-2 hover:text-[#525052] text-[#a8754d]"
+                    >
+                      {category}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -61,9 +74,15 @@ const Navbar = () => {
 
         {/* Right Buttons & Cart */}
         <div className="hidden lg:flex items-center space-x-4">
-          <Link to="/cart" className="hover:text-[#525052] text-[#a8754d] text-2xl">
+          <Link to="/cart" className="relative hover:text-[#525052] text-[#a8754d] text-2xl">
             <FaShoppingCart />
+            {cartItems.length > 0 && (
+              <span className="absolute -top-2 -right-2 bg-[#a8754d] text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-bounce">
+                {cartItems.length}
+              </span>
+            )}
           </Link>
+
           <Link to="/appointments">
             <button className="px-4 text-sm py-2 cursor-pointer border border-[#a8754d] hover:text-[#a8754d] hover:bg-white bg-[#a8754d] text-white rounded-full ">
               Get Appointment
@@ -96,25 +115,26 @@ const Navbar = () => {
               Products <FaChevronDown className="text-sm mt-0.5" />
             </div>
             {productDropdown && (
-              <ul className="pl-4 mt-2 space-y-2">
-                {[
-                  { label: "Prescription Medicines", path: "/products/prescription" },
-                  { label: "OTC Medicines", path: "/products/otc" },
-                  { label: "Supplements & Vitamins", path: "/products/supplements" },
-                  { label: "Medical Equipment", path: "/products/equipment" },
-                  { label: "Baby Care", path: "/products/baby-care" },
-                ].map((item) => (
-                  <li key={item.label}>
-                    <Link
-                      to={item.path}
-                      className="block px-4 py-2 hover:text-[#525052] text-[#a8754d]"
-                      onClick={() => setMenuOpen(false)}
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              <>
+                <ul className="overflow-y-auto h-[50vh] space-y-1 px-2 scrollbar-thin scrollbar-thumb-[#a8754d] scrollbar-track-gray-100 hover:scrollbar-thumb-[#925f3c] transition-all duration-300">
+                  {categories.map((category) => (
+                    <li key={category}>
+                      <Link
+                        to="/products"
+                        onClick={() => {
+                          dispatch(setCategory(category === "All" ? "" : category));
+                          setMenuOpen(false); // if you're closing the mobile menu
+                          setProductDropdown(false); // close dropdown
+                        }}
+                        className="block px-4 py-2 hover:text-[#525052] text-[#a8754d]"
+                      >
+                        {category}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </>
+
             )}
           </div>
 
@@ -126,6 +146,14 @@ const Navbar = () => {
           </Link>
           <Link to="/contact" onClick={() => setMenuOpen(false)} className="block hover:text-[#525052] text-[#a8754d]">
             Contact
+          </Link>
+          <Link to="/cart" className="relative hover:text-[#525052] text-[#a8754d] text-2xl">
+            <FaShoppingCart />
+            {cartItems.length > 0 && (
+              <span className="absolute -top-2 left-4 bg-[#a8754d] text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-bounce">
+                {cartItems.length}
+              </span>
+            )}
           </Link>
 
           <div className="pt-4 flex flex-col gap-3">
@@ -139,11 +167,7 @@ const Navbar = () => {
                 Other Courses
               </button>
             </Link>
-            <Link to="/cart">
-              <button className="w-full flex items-center justify-center gap-2 border py-2 rounded-full hover:text-[#525052] text-[#a8754d]">
-                <FaShoppingCart /> Cart
-              </button>
-            </Link>
+
           </div>
 
         </div>

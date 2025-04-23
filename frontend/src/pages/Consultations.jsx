@@ -6,6 +6,7 @@ const Consultations = () => {
   return (
     <div>
       <ConsultationForm />
+      
     </div>
   )
 }

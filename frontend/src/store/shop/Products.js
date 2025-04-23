@@ -8,7 +8,7 @@ const Products = [
         category: "Supplements",
         description: "Boost immunity with high-quality Vitamin C tablets.",
         image: "/shop/img1.jpg",
-        star: 3,
+        rating: 3,
     },
     {
         id: 2,
@@ -19,7 +19,7 @@ const Products = [
         category: "Devices",
         description: "Accurate digital thermometer for daily health checks.",
         image: "/shop/img2.jpg",
-        star: 4,
+        rating: 4,
     },
     {
         id: 3,
@@ -30,7 +30,7 @@ const Products = [
         category: "Health Essentials",
         description: "Compact first aid kit for emergencies.",
         image: "/shop/img7.jpg",
-        star: 4,
+        rating: 4,
     },
     {
         id: 4,
@@ -41,7 +41,7 @@ const Products = [
         category: "Medicines",
         description: "Effective balm for joint and muscle pain.",
         image: "/shop/img8.jpg",
-        star: 5,
+        rating: 5,
     },
     {
         id: 5,
@@ -52,7 +52,7 @@ const Products = [
         category: "Medicines",
         description: "Fast-acting tablets to relieve allergy symptoms.",
         image: "/shop/img9.jpg",
-        star: 3,
+        rating: 3,
     },
     {
         id: 6,
@@ -63,7 +63,7 @@ const Products = [
         category: "Personal Care",
         description: "Strengthens hair roots and reduces hair fall.",
         image: "/shop/img10.jpg",
-        star: 4,
+        rating: 4,
     },
     {
         id: 7,
@@ -74,7 +74,7 @@ const Products = [
         category: "Health Essentials",
         description: "Compact pouch for organizing medicines on the go.",
         image: "/shop/img8.jpg",
-        star: 3,
+        rating: 3,
     },
     {
         id: 8,
@@ -85,7 +85,7 @@ const Products = [
         category: "Eye Care",
         description: "Soothes dry and irritated eyes.",
         image: "/shop/img7.jpg",
-        star: 5,
+        rating: 5,
     },
     {
         id: 9,
@@ -96,7 +96,7 @@ const Products = [
         category: "Skin Care",
         description: "High-protection sunscreen lotion for daily use.",
         image: "/shop/img6.jpg",
-        star: 4,
+        rating: 4,
     },
     {
         id: 10,
@@ -107,7 +107,7 @@ const Products = [
         category: "Supplements",
         description: "Tasty multivitamin gummies for all ages.",
         image: "/shop/img5.jpg",
-        star: 5,
+        rating: 5,
     },
     {
         id: 44,
@@ -118,7 +118,7 @@ const Products = [
         category: "Pain Relief",
         description: "Used for relief from fever and mild to moderate pain.",
         image: "/shop/img4.jpg",
-        star: 5,
+        rating: 5,
     },
     {
         id: 45,
@@ -129,7 +129,7 @@ const Products = [
         category: "Allergy",
         description: "Antihistamine for allergic conditions like sneezing and hives.",
         image: "/shop/img3.jpg",
-        star: 4,
+        rating: 4,
     },
     {
         id: 46,
@@ -140,7 +140,7 @@ const Products = [
         category: "Hydration",
         description: "Oral rehydration salts for dehydration and diarrhea.",
         image: "/shop/img2.jpg",
-        star: 4,
+        rating: 4,
     },
     {
         id: 47,
@@ -151,7 +151,7 @@ const Products = [
         category: "Pain Relief",
         description: "Topical pain relief for muscles and joints.",
         image: "/shop/img9.jpg",
-        star: 5,
+        rating: 5,
     },
     {
         id: 48,
@@ -162,7 +162,7 @@ const Products = [
         category: "Pain Relief",
         description: "Effective against fever and body pain.",
         image: "/shop/img1.jpg",
-        star: 4,
+        rating: 4,
     },
     {
         id: 49,
@@ -173,7 +173,7 @@ const Products = [
         category: "First Aid",
         description: "Adhesive bandages for minor cuts and wounds.",
         image: "/shop/img10.jpg",
-        star: 4,
+        rating: 4,
     },
     {
         id: 50,
@@ -184,7 +184,7 @@ const Products = [
         category: "Diabetes Care",
         description: "Strips for home blood glucose testing.",
         image: "/shop/img4.jpg",
-        star: 5,
+        rating: 5,
     },
     {
         id: 51,
@@ -195,7 +195,7 @@ const Products = [
         category: "Cold & Cough",
         description: "Relieves cough, throat irritation, and congestion.",
         image: "/shop/img8.jpg",
-        star: 3,
+        rating: 3,
     },
     {
         id: 52,
@@ -206,7 +206,7 @@ const Products = [
         category: "Medical Devices",
         description: "Easy-to-use digital thermometer for fever monitoring.",
         image: "/shop/img5.jpg",
-        star: 5,
+        rating: 5,
     },
     {
         id: 53,
@@ -217,7 +217,7 @@ const Products = [
         category: "Supplements",
         description: "Boosts immunity and supports skin health.",
         image: "/shop/img1.jpg",
-        star: 4,
+        rating: 4,
     },
     {
         id: 54,
@@ -228,7 +228,7 @@ const Products = [
         category: "Covid Essentials",
         description: "Protective 3-ply face masks for daily use.",
         image: "/shop/img10.jpg",
-        star: 4,
+        rating: 4,
     },
     {
         id: 55,
@@ -239,7 +239,7 @@ const Products = [
         category: "Covid Essentials",
         description: "Kills 99.9% germs without water.",
         image: "/shop/img2.jpg",
-        star: 5,
+        rating: 5,
     },
     {
         id: 56,
@@ -250,7 +250,7 @@ const Products = [
         category: "Supplements",
         description: "Multivitamin tonic for kids and adults.",
         image: "/shop/img6.jpg",
-        star: 4,
+        rating: 4,
     },
     {
         id: 57,
@@ -261,7 +261,7 @@ const Products = [
         category: "Stomach Care",
         description: "Treats sudden diarrhea effectively.",
         image: "/shop/img1.jpg",
-        star: 3,
+        rating: 3,
     },
     {
         id: 58,
@@ -272,7 +272,7 @@ const Products = [
         category: "Covid Essentials",
         description: "High-grade protection from airborne particles.",
         image: "/shop/img10.jpg",
-        star: 5,
+        rating: 5,
     },
     {
         id: 59,
@@ -283,7 +283,7 @@ const Products = [
         category: "Baby Care",
         description: "Protects and soothes baby's skin.",
         image: "/shop/img9.jpg",
-        star: 4,
+        rating: 4,
     },
     {
         id: 60,
@@ -294,7 +294,7 @@ const Products = [
         category: "Stomach Care",
         description: "Quick relief from acidity and indigestion.",
         image: "/shop/img5.jpg",
-        star: 4,
+        rating: 4,
     },
     {
         id: 61,
@@ -305,7 +305,7 @@ const Products = [
         category: "Pain Relief",
         description: "Heat therapy patches for back and joint pain.",
         image: "/shop/img2.jpg",
-        star: 4,
+        rating: 4,
     },
     {
         id: 62,
@@ -316,7 +316,7 @@ const Products = [
         category: "Diabetes Care",
         description: "Sterile tips for insulin pens.",
         image: "/shop/img1.jpg",
-        star: 5,
+        rating: 5,
     },
     {
         id: 63,
@@ -327,7 +327,7 @@ const Products = [
         category: "Feminine Care",
         description: "Fast and accurate results at home.",
         image: "/shop/img7.jpg",
-        star: 4,
+        rating: 4,
     },
 ];
 

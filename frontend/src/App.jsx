@@ -16,6 +16,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import PageNotFound from './components/PageNotFound';
 import ForgotPassword from './components/ForgotPassword';
+import CartPage from './components/shop/CartPage';
 
 
 const MainLayout = () => (
@@ -33,7 +34,8 @@ const router = createBrowserRouter([
       { path: '/', element: <Home /> },
       { path: '/blogs', element: <Blogs /> },
       { path: "/blogs/:id", element: <BlogDetail /> },
-      { path: '/shop', element: <Shop /> },
+      { path: '/products', element: <Shop /> },
+      { path: '/cart', element: <CartPage /> },
       { path: '/about', element: <About /> },
       { path: '/contact', element: <Contact /> },
       { path: '*', element: <PageNotFound /> },

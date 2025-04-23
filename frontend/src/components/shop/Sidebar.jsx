@@ -6,29 +6,7 @@ import { MdNavigateNext } from "react-icons/md";
 import { IoChevronBackSharp } from "react-icons/io5";
 import { GrFormNext } from "react-icons/gr";
 
-
-const categories = [
-    "All",
-    "Supplements",
-    "Devices",
-    "Health Essentials",
-    "Medicines",
-    "Personal Care",
-    "Eye Care",
-    "Skin Care",
-    "Pain Relief",
-    "Allergy",
-    "Hydration",
-    "First Aid",
-    "Diabetes Care",
-    "Cold & Cough",
-    "Medical Devices",
-    "Covid Essentials",
-    "Stomach Care",
-    "Baby Care",
-    "Feminine Care"
-];
-
+import { selectUniqueCategories } from "../../store/shop/ShopSelector";
 
 const Sidebar = () => {
     const dispatch = useDispatch();
@@ -36,6 +14,7 @@ const Sidebar = () => {
     const categoryCounts = useSelector(state => state.shop.categoryCounts);
     const [price, setPrice] = useState(960);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const categories = useSelector(selectUniqueCategories);
 
     const handlePriceChange = (e) => {
         const value = parseInt(e.target.value, 10);

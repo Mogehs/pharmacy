@@ -3,8 +3,11 @@ import { useSelector } from "react-redux";
 import ReactPaginate from "react-paginate";
 import { FaRegEye } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../store/shop/CartSlice";
 
 const ProductGrid = () => {
+    const dispatch = useDispatch();
     const products = useSelector((state) => state.shop.filteredProducts);
     const [currentPage, setCurrentPage] = useState(0);
     const itemsPerPage = 12;
@@ -20,7 +23,11 @@ const ProductGrid = () => {
     };
 
     const handleCartClick = (productId) => {
-        navigate(`/cart/${productId}`);
+        navigate(`/product/${productId}`);
+    };
+
+    const handleAddToCart = (product) => {
+        dispatch(addToCart(product));
     };
 
     return (
@@ -43,7 +50,7 @@ const ProductGrid = () => {
                                     onClick={() => handleCartClick(product.id)}
                                     className="bg-medium-color p-3 rounded-md hover:bg-dark-color transition duration-300 cursor-pointer w-50"
                                 >
-                                    <div className="flex items-center justify-center gap-2 txt-lt">
+                                    <div className="flex items-center justify-center gap-2 txt-gl">
                                         <FaRegEye />
                                         <span>View Product</span>
                                     </div>
@@ -53,13 +60,23 @@ const ProductGrid = () => {
 
                         <h3 className="text-sm font-semibold mb-1 txt-gd">{product.title}</h3>
 
-                        <div className="txt-lt text-sm mb-1">
+                        <div className="text-yellow-400 text-sm mb-1">
                             {Array.from({ length: 5 }, (_, i) => (
                                 <span key={i}>{i < product.rating ? "★" : "☆"}</span>
                             ))}
                         </div>
 
                         <p className="txt-gl font-semibold">${product.price}</p>
+
+                        {/* Add to Cart Button */}
+                        <button
+                            onClick={() => handleAddToCart(product)}
+                            className="px-4 text-sm py-2 cursor-pointer border border-[#a8754d] 
+             hover:text-[#a8754d] hover:bg-white bg-[#a8754d] text-white 
+             rounded-full transition-all duration-600 ease-in-out mt-4">
+                            Add to Cart
+                        </button>
+
                     </div>
                 ))}
             </div>
@@ -70,7 +87,7 @@ const ProductGrid = () => {
                 pageCount={pageCount}
                 onPageChange={handlePageClick}
                 containerClassName="flex justify-center flex-wrap gap-2 mt-6"
-                pageClassName="text-sm txt-lt bg-lt border border-dark-color rounded-lg px-4 py-2 hover:bg-highlight hover:text-black transition-all duration-200 cursor-pointer"
+                pageClassName="text-sm txt-lt border border-dark-color rounded-lg px-4 py-2 hover:bg-highlight hover:text-black transition-all duration-200 cursor-pointer"
                 activeClassName="bg-medium-color txt-lt font-semibold border-highlight"
                 previousClassName="text-sm bg-white txt-lt border border-medium-color rounded-lg px-3 py-2 hover:bg-highlight hover:text-black transition-all duration-200 cursor-pointer"
                 nextClassName="text-sm bg-white txt-lt border border-medium-color rounded-lg px-3 py-2 hover:bg-highlight hover:text-black transition-all duration-200 cursor-pointer"

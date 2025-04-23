@@ -10,10 +10,10 @@ import { uploadMultiple } from "../middlewares/multer.js";
 
 const router = express.Router();
 
-router.post("/add", uploadMultiple, createProduct);
+router.post("/add", uploadMultiple.array("productImages", 5), createProduct);
 router.get("/", getAllProducts);
 router.get("/:id", getProductById);
-router.put("/:id", uploadMultiple, updateProduct);
+router.put("/:id", uploadMultiple.array("productImages", 5), updateProduct);
 router.delete("/:id", deleteProduct);
 
 export default router;

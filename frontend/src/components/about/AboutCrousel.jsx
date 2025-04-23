@@ -60,12 +60,12 @@ const AboutCrousel = () => {
       style={{ backgroundImage: "url('./about/slide2.jpg')" }}
     >
       {/* Heading */}
-      <h2 className="text-3xl font-bold text-[#184363] mb-4">
+      <h2 className="text-3xl font-bold txt-gl mb-4">
         What Our People Say
       </h2>
 
       {/* Description */}
-      <p className="text-gray-600 max-w-xl mx-auto mb-10">
+      <p className="text-gray-500 max-w-xl text-sm font-medium mx-auto mb-10">
         We are proud of the feedback we receive from our customers. Here's what
         they have to say about their experience with us.
       </p>
@@ -75,7 +75,7 @@ const AboutCrousel = () => {
         {/* Left Arrow */}
         <button
           onClick={scrollRight}
-          className="absolute left-0 z-10 bg-white text-[#184363] p-2 rounded-full shadow hover:bg-gray-100 transition"
+          className="absolute left-0 z-10 bg-white txt-gl p-2 rounded-full shadow hover:bg-gray-100 transition"
         >
           <FaLessThan />
         </button>
@@ -95,18 +95,18 @@ const AboutCrousel = () => {
               className="w-[300px] bg-white rounded-xl p-4 shadow flex-shrink-0 flex flex-col items-center text-center"
               style={{ scrollSnapAlign: "start" }}
             >
-              <div className="flex text-yellow-300 text-xl mb-3">
+              <div className="flex txt-gl text-xl mb-3">
                 <FaStar />
                 <FaStar />
                 <FaStar />
               </div>
-              <p className="text-sm text-gray-700 mb-4">{item.description}</p>
+              <p className="text-sm text-gray-500 mb-4">{item.description}</p>
               <img
                 src={item.image}
                 alt={item.name}
                 className="w-20 h-20 object-cover rounded-full mb-2"
               />
-              <h4 className="text-[#184363] font-semibold">{item.name}</h4>
+              <h4 className="txt-gd font-semibold">{item.name}</h4>
             </div>
           ))}
         </div>

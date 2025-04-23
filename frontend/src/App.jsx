@@ -16,6 +16,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import PageNotFound from './components/PageNotFound';
 import ForgotPassword from './components/ForgotPassword';
+import Consultations from './pages/Consultations';
 
 
 const MainLayout = () => (
@@ -36,6 +37,7 @@ const router = createBrowserRouter([
       { path: '/shop', element: <Shop /> },
       { path: '/about', element: <About /> },
       { path: '/contact', element: <Contact /> },
+      { path: '/consultations', element: <Consultations /> },
       { path: '*', element: <PageNotFound /> },
     ],
   },

@@ -24,7 +24,7 @@ const ProductGrid = () => {
     };
 
     return (
-        <div className="flex flex-col gap-8 flex-1 px-4 py-6 text-dark-color">
+        <div className="flex flex-col gap-8 flex-1 px-4 py-6 txt-lt">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 {currentItems.map((product, index) => (
                     <div
@@ -43,7 +43,7 @@ const ProductGrid = () => {
                                     onClick={() => handleCartClick(product.id)}
                                     className="bg-medium-color p-3 rounded-md hover:bg-dark-color transition duration-300 cursor-pointer w-50"
                                 >
-                                    <div className="flex items-center justify-center gap-2 text-white">
+                                    <div className="flex items-center justify-center gap-2 txt-lt">
                                         <FaRegEye />
                                         <span>View Product</span>
                                     </div>
@@ -51,28 +51,29 @@ const ProductGrid = () => {
                             </div>
                         </div>
 
-                        <h3 className="text-sm font-semibold mb-1">{product.title}</h3>
+                        <h3 className="text-sm font-semibold mb-1 txt-gd">{product.title}</h3>
 
-                        <div className="text-dark-color text-sm mb-1">
+                        <div className="txt-lt text-sm mb-1">
                             {Array.from({ length: 5 }, (_, i) => (
                                 <span key={i}>{i < product.rating ? "★" : "☆"}</span>
                             ))}
                         </div>
 
-                        <p className="text-medium-color font-semibold">${product.price}</p>
+                        <p className="txt-gl font-semibold">${product.price}</p>
                     </div>
                 ))}
             </div>
+
             <ReactPaginate
                 previousLabel={"←"}
                 nextLabel={"→"}
                 pageCount={pageCount}
                 onPageChange={handlePageClick}
                 containerClassName="flex justify-center flex-wrap gap-2 mt-6"
-                pageClassName="text-sm text-dark-color bg-light-color border border-dark-color rounded-lg px-4 py-2 hover:bg-highlight hover:text-black transition-all duration-200 cursor-pointer"
-                activeClassName="bg-medium-color text-dark-color font-semibold border-highlight"
-                previousClassName="text-sm bg-white text-dark-color border border-medium-color rounded-lg px-3 py-2 hover:bg-highlight hover:text-black transition-all duration-200 cursor-pointer"
-                nextClassName="text-sm bg-white text-dark-color border border-medium-color rounded-lg px-3 py-2 hover:bg-highlight hover:text-black transition-all duration-200 cursor-pointer"
+                pageClassName="text-sm txt-lt bg-lt border border-dark-color rounded-lg px-4 py-2 hover:bg-highlight hover:text-black transition-all duration-200 cursor-pointer"
+                activeClassName="bg-medium-color txt-lt font-semibold border-highlight"
+                previousClassName="text-sm bg-white txt-lt border border-medium-color rounded-lg px-3 py-2 hover:bg-highlight hover:text-black transition-all duration-200 cursor-pointer"
+                nextClassName="text-sm bg-white txt-lt border border-medium-color rounded-lg px-3 py-2 hover:bg-highlight hover:text-black transition-all duration-200 cursor-pointer"
                 disabledClassName="opacity-50 cursor-not-allowed"
             />
         </div>

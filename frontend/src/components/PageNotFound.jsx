@@ -3,7 +3,7 @@ import { MdOutlineArrowCircleRight } from "react-icons/md";
 
 export default function PageNotFound() {
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-[#525052] text-white p-4 border-b">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-[#525052] text-white p-4 border">
             <h2 className="text-3xl font-semibold">Ooops..</h2>
             <p className="text-2xl font-semibold mt-2">
                 This <span className="txt-gl">Page Is Not On Our Route</span>

@@ -27,7 +27,7 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <ul className="hidden lg:flex flex-1 justify-center  items-center space-x-6 font-bold">
+        <ul className="hidden lg:flex flex-1 justify-center items-center space-x-6 font-bold">
           <li className="hover:text-[#525052] text-[#a8754d]">
             <Link to="/">Home</Link>
           </li>

@@ -15,7 +15,7 @@ const Navbar = () => {
   const categories = useSelector(selectUniqueCategories);
 
   return (
-    <nav className="bg-white shadow-md px-4 py-3 sticky top-0 z-50">
+    <nav className="bg-white shadow-md px-4 py-3 sticky top-0 z-60">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex-shrink-0">

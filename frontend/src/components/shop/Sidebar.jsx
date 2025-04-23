@@ -87,24 +87,6 @@ const Sidebar = () => {
                     </div>
 
 
-                    <div className="border border-dark-color rounded-xl p-4">
-                        <h2 className="font-semibold text-md mb-3 border-b border-dark-color pb-2 text-black font-Fredoka text-2xl" style={{ fontFamily: 'Fredoka, sans-serif' }}
-                        >Rating</h2>
-                        {[3, 4, 5].map((stars, i) => (
-                            <label key={i} className="flex items-center text-sm mb-2">
-                                <input
-                                    type="radio"
-                                    name="rating"
-                                    className="appearance-none w-4 h-4 border border-dark-color rounded-sm mr-2 checked:border-4 checked:border-medium-color checked:ring-1 checked:ring-medium-color"
-                                    onChange={() => dispatch(setRating(stars))}
-                                />
-                                {Array.from({ length: 5 }, (_, j) => (
-                                    <span key={j} className={`text-lg ${j < stars ? 'text-yellow-400' : 'text-gray-300'}`}>★</span>
-                                ))}
-                            </label>
-                        ))}
-                    </div>
-
 
                     <div className="border border-dark-color rounded-xl p-4">
                         <h2 className="font-semibold text-md mb-3 border-b border-dark-color pb-2 text-black font-Fredoka text-2xl" style={{ fontFamily: 'Fredoka, sans-serif' }}

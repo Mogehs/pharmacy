@@ -1,4 +1,4 @@
-.bgColor{
+/* .bgColor{
     background: #454142;
 }
 .TextColor{
@@ -6,6 +6,63 @@
 }
 .TextColor2{
     color: #d09f5f;
+} */
+
+
+.txt-lt {
+    color: #dad9d8;
+}
+
+.bg-dk {
+    background-color: #525052;
+}
+
+.bg-lt {
+    background-color: #dad9d8;
+}
+
+.txt-gd {
+    color: #a8754d;
+}
+
+.txt-gl {
+    color: #eac577;
+}
+
+.hover-gl:hover {
+    color: #eac577;
+}
+
+
+/* src/styles/global.css */
+
+@layer base {
+
+    /* Custom scrollbar styles */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #a8754d;
+        /* your gold color */
+        border-radius: 4px;
+        border: 2px solid transparent;
+        background-clip: content-box;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #eac577;
+        /* your light gold color */
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-track:hover {
+        background: #e1e1e1;
+    }
 }
 
 

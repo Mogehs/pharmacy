@@ -16,6 +16,15 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import PageNotFound from './components/PageNotFound';
 import ForgotPassword from './components/ForgotPassword';
+import CartPage from './components/shop/CartPage';
+import Consultations from './pages/Consultations';
+
+
+import AdminLayout from './components/Dashboard/admin/AdminLayout';
+import Products from './components/Dashboard/Products';
+import Customers from './components/Dashboard/Customers';
+import Dashboard from './pages/Dashboard/Dashboard';
+import Orders from './components/Dashboard/Orders';
 
 
 const MainLayout = () => (
@@ -33,9 +42,11 @@ const router = createBrowserRouter([
       { path: '/', element: <Home /> },
       { path: '/blogs', element: <Blogs /> },
       { path: "/blogs/:id", element: <BlogDetail /> },
-      { path: '/shop', element: <Shop /> },
+      { path: '/products', element: <Shop /> },
+      { path: '/cart', element: <CartPage /> },
       { path: '/about', element: <About /> },
       { path: '/contact', element: <Contact /> },
+      { path: '/consultations', element: <Consultations /> },
       { path: '*', element: <PageNotFound /> },
     ],
   },
@@ -45,6 +56,19 @@ const router = createBrowserRouter([
   { path: "/user-verification", element: <VerifyUser /> },
   { path: "/update-password", element: <UpdatePassword /> },
   { path: "/forgot-password", element: <ForgotPassword /> },
+
+  // Admin Routes
+  {
+    path: "/dashboard",
+    element: <AdminLayout />,
+    children: [
+      { path: "", element: <Dashboard /> },
+      { path: "/dashboard/products", element: <Products /> },
+      { path: "/dashboard/customers", element: <Customers /> },
+      { path: "/dashboard/orders", element: <Orders /> },
+    ],
+  },
+
 ]);
 
 function App() {

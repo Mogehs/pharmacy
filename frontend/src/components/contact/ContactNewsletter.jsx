@@ -16,12 +16,12 @@ const ContactNewsletter = () => {
     >
       <div className="max-w-3xl mx-auto text-center">
         {/* Main Heading */}
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#184363]">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 txt-gl">
           Join our newsletter
         </h2>
 
         {/* Subheading */}
-        <p className="text-md mb-8">
+        <p className="text-md mb-8 text-gray-500">
           Join over half a million vitamin lovers and get our latest deals,
           articles, and resources!
         </p>
@@ -36,12 +36,12 @@ const ContactNewsletter = () => {
             placeholder="Email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="flex-1 px-4 py-2 text-black outline-none"
+            className="flex-1 px-4 py-2 text-gray-500 outline-none"
             required
           />
           <button
             type="submit"
-            className="bg-[#f2971f] text-white px-4 md:px-6 flex items-center gap-2 hover:bg-[#15334f] transition"
+            className="hover:bg-[#525052] bg-[#a8754d] text-white px-4 md:px-6 flex items-center gap-2 transition cursor-pointer"
           >
             <FaPaperPlane />
             Subscribe

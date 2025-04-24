@@ -39,7 +39,7 @@ const Shopnav = () => {
                             {sortOption} <ChevronDown className="w-4 h-4" />
                         </button>
                         {showSort && (
-                            <ul className="absolute left-0 top-8 w-52 bg-white shadow-lg z-10 rounded overflow-hidden">
+                            <ul className="absolute right-0 top-8 w-52 bg-white shadow-lg z-10 rounded overflow-hidden">
                                 {sortOptions.map((option, index) => (
                                     <li
                                         key={index}

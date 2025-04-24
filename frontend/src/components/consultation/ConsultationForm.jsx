@@ -46,13 +46,23 @@ export default function ConsultationForm() {
       return;
     }
 
-    console.log('Form submitted:', formData); // ✅ log here
+    console.log('Form submitted:', formData);
+  };
+
+  const calculateAge = (birthDate) => {
+    const birth = new Date(birthDate);
+    const today = new Date();
+    let age = today.getFullYear() - birth.getFullYear();
+    const m = today.getMonth() - birth.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+      age--;
+    }
+    return age;
   };
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="flex flex-col lg:flex-row gap-6">
-        {/* Left: Consultation Form */}
         <div className="w-full lg:w-2/3 bg-white shadow rounded p-6 space-y-8">
           <form onSubmit={handleSubmit}>
             <div>
@@ -82,6 +92,16 @@ export default function ConsultationForm() {
                 type="date"
                 value={formData.birthDate}
                 onChange={handleChange}
+                className="w-full border border-gray-300 rounded px-3 py-2"
+              />
+            </div>
+
+            <div>
+              <label className="block font-bold mb-1 txt-gl">Age:</label>
+              <input
+                type="text"
+                readOnly
+                value={formData.birthDate ? calculateAge(formData.birthDate) : ''}
                 className="w-full border border-gray-300 rounded px-3 py-2"
               />
             </div>
@@ -145,7 +165,7 @@ export default function ConsultationForm() {
                 name="date"
                 type="date"
                 value={formData.date}
-                onChange={handleChange}
+                readOnly
                 className="w-full border border-gray-300 rounded px-3 py-2"
               />
             </div>
@@ -159,9 +179,13 @@ export default function ConsultationForm() {
           </form>
         </div>
 
-        {/* Right: Appointment Calendar */}
         <div className="w-full lg:w-2/3 bg-white">
-          <AppointmentCalendar/>
+          <AppointmentCalendar
+            selectedDate={formData.date}
+            onDateSelect={(selectedDate) =>
+              setFormData((prev) => ({ ...prev, date: selectedDate }))
+            }
+          />
         </div>
       </div>
     </div>

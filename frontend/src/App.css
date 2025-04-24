@@ -7,3 +7,25 @@
 .TextColor2{
     color: #d09f5f;
 }
+
+
+/* swipper of category */
+
+/* Resize swiper navigation arrows */
+.swiper-button-next,
+.swiper-button-prev {
+  font-size: 14px !important;
+  width: 28px !important;
+  height: 28px !important;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  color: #000;
+}
+
+/* Optional: Hide arrows on small screens */
+@media (max-width: 640px) {
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none !important;
+  }
+}

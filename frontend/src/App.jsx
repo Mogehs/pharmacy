@@ -28,6 +28,8 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Orders from './components/Dashboard/Orders';
 import ProductDetail from './components/shop/ProductDetail';
 import Courses from './components/Dashboard/Courses';
+import ViewCard from './components/shop/testing/ViewCard';
+import Alpha from './components/shop/testing/Alpha';
 
 
 const MainLayout = () => (
@@ -50,8 +52,12 @@ const router = createBrowserRouter([
       { path: '/cart', element: <CartPage /> },
       { path: '/about', element: <About /> },
       { path: '/contact', element: <Contact /> },
-      { path: '/consultations', element: <Consultations /> },
-      { path: '/coursesells', element: <CourseSells /> },
+      { path: '/appointments', element: <Consultations /> },
+      { path: '/courses', element: <CourseSells /> },
+
+      // Testing Cards:
+      { path: "/cards", element: <ViewCard /> },
+
       { path: '*', element: <PageNotFound /> },
     ],
   },

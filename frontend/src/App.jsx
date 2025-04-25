@@ -26,6 +26,7 @@ import Products from './components/Dashboard/Products';
 import Customers from './components/Dashboard/Customers';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Orders from './components/Dashboard/Orders';
+import ProductDetail from './components/shop/ProductDetail';
 
 
 const MainLayout = () => (
@@ -44,6 +45,7 @@ const router = createBrowserRouter([
       { path: '/blogs', element: <Blogs /> },
       { path: "/blogs/:id", element: <BlogDetail /> },
       { path: '/products', element: <Shop /> },
+      { path: '/product/:id', element: <ProductDetail /> },
       { path: '/cart', element: <CartPage /> },
       { path: '/about', element: <About /> },
       { path: '/contact', element: <Contact /> },

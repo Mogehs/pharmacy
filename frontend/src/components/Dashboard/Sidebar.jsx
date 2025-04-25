@@ -31,7 +31,7 @@ const Sidebar = () => {
     return (
         <>
             {/* Mobile Toggle Button */}
-            <div className="md:hidden fixed top-4 left-4 z-50">
+            <div className="md:hidden fixed top-4 left-4 z-20">
                 <button
                     className="text-white mt-16 bg-dk p-2 rounded-md shadow-lg"
                     onClick={() => setIsOpen(true)}
@@ -41,7 +41,7 @@ const Sidebar = () => {
             </div>
 
             {/* Desktop Sidebar */}
-            <aside className="hidden md:block w-64 h-screen bg-dk text-white p-5 fixed left-0 top-0 shadow-lg z-40">
+            <aside className="hidden md:block w-64 h-screen bg-dk text-white p-5 fixed left-0 top-0 shadow-lg z-20">
                 <h1 className="text-2xl font-bold mb-10 font-Fredoka">Pharma Admin</h1>
                 <nav className="space-y-4">
                     {links.map(({ to, label, icon }) => (

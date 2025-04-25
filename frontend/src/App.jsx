@@ -18,6 +18,7 @@ import PageNotFound from './components/PageNotFound';
 import ForgotPassword from './components/ForgotPassword';
 import CartPage from './components/shop/CartPage';
 import Consultations from './pages/Consultations';
+import CourseSells from './pages/CourseSells';
 
 
 import AdminLayout from './components/Dashboard/admin/AdminLayout';
@@ -47,6 +48,7 @@ const router = createBrowserRouter([
       { path: '/about', element: <About /> },
       { path: '/contact', element: <Contact /> },
       { path: '/consultations', element: <Consultations /> },
+      { path: '/coursesells', element: <CourseSells /> },
       { path: '*', element: <PageNotFound /> },
     ],
   },

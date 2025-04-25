@@ -19,7 +19,7 @@ const Sidebar = () => {
         { to: '/dashboard/products', label: 'Products', icon: <MdInventory /> },
         { to: '/dashboard/customers', label: 'Customers', icon: <MdPeople /> },
         { to: '/dashboard/orders', label: 'Orders', icon: <MdBorderStyle /> },
-        { to: '/settings', label: 'Settings', icon: <MdSettings /> },
+        // { to: '/settings', label: 'Settings', icon: <MdSettings /> },
     ];
 
     const handleLinkClick = () => {

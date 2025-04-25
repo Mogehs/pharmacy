@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { MdDelete } from 'react-icons/md';
+import DeleteOrderConfirmation from './DeleteOrderConfirmation';
 
 const initialOrders = [
-    { id: 'ORD001', customer: 'Amit Sharma', date: '2025-04-20', total: 85.5, status: 'Delivered' },
-    { id: 'ORD002', customer: 'Ravi Kumar', date: '2025-04-21', total: 42.0, status: 'Pending' },
-    { id: 'ORD003', customer: 'Priya Verma', date: '2025-04-22', total: 120.0, status: 'Cancelled' },
-    { id: 'ORD004', customer: 'Neha Singh', date: '2025-04-23', total: 64.75, status: 'Shipped' },
+    { id: 'ORD001', customer: 'Amit Sharma', date: '2025-04-20', total: 85.5, status: 'Delivered', payment: 'Paid' },
+    { id: 'ORD002', customer: 'Ravi Kumar', date: '2025-04-21', total: 42.0, status: 'Pending', payment: 'Unpaid' },
+    { id: 'ORD003', customer: 'Priya Verma', date: '2025-04-22', total: 120.0, status: 'Cancelled', payment: 'Unpaid' },
+    { id: 'ORD004', customer: 'Neha Singh', date: '2025-04-23', total: 64.75, status: 'Shipped', payment: 'Paid' },
 ];
 
 const statusOptions = ['Pending', 'Shipped', 'Delivered', 'Cancelled'];
-
+const paymentOptions = ['Paid', 'Unpaid'];
 const statusColor = {
     Delivered: 'text-green-600',
     Pending: 'text-yellow-500',
@@ -21,6 +21,8 @@ const statusColor = {
 const Orders = () => {
     const [orders, setOrders] = useState(initialOrders);
     const [searchTerm, setSearchTerm] = useState('');
+    const [selectedOrder, setSelectedOrder] = useState(null);
+    const [isDeleting, setIsDeleting] = useState(false);
 
     const handleStatusChange = (id, newStatus) => {
         setOrders(prev =>
@@ -30,10 +32,22 @@ const Orders = () => {
         );
     };
 
-    const handleDelete = (id) => {
-        if (confirm('Are you sure you want to delete this order?')) {
-            setOrders(prev => prev.filter(order => order.id !== id));
-        }
+    const handlePaymentChange = (id, newPayment) => {
+        setOrders(prev =>
+            prev.map(order =>
+                order.id === id ? { ...order, payment: newPayment } : order
+            )
+        );
+    };
+
+    const handleDeleteConfirmation = (order) => {
+        setSelectedOrder(order);
+        setIsDeleting(true);
+    };
+
+    const handleDeleteOrder = (id) => {
+        setOrders(prev => prev.filter(order => order.id !== id));
+        setIsDeleting(false);
     };
 
     const filteredOrders = orders.filter(order =>
@@ -50,7 +64,6 @@ const Orders = () => {
         >
             <h3 className="text-xl md:text-2xl font-bold mb-6 text-dark-color tracking-wide">📦 Orders Management</h3>
 
-            {/* Search Bar */}
             <div className="mb-6">
                 <input
                     type="text"
@@ -61,7 +74,6 @@ const Orders = () => {
                 />
             </div>
 
-            {/* Orders Table */}
             <div className="overflow-x-auto rounded-lg border border-gray-200 shadow-inner">
                 <table className="w-full text-sm text-left table-auto">
                     <thead className="bg-gray-100 text-medium-color text-sm uppercase tracking-wide">
@@ -71,6 +83,7 @@ const Orders = () => {
                             <th className="p-3 text-nowrap">Date</th>
                             <th className="p-3 text-nowrap">Total</th>
                             <th className="p-3 text-nowrap">Status</th>
+                            <th className="p-3 text-nowrap">Payment</th>
                             <th className="p-3 text-center text-nowrap">Actions</th>
                         </tr>
                     </thead>
@@ -81,27 +94,37 @@ const Orders = () => {
                                     key={order.id}
                                     className={`transition duration-200 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-gray-100`}
                                 >
-                                    <td className="px-3 py-3 text-nowrap">{order.id}</td>
-                                    <td className="px-3 py-3 text-nowrap">{order.customer}</td>
-                                    <td className="px-3 py-3 text-nowrap">{order.date}</td>
-                                    <td className="px-3 py-3 font-medium text-dark-color">${order.total.toFixed(2)}</td>
+                                    <td className="px-3 py-3">{order.id}</td>
+                                    <td className="px-3 py-3">{order.customer}</td>
+                                    <td className="px-3 py-3">{order.date}</td>
+                                    <td className="px-3 py-3">${order.total.toFixed(2)}</td>
                                     <td className="px-3 py-3">
                                         <select
                                             value={order.status}
                                             onChange={(e) => handleStatusChange(order.id, e.target.value)}
-                                            className={`px-2 py-1 text-sm border rounded-md focus:outline-none ${statusColor[order.status]}`}
+                                            className={`px-2 py-1 border rounded-md focus:outline-none ${statusColor[order.status]}`}
                                         >
                                             {statusOptions.map(status => (
                                                 <option key={status} value={status}>{status}</option>
                                             ))}
                                         </select>
                                     </td>
+                                    <td className="px-3 py-3">
+                                        <select
+                                            value={order.payment}
+                                            onChange={(e) => handlePaymentChange(order.id, e.target.value)}
+                                            className={`px-2 py-1 border rounded-md focus:outline-none ${order.payment === 'Paid' ? 'text-green-600' : 'text-red-500'}`}
+                                        >
+                                            {paymentOptions.map(payment => (
+                                                <option key={payment} value={payment}>{payment}</option>
+                                            ))}
+                                        </select>
+                                    </td>
                                     <td className="px-3 py-3 text-center">
                                         <button
-                                            onClick={() => handleDelete(order.id)}
-                                            className="text-sm px-3 py-1 rounded-full text-white bg-red-500 hover:bg-red-600 transition flex items-center justify-center gap-1"
+                                            onClick={() => handleDeleteConfirmation(order)}
+                                            className="text-sm px-3 py-1 rounded-full text-white bg-red-500 hover:bg-red-600 transition"
                                         >
-                                            <MdDelete className="text-lg" />
                                             Delete
                                         </button>
                                     </td>
@@ -109,7 +132,7 @@ const Orders = () => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="6" className="text-center py-6 text-gray-400 italic">
+                                <td colSpan="7" className="text-center py-6 text-gray-400 italic">
                                     No matching orders found.
                                 </td>
                             </tr>
@@ -117,6 +140,14 @@ const Orders = () => {
                     </tbody>
                 </table>
             </div>
+
+            {isDeleting && selectedOrder && (
+                <DeleteOrderConfirmation
+                    order={selectedOrder}
+                    onClose={() => setIsDeleting(false)}
+                    onDelete={handleDeleteOrder}
+                />
+            )}
         </motion.div>
     );
 };

@@ -9,6 +9,7 @@ import {
     MdMenu,
     MdClose
 } from 'react-icons/md';
+import { FaDiscourse } from "react-icons/fa";
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Sidebar = () => {
@@ -19,6 +20,7 @@ const Sidebar = () => {
         { to: '/dashboard/products', label: 'Products', icon: <MdInventory /> },
         { to: '/dashboard/customers', label: 'Customers', icon: <MdPeople /> },
         { to: '/dashboard/orders', label: 'Orders', icon: <MdBorderStyle /> },
+        { to: '/dashboard/courses', label: 'Courses', icon: <FaDiscourse /> },
         // { to: '/settings', label: 'Settings', icon: <MdSettings /> },
     ];
 
@@ -31,9 +33,9 @@ const Sidebar = () => {
     return (
         <>
             {/* Mobile Toggle Button */}
-            <div className="md:hidden fixed top-4 left-4 z-20">
+            <div className="md:hidden fixed top-3 left-2 z-25">
                 <button
-                    className="text-white mt-16 bg-dk p-2 rounded-md shadow-lg"
+                    className="text-[#dbdad9] bg-[#454142] p-2 rounded-md shadow-lg"
                     onClick={() => setIsOpen(true)}
                 >
                     <MdMenu size={24} />

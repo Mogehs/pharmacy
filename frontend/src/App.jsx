@@ -27,6 +27,7 @@ import Customers from './components/Dashboard/Customers';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Orders from './components/Dashboard/Orders';
 import ProductDetail from './components/shop/ProductDetail';
+import Courses from './components/Dashboard/Courses';
 
 
 const MainLayout = () => (
@@ -70,6 +71,7 @@ const router = createBrowserRouter([
       { path: "/dashboard/products", element: <Products /> },
       { path: "/dashboard/customers", element: <Customers /> },
       { path: "/dashboard/orders", element: <Orders /> },
+      { path: "/dashboard/courses", element: <Courses /> },
     ],
   },
 

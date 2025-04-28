@@ -5,17 +5,13 @@ import { addToCart } from "../../store/shop/CartSlice";
 
 
 
-import { CiHeart, CiYoutube } from "react-icons/ci";
-import { IoCameraReverse } from "react-icons/io5";
-import { MdOutlineAllInbox } from "react-icons/md";
-import { TiDropbox } from "react-icons/ti";
+import { CiYoutube } from "react-icons/ci";
 import { FaFacebookF, FaLinkedinIn, FaWhatsapp } from "react-icons/fa";
 import { FaTelegramPlane } from "react-icons/fa";
 import { IoIosCheckmark } from "react-icons/io";
-import { CiCircleMinus } from "react-icons/ci";
-import { CiCirclePlus } from "react-icons/ci";
 import StarRating from "./StarRating";
 import RelatedProductsCarousel from "./RelatedProductCarousal";
+import { decreaseProductStock } from "../../store/shop/ShopSlice";
 
 const ProductDetail = () => {
     const dispatch = useDispatch();
@@ -23,20 +19,18 @@ const ProductDetail = () => {
     const products = useSelector((state) => state.shop.filteredProducts);
     const product = products.find((p) => p.id.toString() === id);
 
-    const [quantity, setQuantity] = useState(1);
-
-    const increment = () => setQuantity((prev) => prev + 1);
-    const decrement = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
-
     const handleAddToCart = (product) => {
-        dispatch(addToCart(product));
+        if (product.stock > 0) {
+            dispatch(addToCart(product));
+            dispatch(decreaseProductStock(product.id));
+        } else {
+            alert('Out of Stock!');
+        }
     };
 
     if (!product) {
         return <div className="p-6 text-center text-red-500 font-semibold">Product not found.</div>;
     }
-
-    console.log("Product is..", product);
 
     return (
         <div className="flex justify-center flex-wrap gap-4 p-6">
@@ -86,11 +80,14 @@ const ProductDetail = () => {
                     <div className="w-full flex flex-col gap-2 p-3 rounded-sm">
                         <button
                             onClick={() => handleAddToCart(product)}
-                            className="px-4 text-sm py-2 cursor-pointer border border-[#a8754d] 
-             hover:text-[#a8754d] hover:bg-white bg-[#a8754d] text-white 
-             rounded-full transition-all duration-600 ease-in-out mt-4">
-                            Add to Cart
+                            disabled={product.stock === 0}
+                            className={`px-4 text-sm py-2 cursor-pointer border border-[#a8754d] 
+    ${product.stock === 0 ? 'bg-gray-400 cursor-not-allowed' : 'hover:text-[#a8754d] hover:bg-white bg-[#a8754d] text-white'} 
+    rounded-full transition-all duration-600 ease-in-out mt-4`}
+                        >
+                            {product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
                         </button>
+
                     </div>
 
                     <p className="text-red-600 font-medium">

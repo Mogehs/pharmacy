@@ -4,6 +4,7 @@ import { removeFromCart, updateQuantity } from "../../store/shop/CartSlice";
 import { useNavigate } from "react-router-dom";
 import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import { increaseProductStock } from "../../store/shop/ShopSlice";
 
 const CartPage = () => {
     // Get cart items from the Redux store, defaulting to an empty array if undefined
@@ -11,13 +12,27 @@ const CartPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const products = useSelector((state) => state.shop.filteredProducts);
+
     const handleQuantityChange = (id, qty) => {
-        if (qty < 1) return;
+        const product = products.find(p => p.id === id); // Find the product
+        const cartItem = cartItems.find(item => item.id === id); // Find the cart item
+
+        if (!product || !cartItem) return; // If no product or cart item found, exit
+        const maxQuantity = cartItem.stock;
+
+        if (qty < 1) return; // Prevent less than 1
+        if (qty > maxQuantity) return; // Prevent exceeding available + cart quantity
+
         dispatch(updateQuantity({ id, quantity: qty }));
     };
 
+
+
+
     const handleRemove = (id) => {
         dispatch(removeFromCart(id));
+        dispatch(increaseProductStock(id));
     };
 
     // Calculate the total price, using reduce with a fallback for empty cart
@@ -59,6 +74,14 @@ const CartPage = () => {
                                         </div>
 
                                         <div className="flex items-center gap-3 mt-3 sm:mt-0">
+                                            <button
+                                                onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                                                disabled={item.quantity <= 1}
+                                                className="text-2xl text-gray-600 disabled:opacity-50"
+                                            >
+                                                <CiCircleMinus />
+                                            </button>
+
                                             <input
                                                 type="number"
                                                 value={item.quantity}
@@ -66,9 +89,20 @@ const CartPage = () => {
                                                 onChange={(e) =>
                                                     handleQuantityChange(item.id, parseInt(e.target.value))
                                                 }
-                                                className="w-16 px-2 py-1 border border-gray-300 rounded"
+                                                className="w-16 px-2 py-1 border border-gray-300 rounded text-center"
                                             />
+
+                                            <button
+                                                onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                                                disabled={item.quantity >= item.stock}
+
+                                                className="text-2xl text-gray-600 disabled:opacity-50"
+                                            >
+                                                <CiCirclePlus />
+                                            </button>
+
                                         </div>
+
 
                                         <button
                                             onClick={() => handleRemove(item.id)}

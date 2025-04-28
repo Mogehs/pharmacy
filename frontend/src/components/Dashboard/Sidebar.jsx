@@ -4,7 +4,6 @@ import {
     MdDashboard,
     MdInventory,
     MdPeople,
-    MdSettings,
     MdBorderStyle,
     MdMenu,
     MdClose
@@ -21,7 +20,6 @@ const Sidebar = () => {
         { to: '/dashboard/customers', label: 'Customers', icon: <MdPeople /> },
         { to: '/dashboard/orders', label: 'Orders', icon: <MdBorderStyle /> },
         { to: '/dashboard/courses', label: 'Courses', icon: <FaDiscourse /> },
-        // { to: '/settings', label: 'Settings', icon: <MdSettings /> },
     ];
 
     const handleLinkClick = () => {
@@ -43,22 +41,39 @@ const Sidebar = () => {
             </div>
 
             {/* Desktop Sidebar */}
-            <aside className="hidden md:block w-64 h-screen bg-dk text-white p-5 fixed left-0 top-0 shadow-lg z-20">
-                <h1 className="text-2xl font-bold mb-10 font-Fredoka">Pharma Admin</h1>
-                <nav className="space-y-4">
-                    {links.map(({ to, label, icon }) => (
-                        <NavLink
-                            key={to}
-                            to={to}
-                            className={({ isActive }) =>
-                                `flex items-center gap-3 p-3 rounded hover:bg-medium-color transition ${isActive ? 'bg-medium-color' : ''
-                                }`
-                            }
-                        >
-                            {icon} {label}
-                        </NavLink>
-                    ))}
-                </nav>
+            <aside className="hidden md:flex flex-col justify-between w-64 h-screen bg-dk text-white p-5 fixed left-0 top-0 shadow-lg z-20">
+                <div>
+                    <h1 className="text-2xl font-bold mb-10 font-Fredoka">Pharma Admin</h1>
+                    <nav className="space-y-4">
+                        {links.map(({ to, label, icon }) => (
+                            <NavLink
+                                key={to}
+                                to={to}
+                                end={to === '/dashboard'}
+                                className={({ isActive }) =>
+                                    `flex items-center gap-3 p-3 rounded hover:bg-medium-color transition ${isActive ? 'bg-blue-600 border-l-4 border-yellow-400' : ''
+                                    }`
+                                }
+                            >
+                                {icon} {label}
+                            </NavLink>
+                        ))}
+                    </nav>
+                </div>
+
+                {/* Home link at the bottom */}
+                <div className="pt-10">
+                    <NavLink
+                        to="/"
+                        end
+                        className={({ isActive }) =>
+                            `flex items-center gap-3 p-3 rounded hover:bg-medium-color transition ${isActive ? 'bg-blue-600 border-l-4 border-yellow-400' : ''
+                            }`
+                        }
+                    >
+                        <MdDashboard /> Home
+                    </NavLink>
+                </div>
             </aside>
 
             {/* Mobile Slide-in Sidebar */}
@@ -69,34 +84,52 @@ const Sidebar = () => {
                         animate={{ x: 0 }}
                         exit={{ x: '-100%' }}
                         transition={{ duration: 0.3 }}
-                        className="fixed top-0 left-0 h-full w-4/5 bg-dk text-white p-5 shadow-lg z-50 md:hidden"
+                        className="fixed top-0 left-0 h-full w-4/5 bg-dk text-white p-5 shadow-lg z-50 md:hidden flex flex-col justify-between"
                     >
                         {/* Cross Close Button */}
-                        <div className="absolute top-4 right-4">
+                        <div className="absolute top-12 right-4">
                             <button
                                 onClick={() => setIsOpen(false)}
-                                className="text-white mt-16 hover:text-red-400 transition"
+                                className="text-white hover:text-red-400 transition"
                             >
                                 <MdClose size={24} />
                             </button>
                         </div>
 
-                        <h1 className="text-2xl font-bold mb-10 font-Fredoka">Pharma Admin</h1>
-                        <nav className="space-y-4">
-                            {links.map(({ to, label, icon }) => (
-                                <NavLink
-                                    key={to}
-                                    to={to}
-                                    onClick={handleLinkClick}
-                                    className={({ isActive }) =>
-                                        `flex items-center gap-3 p-3 rounded hover:bg-medium-color transition ${isActive ? 'bg-medium-color' : ''
-                                        }`
-                                    }
-                                >
-                                    {icon} {label}
-                                </NavLink>
-                            ))}
-                        </nav>
+                        <div>
+                            <h1 className="text-2xl font-bold mb-10 font-Fredoka">Pharma Admin</h1>
+                            <nav className="space-y-4">
+                                {links.map(({ to, label, icon }) => (
+                                    <NavLink
+                                        key={to}
+                                        to={to}
+                                        end={to === '/dashboard'}
+                                        onClick={handleLinkClick}
+                                        className={({ isActive }) =>
+                                            `flex items-center gap-3 p-3 rounded hover:bg-medium-color transition ${isActive ? 'bg-blue-600 border-l-4 border-yellow-400' : ''
+                                            }`
+                                        }
+                                    >
+                                        {icon} {label}
+                                    </NavLink>
+                                ))}
+                            </nav>
+                        </div>
+
+                        {/* Home link at bottom */}
+                        <div className="pt-10">
+                            <NavLink
+                                to="/"
+                                end
+                                onClick={handleLinkClick}
+                                className={({ isActive }) =>
+                                    `flex items-center gap-3 p-3 rounded hover:bg-medium-color transition ${isActive ? 'bg-blue-600 border-l-4 border-yellow-400' : ''
+                                    }`
+                                }
+                            >
+                                <MdDashboard /> Home
+                            </NavLink>
+                        </div>
                     </motion.aside>
                 )}
             </AnimatePresence>

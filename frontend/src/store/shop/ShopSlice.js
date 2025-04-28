@@ -42,6 +42,20 @@ const shopSlice = createSlice({
             state.sortOption = action.payload;
             shopSlice.caseReducers.applyFilters(state);
         },
+        decreaseProductStock: (state, action) => {
+            const productId = action.payload;
+            const product = state.filteredProducts.find(p => p.id === productId);
+            if (product && product.stock > 0) {
+                product.stock -= 1;
+            }
+        },
+        increaseProductStock: (state, action) => {
+            const productId = action.payload;
+            const product = state.filteredProducts.find(p => p.id === productId);
+            if (product) {
+                product.stock += 1;
+            }
+        },
         applyFilters: (state) => {
             let result = [...state.allProducts];
 
@@ -78,7 +92,9 @@ export const {
     setCategory,
     setRating,
     setPriceRange,
-    setSortOption
+    setSortOption,
+    increaseProductStock,
+    decreaseProductStock,
 } = shopSlice.actions;
 
 export default shopSlice.reducer;

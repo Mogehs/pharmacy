@@ -26,7 +26,7 @@ const Sidebar = () => {
         <>
             <button
                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                className="fixed top-20 left-2 z-50 text-dark-color p-2 rounded transition lg:hidden mt-1"
+                className="fixed top-20 left-2 z-50 text-[#00B8A9] p-2 rounded transition lg:hidden mt-1"
             >
                 {isSidebarOpen ? <IoChevronBackSharp className="text-2xl" /> : <GrFormNext className="text-2xl" />}
             </button>
@@ -39,8 +39,8 @@ const Sidebar = () => {
                 <div className="space-y-6 text-gray-500 ">
 
 
-                    <div className="border border-dark-color rounded  p-4 mt-28 lg:mt-0">
-                        <h2 className="font-semibold text-2xl mb-3 border-b border-dark-color pb-2 text-dark-color " style={{ fontFamily: 'Fredoka, sans-serif' }}
+                    <div className="border border-[#00B8A9] rounded  p-4 mt-28 lg:mt-0">
+                        <h2 className="font-semibold text-2xl mb-3 border-b border-[#00B8A9] pb-2 text-[#00B8A9] " style={{ fontFamily: 'Fredoka, sans-serif' }}
                         >Categories</h2>
                         <div className="space-y-2">
                             {categories.map((cat, idx) => (
@@ -49,7 +49,7 @@ const Sidebar = () => {
                                         <input
                                             type="radio"
                                             name="category"
-                                            className="appearance-none w-4 h-4 border border-medium-color rounded-sm mr-2 checked:border-4 checked:border-dark-color checked:ring-1 checked:ring-medium-color"
+                                            className="appearance-none w-4 h-4 border border-[#00B8A9] rounded-sm mr-2 checked:border-4 checked:border-[#00B8A9] checked:ring-1 checked:ring-[#00B8A9]"
                                             onChange={() => dispatch(setCategory(cat === "All" ? "" : cat))}
                                         />
                                         <span>{cat}</span>
@@ -66,8 +66,8 @@ const Sidebar = () => {
                     </div>
 
 
-                    <div className="border border-dark-color rounded p-4">
-                        <h2 className="font-semibold text-md mb-3 border-b border-dark-color pb-2 text-dark-color font-Fredoka text-2xl" style={{ fontFamily: 'Fredoka, sans-serif' }}
+                    <div className="border border-[#00B8A9] rounded p-4">
+                        <h2 className="font-semibold text-md mb-3 border-b border-dark-color pb-2 text-[#00B8A9] font-Fredoka text-2xl" style={{ fontFamily: 'Fredoka, sans-serif' }}
                         >Filter By Price</h2>
                         <input
                             type="range"
@@ -78,8 +78,8 @@ const Sidebar = () => {
                             className="w-full accent-light-color mb-2"
                         />
                         <div className="flex justify-between text-sm mb-3">
-                            <span className="border border-dark-color px-2 py-1 rounded-md text-dark-color">$14.00</span>
-                            <span className="border border-dark-color px-2 py-1 rounded-md text-dark-color">${price}.00</span>
+                            <span className="border border-[#00B8A9] px-2 py-1 rounded-md text-dark-color">$14.00</span>
+                            <span className="border border-[#00B8A9] px-2 py-1 rounded-md text-dark-color">${price}.00</span>
                         </div>
                         <button className="bg-dark-color text-white w-full py-1.5 rounded-full text-sm font-medium hover:bg-medium-color">
                             FILTER
@@ -88,8 +88,8 @@ const Sidebar = () => {
 
 
 
-                    <div className="border border-dark-color rounded-xl p-4">
-                        <h2 className="font-semibold text-md mb-3 border-b border-dark-color pb-2 text-black font-Fredoka text-2xl" style={{ fontFamily: 'Fredoka, sans-serif' }}
+                    <div className="border border-[#00B8A9] rounded-xl p-4">
+                        <h2 className="font-semibold text-md mb-3 border-b border-dark-color pb-2 text-[#00B8A9] font-Fredoka text-2xl" style={{ fontFamily: 'Fredoka, sans-serif' }}
                         >Latest Products</h2>
                         {latestProducts.map((product, index) => (
                             <div key={index} className="mb-3 flex items-center space-x-3">

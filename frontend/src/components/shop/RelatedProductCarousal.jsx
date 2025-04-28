@@ -16,7 +16,7 @@ const RelatedProductsCarousel = () => {
 
     return (
         <div className="w-full px-4 md:px-10 py-10 bg-[#f9f9f9] dark:bg-gray-900">
-            <h2 className="text-2xl md:text-3xl font-bold text-[#333] dark:text-white mb-6 border-l-4 border-primary-color pl-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-[#00B8A9] dark:text-white mb-6 border-l-4 border-primary-color pl-4">
                 You May Also Like
             </h2>
 
@@ -33,6 +33,27 @@ const RelatedProductsCarousel = () => {
                     1024: { slidesPerView: 4 },
                 }}
             >
+                {/* Reduce the size of Swiper buttons */}
+                <style>{`
+                 .swiper-button-next, .swiper-button-prev {
+                  width: 35px !important;
+                  height: 35px !important;
+                  background-color: white;
+                  border-radius: 50%;
+                  transition: all 0.3s ease-in-out;
+                 }
+                 .swiper-button-next::after, .swiper-button-prev::after {
+                  font-size: 20px !important;
+                  color: gray;
+                 }
+                 .swiper-button-next:hover, .swiper-button-prev:hover {
+                  background-color: #009688; 
+                  border-color: #facc15;
+                 }
+                 .swiper-button-next:hover::after, .swiper-button-prev:hover::after {
+                  color: white;
+                 }
+              `}</style>
                 {otherProducts.map((product) => (
                     <SwiperSlide key={product.id}>
                         <Link
@@ -48,10 +69,10 @@ const RelatedProductsCarousel = () => {
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-t-lg" />
                             </div>
                             <div className="p-4">
-                                <h3 className="text-md md:text-lg font-semibold text-gray-800 dark:text-white truncate mb-1">
+                                <h3 className="text-md text-[#009688] md:text-lg font-semibold mb-1">
                                     {product.title}
                                 </h3>
-                                <p className="text-primary-color font-bold text-sm md:text-base">₹ {product.price}</p>
+                                <p className="text-sm md:text-base">₹ {product.price}</p>
                             </div>
                         </Link>
                     </SwiperSlide>

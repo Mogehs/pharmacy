@@ -32,7 +32,7 @@ const ProductGrid = () => {
                 {currentItems.map((product, index) => (
                     <div
                         key={index}
-                        className="border border-light-color bg-white rounded-lg p-4 shadow-sm transition group hover:border-dark-color"
+                        className="border border-[#00B8A9] bg-white rounded-lg p-4 shadow-sm transition group hover:border-dark-color"
                     >
                         <div className="relative">
                             <img
@@ -43,7 +43,7 @@ const ProductGrid = () => {
 
                         </div>
 
-                        <h3 className="text-sm font-semibold mb-1 txt-gd">{product.title}</h3>
+                        <h3 className="text-sm font-semibold mb-1 text-[#00B8A9]">{product.title}</h3>
 
                         <div className="text-yellow-400 text-sm mb-1">
                             {Array.from({ length: 5 }, (_, i) => (
@@ -51,13 +51,13 @@ const ProductGrid = () => {
                             ))}
                         </div>
 
-                        <p className="txt-gl font-semibold">${product.price}</p>
+                        <p className="text-black font-semibold">${product.price}</p>
 
                         {/* Add to Cart Button */}
                         <button
                             onClick={() => handleCartClick(product.id)}
-                            className="px-4 text-sm py-2 cursor-pointer border border-[#a8754d] 
-             hover:text-[#a8754d] hover:bg-white bg-[#a8754d] text-white 
+                            className="px-4 text-sm py-2 cursor-pointer border border-[#00B8A9] 
+             hover:text-[#fff] hover:bg-[#009688] bg-[#00B8A9] text-white 
              rounded-full transition-all duration-600 ease-in-out mt-4">
                             View Product
                         </button>

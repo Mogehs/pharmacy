@@ -18,6 +18,7 @@ import PageNotFound from './components/PageNotFound';
 import ForgotPassword from './components/ForgotPassword';
 import CartPage from './components/shop/CartPage';
 import Consultations from './pages/Consultations';
+import CourseSells from './pages/CourseSells';
 
 
 import AdminLayout from './components/Dashboard/admin/AdminLayout';
@@ -25,10 +26,16 @@ import Products from './components/Dashboard/Products';
 import Customers from './components/Dashboard/Customers';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Orders from './components/Dashboard/Orders';
+import ProductDetail from './components/shop/ProductDetail';
+import Courses from './components/Dashboard/Courses';
+import ViewCard from './components/shop/testing/ViewCard';
+import Alpha from './components/shop/testing/Alpha';
+import ScrollToTop from './utils/ScrollToTop';
 
 
 const MainLayout = () => (
   <div className="lg:mx-auto lg:max-w-[1536px]">
+    <ScrollToTop />
     <Navbar />
     <Outlet />
     <Footer />
@@ -43,10 +50,16 @@ const router = createBrowserRouter([
       { path: '/blogs', element: <Blogs /> },
       { path: "/blogs/:id", element: <BlogDetail /> },
       { path: '/products', element: <Shop /> },
+      { path: '/product/:id', element: <ProductDetail /> },
       { path: '/cart', element: <CartPage /> },
       { path: '/about', element: <About /> },
       { path: '/contact', element: <Contact /> },
-      { path: '/consultations', element: <Consultations /> },
+      { path: '/appointments', element: <Consultations /> },
+      { path: '/courses', element: <CourseSells /> },
+
+      // Testing Cards:
+      { path: "/cards", element: <ViewCard /> },
+
       { path: '*', element: <PageNotFound /> },
     ],
   },
@@ -66,6 +79,7 @@ const router = createBrowserRouter([
       { path: "/dashboard/products", element: <Products /> },
       { path: "/dashboard/customers", element: <Customers /> },
       { path: "/dashboard/orders", element: <Orders /> },
+      { path: "/dashboard/courses", element: <Courses /> },
     ],
   },
 

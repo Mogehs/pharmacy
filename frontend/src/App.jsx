@@ -33,6 +33,7 @@ import Students from "./components/Dashboard/Students";
 
 import ViewCard from './components/shop/testing/ViewCard';
 import ScrollToTop from './utils/ScrollToTop';
+import Admission from './pages/Admission';
 
 
 const MainLayout = () => (
@@ -59,9 +60,7 @@ const router = createBrowserRouter([
       { path: '/appointments', element: <Consultations /> },
       { path: '/courses', element: <CourseSells /> },
       { path: '/courses/:id', element: <CourseDetail /> },
-
-      // Testing Cards:
-      { path: "/cards", element: <ViewCard /> },
+      { path: '/admissions', element: <Admission /> },
 
       { path: '*', element: <PageNotFound /> },
     ],

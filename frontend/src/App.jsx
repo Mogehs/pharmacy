@@ -19,6 +19,7 @@ import ForgotPassword from './components/ForgotPassword';
 import CartPage from './components/shop/CartPage';
 import Consultations from './pages/Consultations';
 import CourseSells from './pages/CourseSells';
+import CourseDetail from './components/coursesell/course-detail/CourseDetail';
 
 
 import AdminLayout from './components/Dashboard/admin/AdminLayout';
@@ -56,6 +57,7 @@ const router = createBrowserRouter([
       { path: '/contact', element: <Contact /> },
       { path: '/appointments', element: <Consultations /> },
       { path: '/courses', element: <CourseSells /> },
+      { path: '/courses/:id', element: <CourseDetail /> },
 
       // Testing Cards:
       { path: "/cards", element: <ViewCard /> },

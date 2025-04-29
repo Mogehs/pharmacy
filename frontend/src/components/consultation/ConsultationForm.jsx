@@ -66,87 +66,87 @@ export default function ConsultationForm() {
         <div className="w-full lg:w-2/3 bg-white shadow rounded p-6 space-y-8">
           <form onSubmit={handleSubmit}>
             <div>
-              <label className="block font-bold mb-1 txt-gl">Patient's Name:</label>
+              <label className="block font-bold mb-1 text-[#00B8A9]">Patient's Name:</label>
               <div className="flex gap-4">
                 <input
                   name="guardianFirst"
                   placeholder="First"
                   value={formData.guardianFirst}
                   onChange={handleChange}
-                  className="w-full border border-gray-300 rounded px-3 py-2"
+                  className="w-full border border-[#00B8A9] rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#009688]"
                 />
                 <input
                   name="guardianLast"
                   placeholder="Last"
                   value={formData.guardianLast}
                   onChange={handleChange}
-                  className="w-full border border-gray-300 rounded px-3 py-2"
+                  className="w-full border border-[#00B8A9] rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#009688]"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block font-bold mb-1 txt-gl">Birth Date:</label>
+              <label className="block font-bold mb-1 text-[#00B8A9]">Birth Date:</label>
               <input
                 name="birthDate"
                 type="date"
                 value={formData.birthDate}
                 onChange={handleChange}
-                className="w-full border border-gray-300 rounded px-3 py-2"
+                className="w-full border border-[#00B8A9] rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#009688]"
               />
             </div>
 
             <div>
-              <label className="block font-bold mb-1 txt-gl">Age:</label>
+              <label className="block font-bold mb-1 text-[#00B8A9]">Age:</label>
               <input
                 type="text"
                 readOnly
                 value={formData.birthDate ? calculateAge(formData.birthDate) : ''}
-                className="w-full border border-gray-300 rounded px-3 py-2"
+                className="w-full border border-[#00B8A9] rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#009688]"
               />
             </div>
 
             <div>
-              <label className="block font-bold mb-1 txt-gl">Address:</label>
+              <label className="block font-bold mb-1 text-[#00B8A9]">Address:</label>
               <input
                 name="address"
                 placeholder="Street, City, State"
                 value={formData.address}
                 onChange={handleChange}
-                className="w-full border border-gray-300 rounded px-3 py-2"
+                className="w-full border border-[#00B8A9] rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#009688]"
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block font-bold mb-1 txt-gl">Email Address:</label>
+                <label className="block font-bold mb-1 text-[#00B8A9]">Email Address:</label>
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full border border-gray-300 rounded px-3 py-2"
+                  className="w-full border border-[#00B8A9] rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#009688]"
                 />
               </div>
               <div>
-                <label className="block font-bold mb-1 txt-gl">Phone Number:</label>
+                <label className="block font-bold mb-1 text-[#00B8A9]">Phone Number:</label>
                 <input
                   type="tel"
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full border border-gray-300 rounded px-3 py-2"
+                  className="w-full border border-[#00B8A9] rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#009688]"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block font-bold mb-2 txt-gl">Authorization applies to:</label>
+              <label className="block font-bold mb-2 text-[#00B8A9]">Authorization applies to:</label>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 {options.map((option, index) => (
                   <label
                     key={index}
-                    className="flex items-center gap-2 border border-gray-300 rounded px-3 py-2 cursor-pointer"
+                    className="flex items-center gap-2 border border-[#00B8A9] rounded px-3 py-2 cursor-pointer"
                   >
                     <input
                       type="checkbox"
@@ -160,19 +160,19 @@ export default function ConsultationForm() {
             </div>
 
             <div>
-              <label className="block font-bold mb-1 txt-gl">Appointment Date:</label>
+              <label className="block font-bold mb-1 text-[#00B8A9]">Appointment Date:</label>
               <input
                 name="date"
                 type="date"
                 value={formData.date}
                 readOnly
-                className="w-full border border-gray-300 rounded px-3 py-2"
+                className="w-full border border-[#00B8A9] rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#009688]"
               />
             </div>
 
             <button
               type="submit"
-              className="hover:bg-[#525052] bg-[#a8754d] text-white font-semibold px-6 py-2 rounded cursor-pointer mt-5"
+              className="hover:bg-[#009688] bg-[#00B8A9] text-white font-semibold px-6 py-2 rounded cursor-pointer mt-5 transition-all duration-600 ease-in-out"
             >
               Submit
             </button>

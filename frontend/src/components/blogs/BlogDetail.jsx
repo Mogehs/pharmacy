@@ -24,21 +24,21 @@ const BlogDetail = () => {
     }
 
     return (
-        <div className="min-h-screen bg-dk text-white px-2 md:px-4 py-8">
+        <div className="min-h-screen text-white px-2 md:px-4 py-8">
             {/* Breadcrumbs */}
             <div className="flex items-center gap-2 text-base font-medium mb-6 flex-wrap sticky top-0 z-10 bg-dk/80 py-2 backdrop-blur-sm rounded-md px-3">
-                <button onClick={() => navigate('/')} className="txt-lt hover-gl transition hover:cursor-pointer">Home</button>
-                <MdOutlineNavigateNext className="txt-gl" />
-                <button onClick={() => navigate('/blogs')} className="txt-gl hover-gl transition hover:cursor-pointer">Blogs</button>
-                <MdOutlineNavigateNext className="txt-gl" />
-                <span className="txt-gd line-clamp-1">{blog.title.slice(0, 30)}...</span>
+                <button onClick={() => navigate('/')} className="text-black hover-gl transition hover:cursor-pointer">Home</button>
+                <MdOutlineNavigateNext className="text-[#00B8A9]" />
+                <button onClick={() => navigate('/blogs')} className="text-[#00B8A9] hover:text-[#009688] transition hover:cursor-pointer">Blogs</button>
+                <MdOutlineNavigateNext className="text-[#00B8A9]" />
+                <span className="text-[#009688] line-clamp-1">{blog.title.slice(0, 30)}...</span>
             </div>
 
             <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
                 {/* Main Blog Image with Category Overlay */}
                 <div className="relative w-full h-64 md:h-[500px]">
                     <img src={blog.image} alt={blog.title} className="w-full h-full object-cover" />
-                    <span className="absolute top-4 left-4 bg-dk txt-gl px-3 py-1 rounded-full text-sm font-semibold shadow">
+                    <span className="absolute top-4 left-4 bg-[#00B8A9] hover:bg-[#009688] text-white px-3 py-1 rounded-full text-sm font-semibold shadow">
                         {blog.category}
                     </span>
                 </div>
@@ -57,13 +57,13 @@ const BlogDetail = () => {
                             )}
                             <div>
                                 <h4 className="font-semibold text-base text-gray-800">{blog.author}</h4>
-                                <p className="text-sm txt-gd">{blog.date}</p>
+                                <p className="text-sm text-[#00B8A9]">{blog.date}</p>
                             </div>
                         </div>
                     </div>
 
                     {/* Blog Title */}
-                    <h1 className="text-2xl md:text-3xl font-bold txt-gd mb-6 text-center">{blog.title}</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold text-[#00B8A9] mb-6 text-center">{blog.title}</h1>
 
                     {/* Content */}
                     <p className="text-base leading-7 text-justify tracking-wide">
@@ -85,7 +85,7 @@ const BlogDetail = () => {
             {/* Related / Next Blogs */}
             {nextBlogs.length > 0 && (
                 <div className="max-w-6xl mx-auto mt-12">
-                    <h2 className="text-xl md:text-2xl font-bold txt-gl mb-6">Next Articles</h2>
+                    <h2 className="text-xl md:text-2xl font-bold text-[#00B8A9] mb-6">Next Articles</h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         {nextBlogs.map(nextBlog => (
                             <div
@@ -99,11 +99,11 @@ const BlogDetail = () => {
                                     className="w-full h-40 object-cover"
                                 />
                                 <div className="p-4 text-black">
-                                    <span className="text-xs bg-dk txt-gl px-2 py-1 rounded-full">{nextBlog.category}</span>
+                                    <span className="text-xs bg-[#00B8A9] hover:bg-[#009688] text-white px-2 py-1 rounded-full">{nextBlog.category}</span>
                                     <h3 className="mt-2 font-semibold text-lg line-clamp-2">
                                         {nextBlog.title}
                                     </h3>
-                                    <p className="text-sm text-gray-600 mt-1">{nextBlog.date}</p>
+                                    <p className="text-sm text-[#00B8A9] mt-1">{nextBlog.date}</p>
                                 </div>
                             </div>
                         ))}

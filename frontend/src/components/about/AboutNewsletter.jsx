@@ -18,7 +18,7 @@ const AboutNewsletter = () => {
     >
       <div className="max-w-3xl mx-auto text-center">
         {/* Main Heading */}
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 txt-gl">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#00B8A9]">
           Stay in the Loop
         </h2>
 
@@ -43,7 +43,7 @@ const AboutNewsletter = () => {
           />
           <button
             type="submit"
-            className="text-white px-4 md:px-6 flex items-center gap-2 hover:bg-[#525052] bg-[#a8754d] transition cursor-pointer"
+            className="text-[#fff] px-4 md:px-6 flex items-center gap-2 hover:bg-[#00B8A9] bg-[#009688] transition cursor-pointer"
           >
             <FaPaperPlane />
             Subscribe

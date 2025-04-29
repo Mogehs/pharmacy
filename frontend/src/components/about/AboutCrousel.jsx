@@ -60,7 +60,7 @@ const AboutCrousel = () => {
       style={{ backgroundImage: "url('./about/slide2.jpg')" }}
     >
       {/* Heading */}
-      <h2 className="text-3xl font-bold txt-gl mb-4">
+      <h2 className="text-3xl font-bold text-[#00B8A9] mb-4">
         What Our People Say
       </h2>
 
@@ -75,7 +75,7 @@ const AboutCrousel = () => {
         {/* Left Arrow */}
         <button
           onClick={scrollRight}
-          className="absolute left-0 z-10 bg-white txt-gl p-2 rounded-full shadow hover:bg-gray-100 transition"
+          className="absolute left-0 z-10 bg-white text-[#00B8A9] p-2 rounded-full shadow hover:bg-[#009688] hover:text-white transition"
         >
           <FaLessThan />
         </button>
@@ -106,7 +106,7 @@ const AboutCrousel = () => {
                 alt={item.name}
                 className="w-20 h-20 object-cover rounded-full mb-2"
               />
-              <h4 className="txt-gd font-semibold">{item.name}</h4>
+              <h4 className="text-[#00B8A9] font-semibold">{item.name}</h4>
             </div>
           ))}
         </div>
@@ -114,7 +114,7 @@ const AboutCrousel = () => {
         {/* Right Arrow */}
         <button
           onClick={scrollLeft}
-          className="absolute right-0 z-10 bg-white text-[#184363] p-2 rounded-full shadow hover:bg-gray-100 transition"
+          className="absolute right-0 z-10 bg-white text-[#00B8A9] p-2 rounded-full shadow hover:bg-[#009688] hover:text-white transition"
         >
           <FaGreaterThan />
         </button>

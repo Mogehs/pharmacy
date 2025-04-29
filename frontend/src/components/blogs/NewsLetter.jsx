@@ -9,7 +9,7 @@ const NewsLetter = () => {
             }}
         >
             <div className="p-8 rounded-2xl max-w-xl w-full">
-                <h2 className="text-3xl md:text-4xl font-bold txt-gl mb-4">Join our newsletter</h2>
+                <h2 className="text-3xl md:text-4xl font-bold text-[#00B8A9] mb-4">Join our newsletter</h2>
                 <p className="text-sm md:text-base color2 mb-6">Join over half a million vitamin lovers and get our latest deals, articles, and resources!</p>
                 <div className="flex flex-col sm:flex-row gap-4">
                     <input
@@ -17,7 +17,7 @@ const NewsLetter = () => {
                         placeholder="Enter address"
                         className="flex-1 px-4 py-2 rounded-lg focus:outline-none bg-white text-black"
                     />
-                    <button className="bg-dk txt-gl px-6 py-2 rounded-lg hover:brightness-110 transition-all duration-300">
+                    <button className="bg-[#00B8A9] hover:bg-[#009688] text-white px-6 py-2 rounded-lg hover:brightness-110 transition-all duration-300">
                         Subscribe
                     </button>
                 </div>

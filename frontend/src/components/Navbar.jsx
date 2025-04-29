@@ -6,9 +6,12 @@ import { Link } from "react-router-dom";
 import { selectUniqueCategories } from "../store/shop/ShopSelector";
 import { setCategory } from "../store/shop/ShopSlice";
 
+const others = [{ id: 1, name: "Courses", link: "/courses" }, { id: 2, name: "Admission", link: "/admissions" }]
+
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [productDropdown, setProductDropdown] = useState(false);
+  const [otherDropdown, setOtherDropdown] = useState(false);
   const cartItems = useSelector((state) => state.cart.cartItems || []);
 
   const dispatch = useDispatch();
@@ -28,13 +31,13 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <ul className="hidden lg:flex flex-1 justify-center items-center space-x-6 font-bold">
-          <li className="hover:text-[#525052] text-[#a8754d]">
+          <li className="hover:text-[#009688] text-[#00B8A9] transition-all duration-600 ease-in-out">
             <Link to="/">Home</Link>
           </li>
 
           <li className="relative">
             <div
-              className="flex items-center gap-1 cursor-pointer hover:text-[#525052] text-[#a8754d]"
+              className="flex items-center gap-1 cursor-pointer hover:text-[#009688] text-[#00B8A9] transition-all duration-600 ease-in-out"
               onClick={() => setProductDropdown(!productDropdown)}
             >
               Products <FaChevronDown className="text-sm mt-0.5" />
@@ -43,7 +46,7 @@ const Navbar = () => {
               <ul className="absolute top-8 left-0 bg-white shadow-lg rounded-md w-56 py-2 z-50 overflow-y-auto h-[50vh] space-y-1 px-2 scrollbar-thin scrollbar-thumb-[#a8754d] scrollbar-track-gray-100 hover:scrollbar-thumb-[#925f3c] transition-all duration-300">
 
                 {categories.map((category) => (
-                  <li key={category} className=" hover:text-[#525052] text-[#a8754d] whitespace-nowrap">
+                  <li key={category} className=" hover:text-[#009688] text-[#00B8A9] whitespace-nowrap">
                     <Link
                       to="/products"
                       onClick={() => {
@@ -51,7 +54,7 @@ const Navbar = () => {
                         setMenuOpen(false); // if you're closing the mobile menu
                         setProductDropdown(false); // close dropdown
                       }}
-                      className="block px-4 py-2 hover:text-[#525052] text-[#a8754d]"
+                      className="block px-4 py-2 hover:text-[#009688] text-[#00B8A9] transition-all duration-600 ease-in-out"
                     >
                       {category}
                     </Link>
@@ -61,43 +64,66 @@ const Navbar = () => {
             )}
           </li>
 
-          <li className="hover:text-[#525052] text-[#a8754d]">
+          <li className="hover:text-[#009688] text-[#00B8A9] transition-all duration-600 ease-in-out">
             <Link to="/blogs">Blogs</Link>
           </li>
-          <li className="hover:text-[#525052] text-[#a8754d]">
+          <li className="hover:text-[#009688] text-[#00B8A9] transition-all duration-600 ease-in-out">
             <Link to="/about">About</Link>
           </li>
-          <li className="hover:text-[#525052] text-[#a8754d]">
+          <li className="hover:text-[#009688] text-[#00B8A9] transition-all duration-600 ease-in-out">
             <Link to="/contact">Contact</Link>
+          </li>
+
+          <li className="relative">
+            <div
+              className="flex items-center gap-1 cursor-pointer hover:text-[#009688] text-[#00B8A9] transition-all duration-600 ease-in-out"
+              onClick={() => setOtherDropdown(!otherDropdown)}
+            >
+              Others <FaChevronDown className="text-sm mt-0.5" />
+            </div>
+            {otherDropdown && (
+              <ul className="absolute top-8 left-0 bg-white shadow-lg rounded-md w-56 py-2 z-50 overflow-y-auto h-[20vh] space-y-1 px-2 scrollbar-thin scrollbar-thumb-[#a8754d] scrollbar-track-gray-100 hover:scrollbar-thumb-[#925f3c] transition-all duration-300">
+
+                {others.map((other) => (
+                  <li key={other.id} className=" hover:text-[#009688] text-[#00B8A9] whitespace-nowrap">
+                    <Link
+                      to={other.link}
+                      onClick={() => {
+                        setMenuOpen(false); // if you're closing the mobile menu
+                        setOtherDropdown(false); // close dropdown
+                      }}
+                      className="block px-4 py-1 hover:text-[#009688] text-[#00B8A9] transition-all duration-600 ease-in-out"
+                    >
+                      {other.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
           </li>
         </ul>
 
         {/* Right Buttons & Cart */}
         <div className="hidden lg:flex items-center space-x-4">
-          <Link to="/cart" className="relative hover:text-[#525052] text-[#a8754d] text-2xl">
+          <Link to="/cart" className="relative hover:text-[#009688] text-[#00B8A9] text-2xl transition-all duration-600 ease-in-out">
             <FaShoppingCart />
             {cartItems.length > 0 && (
-              <span className="absolute -top-2 -right-2 bg-[#a8754d] text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-bounce">
+              <span className="absolute -top-2 -right-2 bg-[#00B8A9] text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-bounce">
                 {cartItems.length}
               </span>
             )}
           </Link>
 
           <Link to="/appointments">
-            <button className="px-4 text-sm py-2 cursor-pointer border border-[#a8754d] hover:text-[#a8754d] hover:bg-white bg-[#a8754d] text-white rounded-full ">
+            <button className="px-4 text-sm py-2 cursor-pointer border border-[#00B8A9] hover:text-[#fff] hover:bg-[#009688] hover:border-[#009688] bg-[#00B8A9] text-white rounded-full transition-all duration-600 ease-in-out">
               Get Appointment
-            </button>
-          </Link>
-          <Link to="/courses">
-            <button className="px-4 text-sm py-2 hover:text-white border border-[#a8754d] rounded-full text-[#a8754d] hover:bg-[#a8754d] cursor-pointer">
-              Other Courses
             </button>
           </Link>
         </div>
 
 
         {/* Mobile Menu Icon */}
-        <div className="lg:hidden text-2xl hover:text-[#525052] text-[#a8754d]" onClick={() => setMenuOpen(!menuOpen)}>
+        <div className="lg:hidden text-2xl hover:text-[#009688] text-[#00B8A9]" onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? <FaTimes /> : <FaBars />}
         </div>
       </div>
@@ -105,11 +131,11 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="lg:hidden mt-4 px-4 space-y-4">
-          <Link to="/" onClick={() => setMenuOpen(false)} className="block hover:text-[#525052] text-[#a8754d]">Home</Link>
+          <Link to="/" onClick={() => setMenuOpen(false)} className="block hover:text-[#009688] text-[#00B8A9]">Home</Link>
 
           <div>
             <div
-              className="flex items-center gap-1 hover:text-[#525052] text-[#a8754d] cursor-pointer"
+              className="flex items-center gap-1 hover:text-[#009688] text-[#00B8A9] cursor-pointer"
               onClick={() => setProductDropdown(!productDropdown)}
             >
               Products <FaChevronDown className="text-sm mt-0.5" />
@@ -126,7 +152,7 @@ const Navbar = () => {
                           setMenuOpen(false); // if you're closing the mobile menu
                           setProductDropdown(false); // close dropdown
                         }}
-                        className="block px-4 py-2 hover:text-[#525052] text-[#a8754d]"
+                        className="block px-4 py-2 hover:text-[#009688] text-[#00B8A9]"
                       >
                         {category}
                       </Link>
@@ -138,19 +164,47 @@ const Navbar = () => {
             )}
           </div>
 
-          <Link to="/blogs" onClick={() => setMenuOpen(false)} className="block hover:text-[#525052] text-[#a8754d]">
+          {/* Others Dropdown */}
+          <div>
+            <div
+              className="flex items-center gap-1 hover:text-[#009688] text-[#00B8A9] cursor-pointer"
+              onClick={() => setOtherDropdown(!otherDropdown)}
+            >
+              Others <FaChevronDown className="text-sm mt-0.5" />
+            </div>
+            {otherDropdown && (
+              <ul className="overflow-y-auto max-h-[50vh] space-y-1 px-2 scrollbar-thin scrollbar-thumb-[#a8754d] scrollbar-track-gray-100 hover:scrollbar-thumb-[#925f3c] transition-all duration-300">
+                {others.map((other) => (
+                  <li key={other.id}>
+                    <Link
+                      to={other.link}
+                      onClick={() => {
+                        setMenuOpen(false);
+                        setOtherDropdown(false);
+                      }}
+                      className="block px-4 py-2 hover:text-[#009688] text-[#00B8A9]"
+                    >
+                      {other.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          <Link to="/blogs" onClick={() => setMenuOpen(false)} className="block hover:text-[#009688] text-[#00B8A9]">
             Blogs
           </Link>
-          <Link to="/about" onClick={() => setMenuOpen(false)} className="block hover:text-[#525052] text-[#a8754d]">
+          <Link to="/about" onClick={() => setMenuOpen(false)} className="block hover:text-[#009688] text-[#00B8A9]">
             About
           </Link>
-          <Link to="/contact" onClick={() => setMenuOpen(false)} className="block hover:text-[#525052] text-[#a8754d]">
+          <Link to="/contact" onClick={() => setMenuOpen(false)} className="block hover:text-[#009688] text-[#00B8A9]">
             Contact
           </Link>
-          <Link to="/cart" className="relative hover:text-[#525052] text-[#a8754d] text-2xl">
+          <Link to="/cart" className="relative hover:text-[#009688] text-[#00B8A9] text-2xl">
             <FaShoppingCart />
             {cartItems.length > 0 && (
-              <span className="absolute -top-2 left-4 bg-[#a8754d] text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-bounce">
+              <span className="absolute -top-2 left-4 bg-[#00B8A9] text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-bounce">
                 {cartItems.length}
               </span>
             )}
@@ -158,16 +212,10 @@ const Navbar = () => {
 
           <div className="pt-4 flex flex-col gap-3">
             <Link to="/appointments">
-              <button className="w-full border border-[#a8754d] hover:text-[#a8754d] hover:bg-white bg-[#a8754d] text-white py-2 rounded-full">
+              <button className="w-full border border-[#00B8A9] hover:bg-[#009688] bg-[#00B8A9] text-white py-2 rounded-full">
                 Get Appointment
               </button>
             </Link>
-            <Link to="/courses">
-              <button className="w-full py-2  hover:text-white border border-[#a8754d] rounded-full text-[#a8754d] hover:bg-[#a8754d]">
-                Other Courses
-              </button>
-            </Link>
-
           </div>
 
         </div>

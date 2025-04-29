@@ -86,22 +86,22 @@ function BlogCards() {
                                 alt={blog.title}
                                 className="w-full h-60 object-cover transition-transform duration-300 group-hover:scale-105 p-2 rounded-2xl"
                             />
-                            <div className="absolute top-4 left-4 bg-dk txt-gl px-3 py-1 rounded-md text-sm font-semibold shadow">
+                            <div className="absolute top-4 left-4 bg-[#00B8A9] text-white px-3 py-1 rounded-md text-sm font-semibold shadow hover:bg-[#009688]">
                                 {blog.date}
                             </div>
                         </div>
 
                         <div className="px-5 py-4 flex flex-col gap-3">
-                            <div className="inline-block bg-dk txt-gl text-xs font-medium px-3 py-1 rounded-full w-fit shadow hover:brightness-110 transition duration-300">
+                            <div className="inline-block bg-[#00B8A9] text-white text-xs font-medium px-3 py-1 rounded-full w-fit shadow hover:brightness-110 hover:bg-[#009688] transition duration-300">
                                 {blog.category}
                             </div>
 
-                            <h2 className="txt-gd text-lg font-semibold leading-snug line-clamp-2">
+                            <h2 className="text-[#00B8A9] text-lg font-semibold leading-snug line-clamp-2">
                                 {blog.title.length > 40 ? `${blog.title.substring(0, 40)}...` : blog.title}
                             </h2>
 
                             <Link to={`/blogs/${blog.id}`}>
-                                <button className="flex items-center gap-2 txt-lt font-medium hover-gl transition-colors duration-300 hover:cursor-pointer">
+                                <button className="flex items-center gap-2 hover:text-[#009688] transition-colors duration-300 hover:cursor-pointer hover:underline">
                                     Read More
                                     <FaArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
                                 </button>
@@ -118,7 +118,7 @@ function BlogCards() {
                         key={i + 1}
                         onClick={() => setCurrentPage(i + 1)}
                         className={`px-4 py-2 rounded-full border text-sm font-medium transition-all duration-300 hover:cursor-pointer 
-                            ${currentPage === i + 1 ? 'bg-white txt-gl' : 'bg-dk txt-gd hover:bg-dk hover:txt-gl'}
+                            ${currentPage === i + 1 ? 'bg-[#00B8A9] text-white hover:bg-[#009688] hover:txt-gl' : 'text-[#00B8A9]'}
                         `}
                     >
                         {i + 1}

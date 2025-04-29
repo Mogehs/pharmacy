@@ -184,7 +184,7 @@ export default function CourseGrid() {
   return (
     <section className="px-4 sm:px-6 lg:px-20 py-7">
       <div className="text-center mb-6">
-        <h2 className="text-xl md:text-3xl font-bold txt-gl mb-4">
+        <h2 className="text-xl md:text-3xl font-bold text-[#00B8A9] mb-4">
           Pick a Course to Get Started
         </h2>
       </div>
@@ -196,6 +196,11 @@ export default function CourseGrid() {
           return (
             <button
               key={index}
+              className={`text-sm font-semibold px-4 py-2 cursor-pointer rounded-full shadow-sm transition duration-300 border ${
+                isActive
+                  ? "bg-[#00B8A9] text-white hover:bg-[#009688]"
+                  : "text-[#00B8A9] hover:text-white hover:bg-[#009688]"
+              }`}
               className={`text-sm font-semibold px-4 py-2 cursor-pointer rounded-full shadow-sm transition duration-300 border ${isActive
                 ? "bg-[#a8754d] text-white hover:bg-white hover:text-[#a8754d]"
                 : "text-[#a8754d] hover:text-white hover:bg-[#a8754d]"
@@ -238,7 +243,7 @@ export default function CourseGrid() {
             </div>
 
             <div className="p-4">
-              <h3 className="text-base font-bold text-gray-800 leading-snug mb-1">
+              <h3 className="text-base font-bold text-[#00B8A9] leading-snug mb-1">
                 {course.title}
               </h3>
               <p className="text-sm text-gray-500 mb-1">by {course.instructor}</p>
@@ -255,6 +260,9 @@ export default function CourseGrid() {
 
               <div className="flex items-center justify-between border-t pt-4 border-gray-200">
                 <div className="flex gap-1 text-yellow-400 text-lg">⭐⭐⭐⭐⭐</div>
+                <a
+                  href="#"
+                  className="text-[#00B8A9] text-sm font-semibold underline hover:text-[#009688]"
                 <Link
                   to={`/courses/${course.id}`}
                   className="text-red-500 text-sm font-semibold underline hover:text-red-700"
@@ -273,6 +281,11 @@ export default function CourseGrid() {
           <button
             key={idx}
             onClick={() => setCurrentPage(idx + 1)}
+            className={`w-8 h-8 rounded-full text-sm font-bold transition cursor-pointer ${
+              currentPage === idx + 1
+                ? "bg-[#00B8A9] border border-[#00B8A9] text-white hover:bg-[#009688]"
+                : "text-[#00B8A9] border border-[#00B8A9] hover:bg-[#009688] hover:text-white"
+            }`}
             className={`w-8 h-8 rounded-full text-sm font-bold transition cursor-pointer ${currentPage === idx + 1
               ? "bg-[#a8754d] border border-[#a8754d] text-white hover:text-[#a8754d] hover:bg-white"
               : "text-[#a8754d] border border-[#a8754d] hover:bg-[#a8754d] hover:text-white"

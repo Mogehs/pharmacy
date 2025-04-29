@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Instructors = () => {
+const Instructors = ({course}) => {
     return (
         <div>
             {/* Instructors */}
@@ -8,12 +8,12 @@ const Instructors = () => {
                 <h2 className="text-3xl font-semibold text-[#0f172a] mb-6">Instructors</h2>
                 <div className="bg-gray-200 max-w-2xl rounded-xl p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
                     <img
-                        src="/courses/v.jpg" // Replace with actual image path
+                        src={course.instructorImage} // Replace with actual image path
                         alt="Courselog"
                         className="w-32 h-32 sm:w-45 sm:h-45 object-cover rounded-full"
                     />
                     <div className="flex flex-col justify-center text-center sm:text-left">
-                        <h3 className="text-2xl font-semibold text-[#0f172a] mb-4">Courselog</h3>
+                        <h3 className="text-2xl font-semibold text-[#0f172a] mb-4">{course.instructor}</h3>
                         <div className="flex sm:flex-row items-center gap-2 sm:divide-x divide-gray-300 text-[#334155]">
                             <div className="px-4">
                                 <div className="text-2xl font-semibold text-[#0f172a]">1</div>

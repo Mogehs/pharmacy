@@ -10,7 +10,7 @@ const features = [
     "Work with color & Gradients & Grids",
 ];
 
-const Overview = () => {
+const Overview = ({course}) => {
     const [openLessons, setOpenLessons] = useState([]);
 
     const toggleLesson = (lessonNum) => {
@@ -29,8 +29,8 @@ const Overview = () => {
                     {/* Left Content */}
                     <div className="lg:col-span-2">
                         <h2 className="text-4xl font-bold mb-4">Course Overview</h2>
-                        <p className="text-gray-700 mb-4">
-                            You'll learn how to build a Kubernetes cluster, and how to deploy and manage applications on it. Along the way, you'll learn the internals of how Kubernetes works, as well as best-practices such as managing applications declaratively. By the end of the course you’ll have all the tools you need to get started with Kubernetes and take your career to the next level.
+                        <p className="text-gray-600 text-lg mb-4">
+                            {course.description}
                         </p>
 
                         <h3 className="text-2xl font-semibold mb-3">What you'll learn in this course:</h3>
@@ -100,7 +100,7 @@ const Overview = () => {
 
                     {/* Right Sidebar */}
                     <div className="bg-white rounded-2xl shadow-xl p-6 h-fit sticky top-16 ">
-                        <div className="text-3xl font-bold text-red-500 mb-4">$59</div>
+                        <div className="text-3xl font-bold text-red-500 mb-4">{course.price}</div>
                         <ul className=" text-gray-700 mb-6 divide-y divide-gray-200">
                             <li className="flex items-center justify-between py-3">
                                 <div className="flex items-center gap-2 text-gray-700">
@@ -149,7 +149,7 @@ const Overview = () => {
                                     <FaLanguage className="text-gray-700" />
                                     <span className="font-medium">Language:</span>
                                 </div>
-                                <span>Arabic</span>
+                                <span>English/Urdu</span>
                             </li>
                         </ul>
 

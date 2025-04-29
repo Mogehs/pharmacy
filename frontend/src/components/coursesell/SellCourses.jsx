@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom"
 
 const filters = [
   "All Category",
@@ -18,6 +19,7 @@ const filters = [
 
 const pharmacyCourses = [
   {
+    id: 1,
     title: "Advanced Clinical Pharmacy Techniques",
     instructor: "Dr. Sarah Khan",
     image: "./courses/cr1.jpg",
@@ -29,6 +31,7 @@ const pharmacyCourses = [
     category: "Clinical Pharmacy"
   },
   {
+    id: 2,
     title: "Pharmaceutical Chemistry Basics",
     instructor: "Dr. Rai Hamza",
     image: "./courses/cr2.jpg",
@@ -40,6 +43,7 @@ const pharmacyCourses = [
     category: "Chemistry"
   },
   {
+    id: 3,
     title: "Pharmacology for Beginners",
     instructor: "Dr. Ayesha Randhawa",
     image: "./courses/cr3.jpg",
@@ -51,6 +55,7 @@ const pharmacyCourses = [
     category: "Pharmacology"
   },
   {
+    id: 4,
     title: "Drug Interactions & Safety",
     instructor: "Dr. Usman Tariq",
     image: "./courses/cr4.jpg",
@@ -62,6 +67,7 @@ const pharmacyCourses = [
     category: "Safety"
   },
   {
+    id: 5,
     title: "Clinical Trials & Research",
     instructor: "Dr. Areeba Rehman",
     image: "./courses/cr5.jpg",
@@ -73,6 +79,7 @@ const pharmacyCourses = [
     category: "Research"
   },
   {
+    id: 6,
     title: "Hospital Pharmacy Practice",
     instructor: "Dr. Bilal Nawaz",
     image: "./courses/cr6.jpg",
@@ -84,6 +91,7 @@ const pharmacyCourses = [
     category: "Hospital Practice"
   },
   {
+    id: 7,
     title: "Essentials of Biopharmaceutics",
     instructor: "Dr. CH Tahseen",
     image: "./courses/cr7.jpg",
@@ -95,6 +103,7 @@ const pharmacyCourses = [
     category: "Biopharmaceutics"
   },
   {
+    id: 8,
     title: "Pharmacy Law & Ethics",
     instructor: "Dr. Sara zafar",
     image: "./courses/cr8.jpg",
@@ -106,6 +115,7 @@ const pharmacyCourses = [
     category: "Pharmacy Law"
   },
   {
+    id: 9,
     title: "Introduction to Toxicology",
     instructor: "Dr. Waqas Abbas",
     image: "./courses/cr9.jpg",
@@ -117,6 +127,7 @@ const pharmacyCourses = [
     category: "Toxicology"
   },
   {
+    id: 10,
     title: "Therapeutics and Drug Therapy",
     instructor: "Dr. Kinza Tariq",
     image: "./courses/cr10.jpg",
@@ -128,6 +139,7 @@ const pharmacyCourses = [
     category: "Therapeutics"
   },
   {
+    id: 11,
     title: "Pharmacy Business & Management",
     instructor: "Dr. Fakhar Abbas",
     image: "./courses/cr11.jpg",
@@ -139,6 +151,7 @@ const pharmacyCourses = [
     category: "Pharmacy Management"
   },
   {
+    id: 12,
     title: "Community Pharmacy Essentials",
     instructor: "Dr. Kiran Rida",
     image: "./courses/cr12.jpg",
@@ -150,6 +163,7 @@ const pharmacyCourses = [
     category: "Community Pharmacy"
   }
 ];
+
 
 export default function CourseGrid() {
   const [selectedFilter, setSelectedFilter] = useState("All Category");
@@ -182,11 +196,10 @@ export default function CourseGrid() {
           return (
             <button
               key={index}
-              className={`text-sm font-semibold px-4 py-2 cursor-pointer rounded-full shadow-sm transition duration-300 border ${
-                isActive
-                  ? "bg-[#a8754d] text-white hover:bg-white hover:text-[#a8754d]"
-                  : "text-[#a8754d] hover:text-white hover:bg-[#a8754d]"
-              }`}
+              className={`text-sm font-semibold px-4 py-2 cursor-pointer rounded-full shadow-sm transition duration-300 border ${isActive
+                ? "bg-[#a8754d] text-white hover:bg-white hover:text-[#a8754d]"
+                : "text-[#a8754d] hover:text-white hover:bg-[#a8754d]"
+                }`}
               onClick={() => {
                 setSelectedFilter(filter);
                 setCurrentPage(1);
@@ -242,12 +255,12 @@ export default function CourseGrid() {
 
               <div className="flex items-center justify-between border-t pt-4 border-gray-200">
                 <div className="flex gap-1 text-yellow-400 text-lg">⭐⭐⭐⭐⭐</div>
-                <a
-                  href="#"
+                <Link
+                  to={`/courses/${course.id}`}
                   className="text-red-500 text-sm font-semibold underline hover:text-red-700"
                 >
                   Know details
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -260,11 +273,10 @@ export default function CourseGrid() {
           <button
             key={idx}
             onClick={() => setCurrentPage(idx + 1)}
-            className={`w-8 h-8 rounded-full text-sm font-bold transition cursor-pointer ${
-              currentPage === idx + 1
-                ? "bg-[#a8754d] border border-[#a8754d] text-white hover:text-[#a8754d] hover:bg-white"
-                : "text-[#a8754d] border border-[#a8754d] hover:bg-[#a8754d] hover:text-white"
-            }`}
+            className={`w-8 h-8 rounded-full text-sm font-bold transition cursor-pointer ${currentPage === idx + 1
+              ? "bg-[#a8754d] border border-[#a8754d] text-white hover:text-[#a8754d] hover:bg-white"
+              : "text-[#a8754d] border border-[#a8754d] hover:bg-[#a8754d] hover:text-white"
+              }`}
           >
             {idx + 1}
           </button>

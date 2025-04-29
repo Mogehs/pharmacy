@@ -1,8 +1,10 @@
 import React from 'react'
 import { FaPlay, } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 
-const Hero = () => {
+const Hero = ({ course }) => {
+    console.log(course.title.split(',')[0])
     return (
         <div>
             {/* Hero Section */}
@@ -13,35 +15,45 @@ const Hero = () => {
                     <div className="lg:mx-auto max-lg:px-6">
                         {/* Breadcrumbs */}
                         <div className="text-sm text-gray-500 mb-6 flex flex-wrap items-center gap-1">
-                            <span>1. Home</span>
+                            <span>
+                                <Link to="/" className="hover:text-blue-600 transition-colors duration-200">1. Home</Link>
+                            </span>
                             <span>&gt;</span>
-                            <span>2. Course</span>
+                            <span>
+                                <Link to="/courses" className="hover:text-blue-600 transition-colors duration-200">2. Course</Link>
+                            </span>
                             <span>&gt;</span>
+
                             <span className="text-black font-semibold">
-                                3. Strategy law and Organization Foundation
+                                {course.title.split(',')[0]}
+                                {" "}
+                                {course.title.split(',')[1]}
                             </span>
                         </div>
 
                         {/* Tags */}
-                        <div className="flex gap-3 mb-5">
-                            <span className="bg-[#f59e0b] text-white text-xs px-3 py-1 rounded font-semibold cursor-pointer">Java</span>
-                            <span className="bg-[#10b981] text-white text-xs px-3 py-1 rounded font-semibold cursor-pointer">Python</span>
+                        <div className="flex gap-2 mb-5">
+                            <span className="bg-[#f59e0b] text-white text-xs px-3 py-1 rounded font-semibold ">{course.label1}</span>
+                            <span className="bg-[#10b981] text-white text-xs px-3 py-1 rounded font-semibold ">{course.label2}</span>
                         </div>
 
                         {/* Title */}
                         <h1 className="text-4xl font-semibold text-[#0b0f29] leading-snug mb-6">
-                            Strategy law and Organization <br /> Foundation
+                            {course.title.split(',')[0]}
+                            <span className="inline lg:hidden"> </span>
+                            <span className="hidden lg:inline"><br /></span>
+                            {course.title.split(',')[1]}
                         </h1>
 
                         {/* Description */}
-                        <p className="text-gray-500 text-base leading-relaxed mb-8 max-w-xl">
-                            The most impressive is collection of share me online college courses
+                        <p className="text-gray-700 text-base leading-relaxed mb-8 max-w-xl">
+                            {course.description.split(" ").slice(0, 15).join(" ")}...
                         </p>
 
                         {/* Info */}
                         <div className="flex items-center gap-3 text-base">
-                            <img src="/courses/a.jpg" alt="Courselog" className="w-9 h-9 rounded-full object-cover" />
-                            <span className="font-semibold text-black">Courselog</span>
+                            <img src={course.instructorImage} alt="Courselog" className="w-12 h-12 rounded-full object-cover" />
+                            <span className="font-semibold text-black">{course.instructor}</span>
                             <span className="text-gray-400">|</span>
                             <span className="text-gray-600">20 enrolled students</span>
                         </div>
@@ -61,7 +73,7 @@ const Hero = () => {
                         {/* Student Image Overlay */}
                         <div className="absolute lg:-left-10 md:left-18 max-md:left-3 bottom-15  w-[75%] max-md:w-[95%] h-[75%]">
                             <img
-                                src="/courses/b.jpg"
+                                src={course.image}
                                 alt="Student"
                                 className="w-full h-full object-cover rounded-lg shadow-lg"
                             />

@@ -29,8 +29,9 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Orders from './components/Dashboard/Orders';
 import ProductDetail from './components/shop/ProductDetail';
 import Courses from './components/Dashboard/Courses';
+import Students from "./components/Dashboard/Students";
+
 import ViewCard from './components/shop/testing/ViewCard';
-import Alpha from './components/shop/testing/Alpha';
 import ScrollToTop from './utils/ScrollToTop';
 
 
@@ -82,6 +83,7 @@ const router = createBrowserRouter([
       { path: "/dashboard/customers", element: <Customers /> },
       { path: "/dashboard/orders", element: <Orders /> },
       { path: "/dashboard/courses", element: <Courses /> },
+      { path: "/dashboard/students", element: <Students /> },
     ],
   },
 

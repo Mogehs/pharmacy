@@ -196,14 +196,9 @@ export default function CourseGrid() {
           return (
             <button
               key={index}
-              className={`text-sm font-semibold px-4 py-2 cursor-pointer rounded-full shadow-sm transition duration-300 border ${
-                isActive
-                  ? "bg-[#00B8A9] text-white hover:bg-[#009688]"
-                  : "text-[#00B8A9] hover:text-white hover:bg-[#009688]"
-              }`}
               className={`text-sm font-semibold px-4 py-2 cursor-pointer rounded-full shadow-sm transition duration-300 border ${isActive
-                ? "bg-[#a8754d] text-white hover:bg-white hover:text-[#a8754d]"
-                : "text-[#a8754d] hover:text-white hover:bg-[#a8754d]"
+                ? "bg-[#00B8A9] text-white hover:bg-[#009688]"
+                : "text-[#00B8A9] hover:text-white hover:bg-[#009688]"
                 }`}
               onClick={() => {
                 setSelectedFilter(filter);
@@ -260,9 +255,6 @@ export default function CourseGrid() {
 
               <div className="flex items-center justify-between border-t pt-4 border-gray-200">
                 <div className="flex gap-1 text-yellow-400 text-lg">⭐⭐⭐⭐⭐</div>
-                <a
-                  href="#"
-                  className="text-[#00B8A9] text-sm font-semibold underline hover:text-[#009688]"
                 <Link
                   to={`/courses/${course.id}`}
                   className="text-red-500 text-sm font-semibold underline hover:text-red-700"
@@ -281,14 +273,9 @@ export default function CourseGrid() {
           <button
             key={idx}
             onClick={() => setCurrentPage(idx + 1)}
-            className={`w-8 h-8 rounded-full text-sm font-bold transition cursor-pointer ${
-              currentPage === idx + 1
-                ? "bg-[#00B8A9] border border-[#00B8A9] text-white hover:bg-[#009688]"
-                : "text-[#00B8A9] border border-[#00B8A9] hover:bg-[#009688] hover:text-white"
-            }`}
             className={`w-8 h-8 rounded-full text-sm font-bold transition cursor-pointer ${currentPage === idx + 1
-              ? "bg-[#a8754d] border border-[#a8754d] text-white hover:text-[#a8754d] hover:bg-white"
-              : "text-[#a8754d] border border-[#a8754d] hover:bg-[#a8754d] hover:text-white"
+              ? "bg-[#00B8A9] border border-[#00B8A9] text-white hover:bg-[#009688]"
+              : "text-[#00B8A9] border border-[#00B8A9] hover:bg-[#009688] hover:text-white"
               }`}
           >
             {idx + 1}

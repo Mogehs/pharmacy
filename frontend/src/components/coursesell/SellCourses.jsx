@@ -225,7 +225,7 @@ export default function CourseGrid() {
             </div>
 
             <div className="p-4">
-              <h3 className="text-base font-bold text-gray-800 leading-snug mb-1">
+              <h3 className="text-base font-bold text-[#00B8A9] leading-snug mb-1">
                 {course.title}
               </h3>
               <p className="text-sm text-gray-500 mb-1">by {course.instructor}</p>
@@ -244,7 +244,7 @@ export default function CourseGrid() {
                 <div className="flex gap-1 text-yellow-400 text-lg">⭐⭐⭐⭐⭐</div>
                 <a
                   href="#"
-                  className="text-red-500 text-sm font-semibold underline hover:text-red-700"
+                  className="text-[#00B8A9] text-sm font-semibold underline hover:text-[#009688]"
                 >
                   Know details
                 </a>
@@ -262,8 +262,8 @@ export default function CourseGrid() {
             onClick={() => setCurrentPage(idx + 1)}
             className={`w-8 h-8 rounded-full text-sm font-bold transition cursor-pointer ${
               currentPage === idx + 1
-                ? "bg-[#a8754d] border border-[#a8754d] text-white hover:text-[#a8754d] hover:bg-white"
-                : "text-[#a8754d] border border-[#a8754d] hover:bg-[#a8754d] hover:text-white"
+                ? "bg-[#00B8A9] border border-[#00B8A9] text-white hover:bg-[#009688]"
+                : "text-[#00B8A9] border border-[#00B8A9] hover:bg-[#009688] hover:text-white"
             }`}
           >
             {idx + 1}

@@ -20,9 +20,9 @@ const CommentForm = () => {
     };
 
     return (
-        <div className="bg-dk text-white p-6 rounded-xl mt-12 max-w-3xl mx-auto shadow-lg">
-            <h2 className="text-2xl font-bold txt-gl mb-2">Leave a Reply</h2>
-            <p className="text-sm txt-lt mb-6">Your email address will not be published. Required fields are marked *</p>
+        <div className="bg-gray-100 text-white p-6 rounded-xl mt-12 max-w-3xl mx-auto shadow-lg">
+            <h2 className="text-2xl font-bold text-[#00B8A9] mb-2">Leave a Reply</h2>
+            <p className="text-sm text-black mb-6">Your email address will not be published. Required fields are marked *</p>
             <form className="space-y-4" onSubmit={handleSubmit}>
                 <textarea
                     name="comment"
@@ -31,7 +31,7 @@ const CommentForm = () => {
                     placeholder="Your Comment *"
                     required
                     rows="5"
-                    className="w-full px-4 py-3 bg-lt text-black rounded-md focus:outline-none focus:ring-2 focus:ring-[#a8754d]"
+                    className="w-full px-4 py-3 bg-lt text-black rounded-md focus:outline-none focus:ring-2 focus:ring-[#00B8A9]"
                 ></textarea>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <input
@@ -41,7 +41,7 @@ const CommentForm = () => {
                         onChange={handleChange}
                         placeholder="Name *"
                         required
-                        className="w-full px-4 py-2 bg-lt text-black rounded-md focus:outline-none focus:ring-2 focus:ring-[#a8754d]"
+                        className="w-full px-4 py-2 bg-lt text-black rounded-md focus:outline-none focus:ring-2 focus:ring-[#00B8A9]"
                     />
                     <input
                         type="email"
@@ -50,7 +50,7 @@ const CommentForm = () => {
                         onChange={handleChange}
                         placeholder="Email *"
                         required
-                        className="w-full px-4 py-2 bg-lt text-black rounded-md focus:outline-none focus:ring-2 focus:ring-[#a8754d]"
+                        className="w-full px-4 py-2 bg-lt text-black rounded-md focus:outline-none focus:ring-2 focus:ring-[#00B8A9]"
                     />
                 </div>
                 <input
@@ -59,11 +59,11 @@ const CommentForm = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     placeholder="Subject"
-                    className="w-full px-4 py-2 bg-lt text-black rounded-md focus:outline-none focus:ring-2 focus:ring-[#a8754d]"
+                    className="w-full px-4 py-2 bg-lt text-black rounded-md focus:outline-none focus:ring-2 focus:ring-[#00B8A9]"
                 />
                 <button
                     type="submit"
-                    className="bg-lt text-black font-semibold px-6 py-2 rounded-md  hover:text-[#a8754d] shadow transition-all duration-500 hover:cursor-pointer"
+                    className="bg-[#00B8A9] text-white font-semibold px-6 py-2 rounded-md  hover:bg-[#009688] shadow transition-all duration-500 hover:cursor-pointer"
                 >
                     Post Comment
                 </button>

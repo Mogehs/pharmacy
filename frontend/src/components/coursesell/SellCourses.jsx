@@ -170,7 +170,7 @@ export default function CourseGrid() {
   return (
     <section className="px-4 sm:px-6 lg:px-20 py-7">
       <div className="text-center mb-6">
-        <h2 className="text-xl md:text-3xl font-bold txt-gl mb-4">
+        <h2 className="text-xl md:text-3xl font-bold text-[#00B8A9] mb-4">
           Pick a Course to Get Started
         </h2>
       </div>
@@ -184,8 +184,8 @@ export default function CourseGrid() {
               key={index}
               className={`text-sm font-semibold px-4 py-2 cursor-pointer rounded-full shadow-sm transition duration-300 border ${
                 isActive
-                  ? "bg-[#a8754d] text-white hover:bg-white hover:text-[#a8754d]"
-                  : "text-[#a8754d] hover:text-white hover:bg-[#a8754d]"
+                  ? "bg-[#00B8A9] text-white hover:bg-[#009688]"
+                  : "text-[#00B8A9] hover:text-white hover:bg-[#009688]"
               }`}
               onClick={() => {
                 setSelectedFilter(filter);

@@ -20,22 +20,22 @@ import {
                     className="h-12 w-12 rounded-full object-cover"
                   />
                 </div>
-                <span className="ml-2 text-xl font-bold  text-[#eac577]">Pharmacy</span>
+                <span className="ml-2 text-xl font-bold  text-[#00B8A9]">Pharmacy</span>
               </div>
               <p className="text-white">
                 Building innovative solutions for the modern world.
               </p>
               <div className="flex space-x-4">
-                <a href="#" className="hover:text-blue-600 text-[#eac577] transition" aria-label="Facebook">
+                <a href="#" className="hover:text-[#009688] text-[#00B8A9] transition" aria-label="Facebook">
                   <FaFacebookF className="h-6 w-6" />
                 </a>
-                <a href="#" className="hover:text-pink-500 text-[#eac577] transition" aria-label="Instagram">
+                <a href="#" className="hover:text-[#009688] text-[#00B8A9] transition" aria-label="Instagram">
                   <FaInstagram className="h-6 w-6" />
                 </a>
-                <a href="#" className="hover:text-blue-700  text-[#eac577] transition" aria-label="LinkedIn">
+                <a href="#" className="hover:text-[#009688]  text-[#00B8A9] transition" aria-label="LinkedIn">
                   <FaLinkedinIn className="h-6 w-6" />
                 </a>
-                <a href="#" className="hover:text-red-600 text-[#eac577] transition" aria-label="Twitter">
+                <a href="#" className="hover:text-[#009688] text-[#00B8A9] transition" aria-label="Twitter">
                   <FaTwitter className="h-6 w-6" />
                 </a>
               </div>
@@ -43,7 +43,7 @@ import {
   
             {/* Quick Links */}
             <div className="space-y-4">
-              <h3 className="text-lg font-bold text-[#eac577]">Quick Links</h3>
+              <h3 className="text-lg font-bold text-[#00B8A9]">Quick Links</h3>
               <ul className="space-y-2">
                 {["Home", "Product", "Blogs", "About", "Contact"].map((link) => (
                   <li key={link}>
@@ -57,7 +57,7 @@ import {
   
             {/* Services */}
             <div className="space-y-4">
-              <h3 className="text-lg font-bold  text-[#eac577]">Services</h3>
+              <h3 className="text-lg font-bold  text-[#00B8A9]">Services</h3>
               <ul className="space-y-2">
                 {["Medicine", "Appointment", "Courses", "Consultation", "Other/Admission"].map((service) => (
                   <li key={service}>
@@ -71,12 +71,12 @@ import {
   
             {/* Contact */}
             <div className="space-y-4">
-              <h3 className="text-lg font-bold  text-[#eac577]">Contact Us</h3>
+              <h3 className="text-lg font-bold  text-[#00B8A9]">Contact Us</h3>
               <address className="not-italic text-gray-500">
                 <p className="text-white transition cursor-pointer">123 Business Ave</p>
                 <p className="text-white transition cursor-pointer">San Francisco, CA 94107</p>
                 <p className="mt-2">
-                  <span className='text-[#eac577]'>Email:{' '}</span>
+                  <span className='text-[#00B8A9]'>Email:{' '}</span>
                   <a
                     href="mailto:info@company.com"
                     className="text-white transition"
@@ -85,7 +85,7 @@ import {
                   </a>
                 </p>
                 <p>
-                  <span className='text-[#eac577]'>Phone:{' '}</span>
+                  <span className='text-[#00B8A9]'>Phone:{' '}</span>
                   <a
                     href="tel:+11234567890"
                     className="text-white transition"
@@ -98,7 +98,7 @@ import {
           </div>
   
           {/* Bottom Bar */}
-          <div className="border-t border-[#a8754d] pt-6 flex flex-col md:flex-row justify-between items-center">
+          <div className="border-t border-[#00B8A9] pt-6 flex flex-col md:flex-row justify-between items-center">
             <p className="text-white text-lg mb-4 md:mb-0 cursor-pointer">
               © 2025 Pharmacy. All rights reserved.
             </p>

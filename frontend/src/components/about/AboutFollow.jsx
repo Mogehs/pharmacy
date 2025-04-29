@@ -14,8 +14,8 @@ const AboutFollow = () => {
     <section className="bg-[#f9fafb] py-12 px-4">
       <div className="max-w-6xl mx-auto text-center">
         {/* Heading */}
-        <h2 className="text-2xl md:text-3xl font-semibold txt-gl mb-8">
-          Follow us on Instagram <span className="txt-gd">@propharm</span>
+        <h2 className="text-2xl md:text-3xl font-semibold text-black mb-8">
+          Follow us on Instagram <span className="text-[#00B8A9]">@propharm</span>
         </h2>
 
         {/* Image Grid */}

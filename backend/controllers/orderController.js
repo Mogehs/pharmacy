@@ -3,8 +3,13 @@ import Order from "../models/Order.js";
 // Create a new order (after Stripe session created)
 export const createOrder = async (req, res) => {
   try {
-    const { products, totalAmount, paymentIntentId, shippingAddress } =
-      req.body;
+    const {
+      products,
+      totalAmount,
+      paymentIntentId,
+      shippingAddress,
+      paymentMethod,
+    } = req.body;
     const userId = req.user._id;
 
     const newOrder = new Order({
@@ -13,7 +18,7 @@ export const createOrder = async (req, res) => {
       totalAmount,
       paymentIntentId,
       shippingAddress,
-      paymentMethod: "Stripe",
+      paymentMethod,
       isPaid: false,
     });
 
@@ -93,7 +98,6 @@ export const updateOrderStatus = async (req, res) => {
   }
 };
 
-// ✅ Mark order as paid after successful Stripe payment (called from webhook)
 export const markOrderAsPaid = async (req, res) => {
   try {
     const { paymentIntentId, paymentResult } = req.body;

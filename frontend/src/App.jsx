@@ -31,10 +31,12 @@ import ProductDetail from './components/shop/ProductDetail';
 import Courses from './components/Dashboard/Courses';
 import ViewCard from './components/shop/testing/ViewCard';
 import Alpha from './components/shop/testing/Alpha';
+import ScrollToTop from './utils/ScrollToTop';
 
 
 const MainLayout = () => (
   <div className="lg:mx-auto lg:max-w-[1536px]">
+    <ScrollToTop />
     <Navbar />
     <Outlet />
     <Footer />

@@ -5,7 +5,7 @@ import CategoryPieChart from '../../components/Dashboard/CategoryPieChart';
 
 const Dashboard = () => {
     return (
-        <div className="md:pt-2 space-y-6">
+        <div className="md:pt-2 space-y-6 overflow-hidden">
             <DashboardStats />
             <DashboardChart />
             <CategoryPieChart />

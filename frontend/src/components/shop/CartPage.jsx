@@ -4,6 +4,7 @@ import { removeFromCart, updateQuantity } from "../../store/shop/CartSlice";
 import { useNavigate } from "react-router-dom";
 import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import { increaseProductStock } from "../../store/shop/ShopSlice";
 
 const CartPage = () => {
     // Get cart items from the Redux store, defaulting to an empty array if undefined
@@ -11,13 +12,27 @@ const CartPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const products = useSelector((state) => state.shop.filteredProducts);
+
     const handleQuantityChange = (id, qty) => {
-        if (qty < 1) return;
+        const product = products.find(p => p.id === id); // Find the product
+        const cartItem = cartItems.find(item => item.id === id); // Find the cart item
+
+        if (!product || !cartItem) return; // If no product or cart item found, exit
+        const maxQuantity = cartItem.stock;
+
+        if (qty < 1) return; // Prevent less than 1
+        if (qty > maxQuantity) return; // Prevent exceeding available + cart quantity
+
         dispatch(updateQuantity({ id, quantity: qty }));
     };
 
+
+
+
     const handleRemove = (id) => {
         dispatch(removeFromCart(id));
+        dispatch(increaseProductStock(id));
     };
 
     // Calculate the total price, using reduce with a fallback for empty cart
@@ -28,54 +43,64 @@ const CartPage = () => {
 
     return (
         <>
-            <div className="w-full min-h-screen bg-dk text-txt-lt">
+            <div className="w-full min-h-screen bg-[#E8F6F3] text-[#2E3A59]">
                 <div className="w-[90vw] mx-auto flex flex-col lg:flex-row justify-around py-10 gap-8">
+
                     {/* Cart Section */}
-                    <div className="w-full lg:w-[70%] p-6 bg-lt text-black rounded-lg shadow">
-                        <div className="flex justify-between items-center pb-6 border-b border-gray-300">
-                            <h1 className="text-3xl font-semibold txt-gd">Shopping Cart</h1>
+                    <div className="w-full lg:w-[70%] p-6 bg-white text-[#2E3A59] rounded-lg shadow-md">
+                        <div className="flex justify-between items-center pb-6 border-b border-[#00B8A9]">
+                            <h1 className="text-3xl font-bold text-[#00B8A9]">Shopping Cart</h1>
                             <span className="text-lg font-medium">{cartItems.length} items</span>
                         </div>
 
                         {cartItems.length === 0 ? (
-                            <p className="text-gray-600">Your cart is empty.</p>
+                            <p className="text-gray-500 mt-4">Your cart is empty.</p>
                         ) : (
                             <>
                                 {cartItems.map((item) => (
-                                    <div
-                                        key={item.id}
-                                        className="flex flex-col sm:flex-row justify-between items-center py-4 border-b border-gray-300"
-                                    >
-                                        <div className="flex items-center gap-4">
-                                            <img
-                                                src={item.image}
-                                                alt={item.title}
-                                                className="w-20 h-20 object-cover rounded"
-                                            />
-                                            <div>
+                                    <div key={item.id} className="flex flex-col sm:flex-row justify-between items-center py-4 border-b border-gray-200">
+                                        <div className="flex items-center gap-4 flex-1">
+                                            <img src={item.image} alt={item.title} className="w-20 h-20 object-cover rounded-md" />
+                                            <div className="flex flex-col">
                                                 <h3 className="font-semibold">{item.title}</h3>
-                                                <p className="text-sm text-gray-700">${item.price.toFixed(2)}</p>
+                                                <p className="text-sm text-gray-600">${item.price.toFixed(2)}</p>
                                             </div>
                                         </div>
 
-                                        <div className="flex items-center gap-3 mt-3 sm:mt-0">
-                                            <input
-                                                type="number"
-                                                value={item.quantity}
-                                                min="1"
-                                                onChange={(e) =>
-                                                    handleQuantityChange(item.id, parseInt(e.target.value))
-                                                }
-                                                className="w-16 px-2 py-1 border border-gray-300 rounded"
-                                            />
-                                        </div>
+                                        <div className="flex items-center gap-3 sm:flex-row flex-col">
+                                            <div className="flex items-center gap-2">
+                                                <button
+                                                    onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                                                    disabled={item.quantity <= 1}
+                                                    className="text-2xl text-[#00B8A9] disabled:opacity-30"
+                                                >
+                                                    <CiCircleMinus />
+                                                </button>
 
-                                        <button
-                                            onClick={() => handleRemove(item.id)}
-                                            className="text-red-500 text-sm mt-3 sm:mt-0"
-                                        >
-                                            Remove
-                                        </button>
+                                                <input
+                                                    type="number"
+                                                    value={item.quantity}
+                                                    min="1"
+                                                    onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value))}
+                                                    className="w-16 px-2 py-1 border border-gray-300 rounded text-center"
+                                                />
+
+                                                <button
+                                                    onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                                                    disabled={item.quantity >= item.stock}
+                                                    className="text-2xl text-[#00B8A9] disabled:opacity-30"
+                                                >
+                                                    <CiCirclePlus />
+                                                </button>
+                                            </div>
+
+                                            <button
+                                                onClick={() => handleRemove(item.id)}
+                                                className="text-[#FF6B6B] text-sm font-semibold mt-2 sm:mt-0"
+                                            >
+                                                Remove
+                                            </button>
+                                        </div>
                                     </div>
                                 ))}
                             </>
@@ -83,7 +108,7 @@ const CartPage = () => {
 
                         <div
                             onClick={() => navigate("/products")}
-                            className="flex items-center mt-6 gap-2 font-semibold cursor-pointer txt-gl hover-gl"
+                            className="flex items-center mt-6 gap-2 font-semibold cursor-pointer text-[#00B8A9] hover:text-[#0C2D48]"
                         >
                             <FaArrowLeftLong />
                             <span>Back to Shop</span>
@@ -91,8 +116,8 @@ const CartPage = () => {
                     </div>
 
                     {/* Summary Section */}
-                    <div className="w-full lg:w-[30%] p-6 bg-lt text-black rounded-lg shadow">
-                        <h2 className="text-2xl font-bold mb-4 border-b pb-4 border-gray-300 txt-gd">
+                    <div className="w-full lg:w-[30%] p-6 bg-white text-[#2E3A59] rounded-lg shadow-md">
+                        <h2 className="text-2xl font-bold mb-4 border-b pb-4 border-[#00B8A9]">
                             Summary
                         </h2>
 
@@ -121,7 +146,7 @@ const CartPage = () => {
                                 <span>${total.toFixed(2)}</span>
                             </div>
 
-                            <button className="w-full bg-black text-white py-3 font-bold rounded hover:bg-gray-800 transition duration-200">
+                            <button className="w-full bg-[#00B8A9] text-white py-3 font-bold rounded hover:bg-[#009688] transition duration-200">
                                 Checkout
                             </button>
                         </div>

@@ -32,7 +32,7 @@ const AddCourseOverlay = ({ onClose, onAdd }) => {
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.3 }}
             >
-                <h2 className="text-xl font-semibold mb-4">➕ Add New Course</h2>
+                <h2 className="text-xl text-[#00B8A9] font-semibold mb-4">➕ Add New Course</h2>
                 <div className="space-y-3">
                     <input name="id" placeholder="Course ID" onChange={handleChange} className="w-full border p-2 rounded" />
                     <input name="title" placeholder="Course Title" onChange={handleChange} className="w-full border p-2 rounded" />
@@ -42,7 +42,7 @@ const AddCourseOverlay = ({ onClose, onAdd }) => {
                 </div>
                 <div className="flex justify-end space-x-2 mt-4">
                     <button onClick={onClose} className="bg-gray-300 px-4 py-2 rounded">Cancel</button>
-                    <button onClick={handleSubmit} className="bg-[#a8754d] text-white px-4 py-2 rounded hover:bg-[#b8754d]">Add</button>
+                    <button onClick={handleSubmit} className="bg-[#00B8A9] text-white px-4 py-2 rounded hover:bg-[#009688]">Add</button>
                 </div>
             </motion.div>
         </div>

@@ -8,6 +8,7 @@ import {
     MdMenu,
     MdClose
 } from 'react-icons/md';
+import { PiStudent } from "react-icons/pi";
 import { FaDiscourse } from "react-icons/fa";
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -20,6 +21,7 @@ const Sidebar = () => {
         { to: '/dashboard/customers', label: 'Customers', icon: <MdPeople /> },
         { to: '/dashboard/orders', label: 'Orders', icon: <MdBorderStyle /> },
         { to: '/dashboard/courses', label: 'Courses', icon: <FaDiscourse /> },
+        { to: '/dashboard/students', label: 'Students', icon: <PiStudent /> },
     ];
 
     const handleLinkClick = () => {
@@ -33,7 +35,7 @@ const Sidebar = () => {
             {/* Mobile Toggle Button */}
             <div className="md:hidden fixed top-3 left-2 z-25">
                 <button
-                    className="text-[#dbdad9] bg-[#454142] p-2 rounded-md shadow-lg"
+                    className="text-[#00B8A9] bg-[#454142] p-2 rounded-md shadow-lg"
                     onClick={() => setIsOpen(true)}
                 >
                     <MdMenu size={24} />
@@ -43,7 +45,7 @@ const Sidebar = () => {
             {/* Desktop Sidebar */}
             <aside className="hidden md:flex flex-col justify-between w-64 h-screen bg-dk text-white p-5 fixed left-0 top-0 shadow-lg z-20">
                 <div>
-                    <h1 className="text-2xl font-bold mb-10 font-Fredoka">Pharma Admin</h1>
+                    <h1 className="text-2xl text-[#00B8A9] font-bold mb-10 font-Fredoka">Pharma Admin</h1>
                     <nav className="space-y-4">
                         {links.map(({ to, label, icon }) => (
                             <NavLink
@@ -51,7 +53,7 @@ const Sidebar = () => {
                                 to={to}
                                 end={to === '/dashboard'}
                                 className={({ isActive }) =>
-                                    `flex items-center gap-3 p-3 rounded hover:bg-medium-color transition ${isActive ? 'bg-blue-600 border-l-4 border-yellow-400' : ''
+                                    `flex items-center gap-3 p-3 rounded hover:bg-medium-color transition ${isActive ? 'bg-[#00B8A9] border-l-4 border-[#009688]' : ''
                                     }`
                                 }
                             >
@@ -90,14 +92,14 @@ const Sidebar = () => {
                         <div className="absolute top-12 right-4">
                             <button
                                 onClick={() => setIsOpen(false)}
-                                className="text-white hover:text-red-400 transition"
+                                className="text-white hover:text-[#009688] transition"
                             >
                                 <MdClose size={24} />
                             </button>
                         </div>
 
                         <div>
-                            <h1 className="text-2xl font-bold mb-10 font-Fredoka">Pharma Admin</h1>
+                            <h1 className="text-2xl text-[#00B8A9] font-bold mb-10 font-Fredoka">Pharma Admin</h1>
                             <nav className="space-y-4">
                                 {links.map(({ to, label, icon }) => (
                                     <NavLink
@@ -106,7 +108,7 @@ const Sidebar = () => {
                                         end={to === '/dashboard'}
                                         onClick={handleLinkClick}
                                         className={({ isActive }) =>
-                                            `flex items-center gap-3 p-3 rounded hover:bg-medium-color transition ${isActive ? 'bg-blue-600 border-l-4 border-yellow-400' : ''
+                                            `flex items-center gap-3 p-3 rounded hover:bg-medium-color transition ${isActive ? 'bg-[#00B8A9] border-l-4 border-[#009688]' : ''
                                             }`
                                         }
                                     >

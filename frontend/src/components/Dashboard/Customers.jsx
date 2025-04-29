@@ -54,7 +54,7 @@ const Customers = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
             >
-                <h3 className="text-xl md:text-2xl font-bold mb-6 text-dark-color tracking-wide">
+                <h3 className="text-xl md:text-2xl font-bold mb-6 text-[#00B8A9] tracking-wide">
                     👥 Customer Management
                 </h3>
 

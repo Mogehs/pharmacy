@@ -67,20 +67,20 @@ const Products = () => {
         >
 
             <div className="flex flex-col md:flex-row justify-between mb-4">
-                <h3 className="text-[18px] md:text-2xl font-bold mb-6 text-dark-color tracking-wide">
+                <h3 className="text-[18px] md:text-2xl font-bold mb-6 text-[#00B8A9] tracking-wide">
                     🛒 Products Management
                 </h3>
                 <motion.button
                     onClick={() => setIsAdding(true)}
                     whileHover={{
                         scale: 1.08,
-                        backgroundColor: "#ffffff",
-                        color: "#a8754d",
-                        borderColor: "#a8754d",
+                        backgroundColor: "#009688",
+                        color: "#fff",
+                        borderColor: "#009688",
                         boxShadow: "0px 0px 12px rgba(168, 117, 77, 0.4)",
                     }}
                     transition={{ type: "spring", stiffness: 100, damping: 15 }}
-                    className="px-4 text-sm py-1 cursor-pointer border border-[#a8754d] bg-[#a8754d] text-white rounded-full"
+                    className="px-4 text-sm py-1 cursor-pointer border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full"
                 >
                     ➕ Add New Product
                 </motion.button>

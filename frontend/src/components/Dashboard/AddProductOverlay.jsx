@@ -41,7 +41,7 @@ const AddProductOverlay = ({ onClose, onAdd }) => {
                     exit={{ scale: 0.8, y: -50, opacity: 0 }}
                     transition={{ duration: 0.3 }}
                 >
-                    <h2 className="text-xl font-semibold mb-4 text-dark-color">
+                    <h2 className="text-xl text-[#00B8A9] font-semibold mb-4 text-dark-color">
                         ➕ Add New Product
                     </h2>
 
@@ -68,7 +68,7 @@ const AddProductOverlay = ({ onClose, onAdd }) => {
                             Cancel
                         </button>
                         <button
-                            className="bg-[#a8754d] text-white px-4 py-2 rounded hover:bg-[#b8754d] hover:cursor-pointer"
+                            className="bg-[#00B8A9] text-white px-4 py-2 rounded hover:bg-[#009688] hover:cursor-pointer"
                             onClick={handleSubmit}
                         >
                             Add Product

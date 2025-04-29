@@ -44,7 +44,7 @@ const EditRoleOverlay = ({ customer, onClose, onSave }) => {
                     </button>
                     <button
                         onClick={handleSave}
-                        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                        className="px-4 py-2 bg-[#00B8A9] text-white rounded-md hover:bg-[#009688]"
                     >
                         Save
                     </button>

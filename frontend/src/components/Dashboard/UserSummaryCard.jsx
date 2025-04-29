@@ -28,7 +28,7 @@ const UserSummaryCard = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
         >
-            <h3 className="text-lg font-semibold mb-4 text-dark-color">User Overview</h3>
+            <h3 className="text-lg font-semibold mb-4 text-[#00B8A9]">User Overview</h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {userStats.map((stat, idx) => (
                     <div

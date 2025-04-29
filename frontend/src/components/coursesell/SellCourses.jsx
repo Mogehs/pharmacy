@@ -257,7 +257,7 @@ export default function CourseGrid() {
                 <div className="flex gap-1 text-yellow-400 text-lg">⭐⭐⭐⭐⭐</div>
                 <Link
                   to={`/courses/${course.id}`}
-                  className="text-red-500 text-sm font-semibold underline hover:text-red-700"
+                  className="text-[#00B8A9] text-sm font-semibold underline hover:text-[#009688]"
                 >
                   Know details
                 </Link>

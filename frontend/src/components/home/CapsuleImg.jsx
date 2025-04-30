@@ -40,7 +40,7 @@ const items = [
 export default function CapsuleImg() {
   return (
     <div className='w-full mx-auto sm:w-11/12 py-4 mb-4 flex flex-col sm:flex-row gap-4 items-center justify-between'>
-      <div className="grid w-full sm:w-[60%] sm:grid-cols-2 grid-cols-1 gap-4">
+      <div className="grid w-full sm:w-[100%] sm:grid-cols-2 grid-cols-1 gap-4">
         {items.map((item, index) => (
           <div
             key={index}
@@ -53,7 +53,7 @@ export default function CapsuleImg() {
             }}
           >
             <div
-              className="md:w-[50%] mx-5 flex justify-center items-center"
+              className="md:w-[50%]  mx-5 flex justify-center items-center"
               style={{
                 backgroundImage: `url(${item.medicine})`,
                 backgroundSize: '100% 100%',
@@ -61,8 +61,8 @@ export default function CapsuleImg() {
                 height: '80%',
               }}
             >
-              <div className='w-full sm:w-[50%] sm:hidden block'>
-                <p className='text-gray-500'>Get it now 45% OFF</p>
+              <div className='w-full sm:w-[50%]   sm:hidden block'>
+                <p className='text-black text-xl sm:tex2xl'>Get it now 45% OFF</p>
                 <h1 className='text-xl font-bold sm:text-2xl'>{item.title}</h1>
                 <button
                   className='px-4 mt-2 cursor-pointer py-2 rounded-3xl'
@@ -74,7 +74,7 @@ export default function CapsuleImg() {
             </div>
             <div className='w-full sm:w-[50%] sm:block hidden'>
               <p className='text-gray-500'>Get it now 45% OFF</p>
-              <h1 className='text-xl font-bold sm:text-2xl'>{item.title}</h1>
+              <h1 className='text-xl font-bold sm:text-xl'>{item.title}</h1>
               <button
                 className='px-4 mt-2 cursor-pointer py-2 rounded-3xl'
                 style={{ backgroundColor: item.color }}
@@ -87,7 +87,7 @@ export default function CapsuleImg() {
       </div>
 
       <div
-        className='w-full sm:w-[38%] flex justify-center items-center'
+        className='w-full sm:w-[38%] sm:hidden lg:flex justify-center items-center'
         style={{
           background: `url(${bg3})`,
           backgroundSize: '100% 100%',
@@ -96,20 +96,20 @@ export default function CapsuleImg() {
         }}
       >
         <div
-          className="md:w-[50%] mx-5 flex justify-center items-center"
+          className="w-[50%] mx-auto mt-4 flex justify-center items-end"
           style={{
             backgroundImage: `url(${medicine3})`,
             backgroundSize: '100% 100%',
             backgroundRepeat: 'no-repeat',
-            height: '80%',
+            height: '90%',
           }}
         >
-          <div className='w-full sm:w-[50%] sm:hidden block'>
-            <p className='w-[80%] bg-orange-400 p-3 text-white rounded-3xl'>
+          <div className='w-full h-full text-center sm:w-[50%] sm:hidden block '>
+            <p className='w-[100%] mx-auto text-center text-ms sm:w-[80%] bg-orange-400 p-3 text-white rounded-3xl'>
               Get it now 45% OFF
             </p>
             <span>Pyridoxine Vitamin B6</span>
-            <h1 className='text-xl font-bold sm:text-2xl'>
+            <h1 className='text-xl font-bold sm:text-xl'>
               Pyridoxine Vitamin B6
             </h1>
             <button className='px-4 mt-2 cursor-pointer py-2 rounded-3xl bg-[#ffa238] text-white'>
@@ -117,12 +117,15 @@ export default function CapsuleImg() {
             </button>
           </div>
         </div>
+
+
+
         <div className='w-full sm:w-[50%] sm:block hidden'>
-          <p className='w-[80%] bg-orange-400 p-3 text-white rounded-3xl'>
+          <p className='w-full sm:w-[80%] text-xs bg-orange-400 p-2 text-white rounded-3xl'>
             Get it now 45% OFF
           </p>
           <span>Pyridoxine Vitamin B6</span>
-          <h1 className='text-xl font-bold sm:text-2xl'>
+          <h1 className='text-xl font-bold sm:text-xl'>
             Pyridoxine Vitamin B6
           </h1>
           <button className='px-4 mt-2 cursor-pointer py-2 rounded-3xl bg-[#ffa238] text-white'>

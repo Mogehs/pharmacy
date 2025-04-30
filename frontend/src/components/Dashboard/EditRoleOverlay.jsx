@@ -11,13 +11,13 @@ const EditRoleOverlay = ({ customer, onClose, onSave }) => {
 
     return (
         <motion.div
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+            className="fixed inset-0 backdrop-blur-sm bg-opacity-50 flex items-center justify-center z-50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
         >
             <motion.div
-                className="bg-white rounded-lg shadow-lg p-6 w-96"
+                className="bg-white rounded-lg shadow-lg p-6 w-[90%] md:w-96"
                 initial={{ scale: 0.8 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.3 }}
@@ -44,7 +44,7 @@ const EditRoleOverlay = ({ customer, onClose, onSave }) => {
                     </button>
                     <button
                         onClick={handleSave}
-                        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                        className="px-4 py-2 bg-[#00B8A9] text-white rounded-md hover:bg-[#009688]"
                     >
                         Save
                     </button>

@@ -1,0 +1,24 @@
+/* Move navigation arrows outward */
+.custom-swiper .swiper-button-next,
+.custom-swiper .swiper-button-prev {
+    color: #a8754d;
+    top: 40%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Move pagination dots further below */
+.custom-swiper .swiper-pagination {
+    margin-top: 30px;
+    position: relative;
+    bottom: -20px;
+}
+
+/* Active dot style */
+.custom-swiper .swiper-pagination-bullet-active {
+    background: #a8754d;
+}

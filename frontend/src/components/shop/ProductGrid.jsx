@@ -26,17 +26,13 @@ const ProductGrid = () => {
         navigate(`/product/${productId}`);
     };
 
-    const handleAddToCart = (product) => {
-        dispatch(addToCart(product));
-    };
-
     return (
         <div className="flex flex-col gap-8 flex-1 px-4 py-6 txt-lt">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 {currentItems.map((product, index) => (
                     <div
                         key={index}
-                        className="border border-light-color bg-white rounded-lg p-4 shadow-sm transition group hover:border-dark-color"
+                        className="border border-[#00B8A9] bg-white rounded-lg p-4 shadow-sm transition group hover:border-dark-color"
                     >
                         <div className="relative">
                             <img
@@ -45,20 +41,9 @@ const ProductGrid = () => {
                                 className="w-full h-60 object-contain mb-3 rounded transform transition-transform duration-500 ease-in-out group-hover:scale-95"
                             />
 
-                            <div className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition duration-300">
-                                <div
-                                    onClick={() => handleCartClick(product.id)}
-                                    className="bg-medium-color p-3 rounded-md hover:bg-dark-color transition duration-300 cursor-pointer w-50"
-                                >
-                                    <div className="flex items-center justify-center gap-2 txt-gl">
-                                        <FaRegEye />
-                                        <span>View Product</span>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
-                        <h3 className="text-sm font-semibold mb-1 txt-gd">{product.title}</h3>
+                        <h3 className="text-sm font-semibold mb-1 text-[#00B8A9]">{product.title}</h3>
 
                         <div className="text-yellow-400 text-sm mb-1">
                             {Array.from({ length: 5 }, (_, i) => (
@@ -66,15 +51,15 @@ const ProductGrid = () => {
                             ))}
                         </div>
 
-                        <p className="txt-gl font-semibold">${product.price}</p>
+                        <p className="text-black font-semibold">${product.price}</p>
 
                         {/* Add to Cart Button */}
                         <button
-                            onClick={() => handleAddToCart(product)}
-                            className="px-4 text-sm py-2 cursor-pointer border border-[#a8754d] 
-             hover:text-[#a8754d] hover:bg-white bg-[#a8754d] text-white 
+                            onClick={() => handleCartClick(product.id)}
+                            className="px-4 text-sm py-2 cursor-pointer border border-[#00B8A9] 
+             hover:text-[#fff] hover:bg-[#009688] bg-[#00B8A9] text-white 
              rounded-full transition-all duration-600 ease-in-out mt-4">
-                            Add to Cart
+                            View Product
                         </button>
 
                     </div>

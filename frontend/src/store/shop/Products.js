@@ -9,6 +9,7 @@ const Products = [
         description: "Boost immunity with high-quality Vitamin C tablets.",
         image: "/shop/img1.jpg",
         rating: 3,
+        stock: 5,
     },
     {
         id: 2,
@@ -20,6 +21,7 @@ const Products = [
         description: "Accurate digital thermometer for daily health checks.",
         image: "/shop/img2.jpg",
         rating: 4,
+        stock: 5,
     },
     {
         id: 3,
@@ -31,6 +33,7 @@ const Products = [
         description: "Compact first aid kit for emergencies.",
         image: "/shop/img7.jpg",
         rating: 4,
+        stock: 5,
     },
     {
         id: 4,
@@ -42,6 +45,7 @@ const Products = [
         description: "Effective balm for joint and muscle pain.",
         image: "/shop/img8.jpg",
         rating: 5,
+        stock: 5,
     },
     {
         id: 5,
@@ -53,6 +57,7 @@ const Products = [
         description: "Fast-acting tablets to relieve allergy symptoms.",
         image: "/shop/img9.jpg",
         rating: 3,
+        stock: 5,
     },
     {
         id: 6,
@@ -64,6 +69,7 @@ const Products = [
         description: "Strengthens hair roots and reduces hair fall.",
         image: "/shop/img10.jpg",
         rating: 4,
+        stock: 5,
     },
     {
         id: 7,
@@ -75,6 +81,7 @@ const Products = [
         description: "Compact pouch for organizing medicines on the go.",
         image: "/shop/img8.jpg",
         rating: 3,
+        stock: 5,
     },
     {
         id: 8,
@@ -86,6 +93,7 @@ const Products = [
         description: "Soothes dry and irritated eyes.",
         image: "/shop/img7.jpg",
         rating: 5,
+        stock: 5,
     },
     {
         id: 9,
@@ -97,6 +105,7 @@ const Products = [
         description: "High-protection sunscreen lotion for daily use.",
         image: "/shop/img6.jpg",
         rating: 4,
+        stock: 5,
     },
     {
         id: 10,
@@ -108,6 +117,7 @@ const Products = [
         description: "Tasty multivitamin gummies for all ages.",
         image: "/shop/img5.jpg",
         rating: 5,
+        stock: 5,
     },
     {
         id: 44,
@@ -119,6 +129,7 @@ const Products = [
         description: "Used for relief from fever and mild to moderate pain.",
         image: "/shop/img4.jpg",
         rating: 5,
+        stock: 5,
     },
     {
         id: 45,
@@ -130,6 +141,7 @@ const Products = [
         description: "Antihistamine for allergic conditions like sneezing and hives.",
         image: "/shop/img3.jpg",
         rating: 4,
+        stock: 5,
     },
     {
         id: 46,
@@ -141,6 +153,7 @@ const Products = [
         description: "Oral rehydration salts for dehydration and diarrhea.",
         image: "/shop/img2.jpg",
         rating: 4,
+        stock: 5,
     },
     {
         id: 47,
@@ -152,6 +165,7 @@ const Products = [
         description: "Topical pain relief for muscles and joints.",
         image: "/shop/img9.jpg",
         rating: 5,
+        stock: 5,
     },
     {
         id: 48,
@@ -163,6 +177,7 @@ const Products = [
         description: "Effective against fever and body pain.",
         image: "/shop/img1.jpg",
         rating: 4,
+        stock: 5,
     },
     {
         id: 49,
@@ -174,6 +189,7 @@ const Products = [
         description: "Adhesive bandages for minor cuts and wounds.",
         image: "/shop/img10.jpg",
         rating: 4,
+        stock: 5,
     },
     {
         id: 50,
@@ -185,6 +201,7 @@ const Products = [
         description: "Strips for home blood glucose testing.",
         image: "/shop/img4.jpg",
         rating: 5,
+        stock: 5,
     },
     {
         id: 51,
@@ -196,6 +213,7 @@ const Products = [
         description: "Relieves cough, throat irritation, and congestion.",
         image: "/shop/img8.jpg",
         rating: 3,
+        stock: 5,
     },
     {
         id: 52,
@@ -207,6 +225,7 @@ const Products = [
         description: "Easy-to-use digital thermometer for fever monitoring.",
         image: "/shop/img5.jpg",
         rating: 5,
+        stock: 5,
     },
     {
         id: 53,
@@ -218,6 +237,7 @@ const Products = [
         description: "Boosts immunity and supports skin health.",
         image: "/shop/img1.jpg",
         rating: 4,
+        stock: 5,
     },
     {
         id: 54,
@@ -229,6 +249,7 @@ const Products = [
         description: "Protective 3-ply face masks for daily use.",
         image: "/shop/img10.jpg",
         rating: 4,
+        stock: 5,
     },
     {
         id: 55,
@@ -240,6 +261,7 @@ const Products = [
         description: "Kills 99.9% germs without water.",
         image: "/shop/img2.jpg",
         rating: 5,
+        stock: 5,
     },
     {
         id: 56,
@@ -251,6 +273,7 @@ const Products = [
         description: "Multivitamin tonic for kids and adults.",
         image: "/shop/img6.jpg",
         rating: 4,
+        stock: 5,
     },
     {
         id: 57,
@@ -262,6 +285,7 @@ const Products = [
         description: "Treats sudden diarrhea effectively.",
         image: "/shop/img1.jpg",
         rating: 3,
+        stock: 5,
     },
     {
         id: 58,
@@ -273,6 +297,7 @@ const Products = [
         description: "High-grade protection from airborne particles.",
         image: "/shop/img10.jpg",
         rating: 5,
+        stock: 5,
     },
     {
         id: 59,
@@ -284,6 +309,7 @@ const Products = [
         description: "Protects and soothes baby's skin.",
         image: "/shop/img9.jpg",
         rating: 4,
+        stock: 5,
     },
     {
         id: 60,
@@ -295,6 +321,7 @@ const Products = [
         description: "Quick relief from acidity and indigestion.",
         image: "/shop/img5.jpg",
         rating: 4,
+        stock: 5,
     },
     {
         id: 61,
@@ -306,6 +333,7 @@ const Products = [
         description: "Heat therapy patches for back and joint pain.",
         image: "/shop/img2.jpg",
         rating: 4,
+        stock: 5,
     },
     {
         id: 62,
@@ -317,6 +345,7 @@ const Products = [
         description: "Sterile tips for insulin pens.",
         image: "/shop/img1.jpg",
         rating: 5,
+        stock: 5,
     },
     {
         id: 63,
@@ -328,6 +357,7 @@ const Products = [
         description: "Fast and accurate results at home.",
         image: "/shop/img7.jpg",
         rating: 4,
+        stock: 3,
     },
 ];
 

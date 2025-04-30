@@ -4,11 +4,12 @@ import {
     MdDashboard,
     MdInventory,
     MdPeople,
-    MdSettings,
     MdBorderStyle,
     MdMenu,
     MdClose
 } from 'react-icons/md';
+import { PiStudent } from "react-icons/pi";
+import { FaDiscourse } from "react-icons/fa";
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Sidebar = () => {
@@ -19,7 +20,8 @@ const Sidebar = () => {
         { to: '/dashboard/products', label: 'Products', icon: <MdInventory /> },
         { to: '/dashboard/customers', label: 'Customers', icon: <MdPeople /> },
         { to: '/dashboard/orders', label: 'Orders', icon: <MdBorderStyle /> },
-        { to: '/settings', label: 'Settings', icon: <MdSettings /> },
+        { to: '/dashboard/courses', label: 'Courses', icon: <FaDiscourse /> },
+        { to: '/dashboard/students', label: 'Students', icon: <PiStudent /> },
     ];
 
     const handleLinkClick = () => {
@@ -31,9 +33,9 @@ const Sidebar = () => {
     return (
         <>
             {/* Mobile Toggle Button */}
-            <div className="md:hidden fixed top-4 left-4 z-50">
+            <div className="md:hidden fixed top-3 left-2 z-25">
                 <button
-                    className="text-white mt-16 bg-dk p-2 rounded-md shadow-lg"
+                    className="text-[#00B8A9] bg-[#454142] p-2 rounded-md shadow-lg"
                     onClick={() => setIsOpen(true)}
                 >
                     <MdMenu size={24} />
@@ -41,22 +43,39 @@ const Sidebar = () => {
             </div>
 
             {/* Desktop Sidebar */}
-            <aside className="hidden md:block w-64 h-screen bg-dk text-white p-5 fixed left-0 top-0 shadow-lg z-40">
-                <h1 className="text-2xl font-bold mb-10 font-Fredoka">Pharma Admin</h1>
-                <nav className="space-y-4">
-                    {links.map(({ to, label, icon }) => (
-                        <NavLink
-                            key={to}
-                            to={to}
-                            className={({ isActive }) =>
-                                `flex items-center gap-3 p-3 rounded hover:bg-medium-color transition ${isActive ? 'bg-medium-color' : ''
-                                }`
-                            }
-                        >
-                            {icon} {label}
-                        </NavLink>
-                    ))}
-                </nav>
+            <aside className="hidden md:flex flex-col justify-between w-64 h-screen bg-dk text-white p-5 fixed left-0 top-0 shadow-lg z-20">
+                <div>
+                    <h1 className="text-2xl text-[#00B8A9] font-bold mb-10 font-Fredoka">Pharma Admin</h1>
+                    <nav className="space-y-4">
+                        {links.map(({ to, label, icon }) => (
+                            <NavLink
+                                key={to}
+                                to={to}
+                                end={to === '/dashboard'}
+                                className={({ isActive }) =>
+                                    `flex items-center gap-3 p-3 rounded hover:bg-medium-color transition ${isActive ? 'bg-[#00B8A9] border-l-4 border-[#009688]' : ''
+                                    }`
+                                }
+                            >
+                                {icon} {label}
+                            </NavLink>
+                        ))}
+                    </nav>
+                </div>
+
+                {/* Home link at the bottom */}
+                <div className="pt-10">
+                    <NavLink
+                        to="/"
+                        end
+                        className={({ isActive }) =>
+                            `flex items-center gap-3 p-3 rounded hover:bg-medium-color transition ${isActive ? 'bg-blue-600 border-l-4 border-yellow-400' : ''
+                            }`
+                        }
+                    >
+                        <MdDashboard /> Home
+                    </NavLink>
+                </div>
             </aside>
 
             {/* Mobile Slide-in Sidebar */}
@@ -67,34 +86,52 @@ const Sidebar = () => {
                         animate={{ x: 0 }}
                         exit={{ x: '-100%' }}
                         transition={{ duration: 0.3 }}
-                        className="fixed top-0 left-0 h-full w-4/5 bg-dk text-white p-5 shadow-lg z-50 md:hidden"
+                        className="fixed top-0 left-0 h-full w-4/5 bg-dk text-white p-5 shadow-lg z-50 md:hidden flex flex-col justify-between"
                     >
                         {/* Cross Close Button */}
-                        <div className="absolute top-4 right-4">
+                        <div className="absolute top-12 right-4">
                             <button
                                 onClick={() => setIsOpen(false)}
-                                className="text-white mt-16 hover:text-red-400 transition"
+                                className="text-white hover:text-[#009688] transition"
                             >
                                 <MdClose size={24} />
                             </button>
                         </div>
 
-                        <h1 className="text-2xl font-bold mb-10 font-Fredoka">Pharma Admin</h1>
-                        <nav className="space-y-4">
-                            {links.map(({ to, label, icon }) => (
-                                <NavLink
-                                    key={to}
-                                    to={to}
-                                    onClick={handleLinkClick}
-                                    className={({ isActive }) =>
-                                        `flex items-center gap-3 p-3 rounded hover:bg-medium-color transition ${isActive ? 'bg-medium-color' : ''
-                                        }`
-                                    }
-                                >
-                                    {icon} {label}
-                                </NavLink>
-                            ))}
-                        </nav>
+                        <div>
+                            <h1 className="text-2xl text-[#00B8A9] font-bold mb-10 font-Fredoka">Pharma Admin</h1>
+                            <nav className="space-y-4">
+                                {links.map(({ to, label, icon }) => (
+                                    <NavLink
+                                        key={to}
+                                        to={to}
+                                        end={to === '/dashboard'}
+                                        onClick={handleLinkClick}
+                                        className={({ isActive }) =>
+                                            `flex items-center gap-3 p-3 rounded hover:bg-medium-color transition ${isActive ? 'bg-[#00B8A9] border-l-4 border-[#009688]' : ''
+                                            }`
+                                        }
+                                    >
+                                        {icon} {label}
+                                    </NavLink>
+                                ))}
+                            </nav>
+                        </div>
+
+                        {/* Home link at bottom */}
+                        <div className="pt-10">
+                            <NavLink
+                                to="/"
+                                end
+                                onClick={handleLinkClick}
+                                className={({ isActive }) =>
+                                    `flex items-center gap-3 p-3 rounded hover:bg-medium-color transition ${isActive ? 'bg-blue-600 border-l-4 border-yellow-400' : ''
+                                    }`
+                                }
+                            >
+                                <MdDashboard /> Home
+                            </NavLink>
+                        </div>
                     </motion.aside>
                 )}
             </AnimatePresence>

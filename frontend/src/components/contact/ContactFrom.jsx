@@ -26,17 +26,17 @@ export default function ContactForm() {
 
   const contactInfo = [
     {
-      icon: <MdOutlinePhoneInTalk className="text-2xl text-[#4ABCE9]" />,
+      icon: <MdOutlinePhoneInTalk className="text-2xl text-[#00B8A9]" />,
       title: "986-456-6782",
       desc: "Calls from mobile and landlines within USA are free"
     },
     {
-      icon: <SiAmazonsimpleemailservice className="text-2xl text-[#4ABCE9]" />,
+      icon: <SiAmazonsimpleemailservice className="text-2xl text-[#00B8A9]" />,
       title: "Email",
       desc: "propharm@email.com"
     },
     {
-      icon: <RiMapPinLine className="text-2xl text-[#4ABCE9]" />,
+      icon: <RiMapPinLine className="text-2xl text-[#00B8A9]" />,
       title: "New York",
       desc: "70 Washington Square South, NY 10012, United States"
     }
@@ -47,7 +47,7 @@ export default function ContactForm() {
 
       {/* Contact Info */}
       <div>
-        <h2 className="text-2xl txt-gl font-bold mb-4">Contact Us</h2>
+        <h2 className="text-2xl text-[#00B8A9] font-bold mb-4">Contact Us</h2>
         <p className="text-gray-500 mb-6">
           Multi-line telephone hotline daily<br />08:00am – 09:00pm
         </p>
@@ -57,7 +57,7 @@ export default function ContactForm() {
           <div key={index} className="mb-4">
             <div className="flex items-center space-x-2 font-semibold text-lg mb-1">
               {item.icon}
-              <span className="txt-gl font-bold text-xl">{item.title}</span>
+              <span className="text-[#00B8A9] font-bold text-xl">{item.title}</span>
             </div>
             <p className="text-gray-500">{item.desc}</p>
           </div>
@@ -74,7 +74,7 @@ export default function ContactForm() {
 
       {/* Message Form */}
       <div>
-        <h2 className="text-2xl txt-gl font-bold mb-4">Message</h2>
+        <h2 className="text-2xl text-[#00B8A9] font-bold mb-4">Message</h2>
 
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 space-y-4 md:space-y-0">
           <p className="text-sm text-gray-500">
@@ -82,16 +82,16 @@ export default function ContactForm() {
             Don’t hesitate and write to our Email!!
           </p>
           <div className="flex space-x-4 text-gray-500 md:ml-4">
-            <div className="bg-gray-100 p-2 rounded-md hover:text-blue-600 cursor-pointer">
+            <div className="bg-gray-100 p-2 text-[#00B8A9] rounded-md hover:text-[#009688] cursor-pointer">
               <FaFacebookF />
             </div>
-            <div className="bg-gray-100 p-2 rounded-md hover:text-pink-500 cursor-pointer">
+            <div className="bg-gray-100 p-2 text-[#00B8A9] rounded-md hover:text-[#009688] cursor-pointer">
               <FaInstagram />
             </div>
-            <div className="bg-gray-100 p-2 rounded-md hover:text-blue-700 cursor-pointer">
+            <div className="bg-gray-100 p-2 text-[#00B8A9] rounded-md hover:text-[#009688] cursor-pointer">
               <FaLinkedinIn />
             </div>
-            <div className="bg-gray-100 p-2 rounded-md hover:text-red-600 cursor-pointer">
+            <div className="bg-gray-100 p-2 text-[#00B8A9] rounded-md hover:text-[#009688] cursor-pointer">
               <FaTwitter />
             </div>
           </div>
@@ -133,7 +133,7 @@ export default function ContactForm() {
             className="w-full p-3 rounded bg-gray-100 focus:outline-none"
           />
 
-          <button type="submit" className="hover:bg-[#525052] bg-[#a8754d] text-white font-semibold px-6 py-2 rounded cursor-pointer">
+          <button type="submit" className="hover:bg-[#009688] bg-[#00B8A9] text-white font-semibold px-6 py-2 rounded cursor-pointer">
             Submit
           </button>
         </form>

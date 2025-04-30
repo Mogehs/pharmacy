@@ -23,10 +23,10 @@ const Shopnav = () => {
         <div className="w-full min-h-screen text-light-color flex justify-center items-start py-10 px-4">
             <div className="w-full max-w-7xl">
 
-                <div className="flex justify-between items-center border border-medium-color text-dark-color px-6 py-3 mb-8 rounded shadow-md" style={{ fontFamily: 'Fredoka, sans-serif' }}>
+                <div className="flex justify-between items-center border border-[#00B8A9] text-dark-color px-6 py-3 mb-8 rounded shadow-md" style={{ fontFamily: 'Fredoka, sans-serif' }}>
                     <button
                         onClick={() => setShowSidebar(!showSidebar)}
-                        className="text-sm flex items-center gap-1 border-r border-gray-300 pr-4"
+                        className="text-sm text-[#00B8A9] flex items-center gap-1 border-r border-[#00B8A9] pr-4"
                     >
                         {showSidebar ? 'Hide Sidebar' : 'Show Sidebar'} <Menu size={14} />
                     </button>
@@ -34,7 +34,7 @@ const Shopnav = () => {
                     <div className="relative text-sm px-4 bg-white rounded cursor-pointer">
                         <button
                             onClick={() => setShowSort(!showSort)}
-                            className="flex items-center gap-1"
+                            className="flex items-center gap-1 text-[#00B8A9]"
                         >
                             {sortOption} <ChevronDown className="w-4 h-4" />
                         </button>
@@ -43,7 +43,7 @@ const Shopnav = () => {
                                 {sortOptions.map((option, index) => (
                                     <li
                                         key={index}
-                                        className="px-4 py-2 hover:bg-gray-100"
+                                        className="px-4 py-2 hover:bg-gray-100 text-[#00B8A9]"
                                         onClick={() => {
                                             dispatch(setSortOption(option));
                                             setShowSort(false); // close after selecting

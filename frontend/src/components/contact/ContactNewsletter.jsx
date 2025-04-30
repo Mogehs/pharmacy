@@ -16,7 +16,7 @@ const ContactNewsletter = () => {
     >
       <div className="max-w-3xl mx-auto text-center">
         {/* Main Heading */}
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 txt-gl">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#00B8A9]">
           Join our newsletter
         </h2>
 
@@ -41,7 +41,7 @@ const ContactNewsletter = () => {
           />
           <button
             type="submit"
-            className="hover:bg-[#525052] bg-[#a8754d] text-white px-4 md:px-6 flex items-center gap-2 transition cursor-pointer"
+            className="hover:bg-[#009688] bg-[#00B8A9] text-white px-4 md:px-6 flex items-center gap-2 transition cursor-pointer"
           >
             <FaPaperPlane />
             Subscribe

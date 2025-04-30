@@ -4,6 +4,6 @@ import authMiddleware from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/create-checkout-session", authMiddleware, createCheckoutSession);
+router.post("/create-checkout-session/:id", createCheckoutSession);
 
 export default router;

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import EditProductOverlay from "./EditProductOverlay";
 import DeleteProductConfirmation from "./DeleteProductConfirmation";
 import { motion } from "framer-motion";
+import AddProductOverlay from "./AddProductOverlay";
 
 const products = [
     { id: "P001", title: "Vitamin C", category: "Supplements", price: 10.99, stock: 150 },
@@ -18,6 +19,7 @@ const Products = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
     const [productsList, setProductsList] = useState(products);
+    const [isAdding, setIsAdding] = useState(false);
 
     // Filter products by search term
     const filteredProducts = productsList.filter(
@@ -51,6 +53,11 @@ const Products = () => {
         setIsEditing(false);
     };
 
+    const handleAddProduct = (product) => {
+        setProductsList((prev) => [product, ...prev]);
+    };
+
+
     return (
         <motion.div
             className="bg-white rounded-xl shadow-xl p-6 mt-6 max-w-full overflow-hidden"
@@ -58,9 +65,27 @@ const Products = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
         >
-            <h3 className="text-xl md:text-2xl font-bold mb-6 text-dark-color tracking-wide">
-                🛒 Products Management
-            </h3>
+
+            <div className="flex flex-col md:flex-row justify-between mb-4">
+                <h3 className="text-[18px] md:text-2xl font-bold mb-6 text-[#00B8A9] tracking-wide">
+                    🛒 Products Management
+                </h3>
+                <motion.button
+                    onClick={() => setIsAdding(true)}
+                    whileHover={{
+                        scale: 1.08,
+                        backgroundColor: "#009688",
+                        color: "#fff",
+                        borderColor: "#009688",
+                        boxShadow: "0px 0px 12px rgba(168, 117, 77, 0.4)",
+                    }}
+                    transition={{ type: "spring", stiffness: 100, damping: 15 }}
+                    className="px-4 text-sm py-1 cursor-pointer border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full"
+                >
+                    ➕ Add New Product
+                </motion.button>
+            </div>
+
 
             {/* Search Bar */}
             <div className="mb-6">
@@ -102,7 +127,7 @@ const Products = () => {
                                     <td className="flex items-center px-3 py-2 text-center space-x-2">
                                         <button
                                             onClick={() => handleEditProduct(product)}
-                                            className="text-sm px-3 py-1 rounded-full text-white bg-blue-500 hover:bg-blue-600 transition text-nowrap"
+                                            className="text-sm px-6 py-1 rounded-full text-white bg-blue-500 hover:bg-blue-600 transition text-nowrap"
                                         >
                                             Edit
                                         </button>
@@ -143,6 +168,15 @@ const Products = () => {
                     onDelete={handleDeleteProduct}
                 />
             )}
+
+            {/* Add new product Overlay */}
+            {isAdding && (
+                <AddProductOverlay
+                    onClose={() => setIsAdding(false)}
+                    onAdd={handleAddProduct}
+                />
+            )}
+
         </motion.div>
 
     );

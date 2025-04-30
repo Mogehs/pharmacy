@@ -18,6 +18,8 @@ import PageNotFound from './components/PageNotFound';
 import ForgotPassword from './components/ForgotPassword';
 import CartPage from './components/shop/CartPage';
 import Consultations from './pages/Consultations';
+import CourseSells from './pages/CourseSells';
+import CourseDetail from './components/coursesell/course-detail/CourseDetail';
 
 
 import AdminLayout from './components/Dashboard/admin/AdminLayout';
@@ -25,10 +27,18 @@ import Products from './components/Dashboard/Products';
 import Customers from './components/Dashboard/Customers';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Orders from './components/Dashboard/Orders';
+import ProductDetail from './components/shop/ProductDetail';
+import Courses from './components/Dashboard/Courses';
+import Students from "./components/Dashboard/Students";
+
+import ViewCard from './components/shop/testing/ViewCard';
+import ScrollToTop from './utils/ScrollToTop';
+import Admission from './pages/Admission';
 
 
 const MainLayout = () => (
   <div className="lg:mx-auto lg:max-w-[1536px]">
+    <ScrollToTop />
     <Navbar />
     <Outlet />
     <Footer />
@@ -43,10 +53,15 @@ const router = createBrowserRouter([
       { path: '/blogs', element: <Blogs /> },
       { path: "/blogs/:id", element: <BlogDetail /> },
       { path: '/products', element: <Shop /> },
+      { path: '/product/:id', element: <ProductDetail /> },
       { path: '/cart', element: <CartPage /> },
       { path: '/about', element: <About /> },
       { path: '/contact', element: <Contact /> },
-      { path: '/consultations', element: <Consultations /> },
+      { path: '/appointments', element: <Consultations /> },
+      { path: '/courses', element: <CourseSells /> },
+      { path: '/courses/:id', element: <CourseDetail /> },
+      { path: '/admissions', element: <Admission /> },
+
       { path: '*', element: <PageNotFound /> },
     ],
   },
@@ -66,6 +81,8 @@ const router = createBrowserRouter([
       { path: "/dashboard/products", element: <Products /> },
       { path: "/dashboard/customers", element: <Customers /> },
       { path: "/dashboard/orders", element: <Orders /> },
+      { path: "/dashboard/courses", element: <Courses /> },
+      { path: "/dashboard/students", element: <Students /> },
     ],
   },
 

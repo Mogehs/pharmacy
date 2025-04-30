@@ -26,7 +26,7 @@ const DashboardChart = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
         >
-            <h3 className="text-xl font-bold text-dark-color mb-6 tracking-wide">
+            <h3 className="text-xl font-bold text-[#00B8A9] mb-6 tracking-wide">
                 📈 Monthly Sales Overview
             </h3>
 

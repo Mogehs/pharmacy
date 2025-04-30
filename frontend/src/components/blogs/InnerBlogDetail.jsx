@@ -9,7 +9,7 @@ const InnerBlogDetail = ({ image, title, content }) => {
 
             <div className='flex flex-col gap-2 mt-4'>
                 {/* Title */}
-                <h1 className="text-2xl md:text-3xl font-bold txt-gd mb-6 text-start">{title}</h1>
+                <h1 className="text-2xl md:text-3xl font-bold text-[#00B8A9] mb-6 text-start">{title}</h1>
 
                 {/* Content */}
                 <p className="text-base leading-7 text-justify tracking-wide">
@@ -17,7 +17,7 @@ const InnerBlogDetail = ({ image, title, content }) => {
                 </p>
             </div>
 
-            <div className='h-px bg-[#e5e5e5] mt-4'></div>
+            <div className='h-px bg-[#00B8A9] mt-4'></div>
 
         </div>
     )

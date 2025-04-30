@@ -4,10 +4,10 @@ export default function ReviewList({ reviews }) {
   return (
     <div className="max-w-9xl  bg- py-15 px-4 md:px-10 xl:px-35">
       <div className="flex max-md:flex-wrap items-center justify-between mb-8">
-        <h2 className="max-md:text-4xl text-5xl font-bold text-[#0f0f3a]">
+        <h2 className="max-md:text-4xl text-5xl font-bold text-[#00B8A9]">
           Customer Reviews
         </h2>
-        <span className="text-lg text-gray-600 font-semibold">{reviews.length} Reviews</span>
+        <span className="text-lg text-[#00B8A9] font-semibold">{reviews.length} Reviews</span>
       </div>
 
       {reviews.length === 0 ? (
@@ -29,14 +29,14 @@ export default function ReviewList({ reviews }) {
                 ))}
               </div>
 
-              <h3 className="text-2xl font-semibold text-[#0f0f3a] mb-2">
+              <h3 className="text-2xl font-semibold text-[#00B8A9] mb-2">
                 {review.title}
               </h3>
               <p className="text-gray-700 mb-6">{review.summary}</p>
 
               <div className="text-sm text-gray-500 mt-auto">
                 <div>- {review.name}</div>
-                <div className="text-xs">{review.email} | {review.website}</div>
+                <div className="text-xs text-[#00B8A9]">{review.email} | {review.website}</div>
               </div>
             </div>
           ))}

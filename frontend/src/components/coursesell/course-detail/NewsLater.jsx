@@ -24,7 +24,7 @@ export default function Newsletter() {
 
       {/* Text */}
       <div className="relative z-10 mb-8 md:mb-0 text-center md:text-left">
-        <h2 className="text-2xl md:text-4xl font-bold leading-tight">
+        <h2 className="text-2xl md:text-4xl text-[#fff] font-bold leading-tight">
           Want Us to Email you About <br className="hidden md:block" />
           Special Offers & Updates?
         </h2>
@@ -45,7 +45,7 @@ export default function Newsletter() {
         />
         <button
           type="submit"
-          className="bg-[#f34e5c] hover:bg-red-500 text-white px-6 flex items-center justify-center text-lg font-semibold transition-all duration-300"
+          className="bg-[#00B8A9] hover:bg-[#009688] text-white px-6 flex items-center justify-center text-lg font-semibold transition-all duration-300 hover:cursor-pointer"
         >
           Subscribe <FiArrowRight className="ml-2" />
         </button>

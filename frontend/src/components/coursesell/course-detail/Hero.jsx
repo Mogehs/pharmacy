@@ -16,15 +16,15 @@ const Hero = ({ course }) => {
                         {/* Breadcrumbs */}
                         <div className="text-sm text-gray-500 mb-6 flex flex-wrap items-center gap-1">
                             <span>
-                                <Link to="/" className="hover:text-blue-600 transition-colors duration-200">1. Home</Link>
+                                <Link to="/" className="hover:text-[#009688] transition-colors duration-200 text-black">Home</Link>
                             </span>
                             <span>&gt;</span>
                             <span>
-                                <Link to="/courses" className="hover:text-blue-600 transition-colors duration-200">2. Course</Link>
+                                <Link to="/courses" className="hover:text-[#009688] transition-colors duration-200 text-[#00B8A9]">Course</Link>
                             </span>
                             <span>&gt;</span>
 
-                            <span className="text-black font-semibold">
+                            <span className="text-[#009688] font-semibold ">
                                 {course.title.split(',')[0]}
                                 {" "}
                                 {course.title.split(',')[1]}
@@ -33,12 +33,12 @@ const Hero = ({ course }) => {
 
                         {/* Tags */}
                         <div className="flex gap-2 mb-5">
-                            <span className="bg-[#f59e0b] text-white text-xs px-3 py-1 rounded font-semibold ">{course.label1}</span>
+                            <span className="bg-[#00B8A9] text-white text-xs px-3 py-1 rounded font-semibold ">{course.label1}</span>
                             <span className="bg-[#10b981] text-white text-xs px-3 py-1 rounded font-semibold ">{course.label2}</span>
                         </div>
 
                         {/* Title */}
-                        <h1 className="text-4xl font-semibold text-[#0b0f29] leading-snug mb-6">
+                        <h1 className="text-4xl font-semibold text-[#00B8A9] leading-snug mb-6">
                             {course.title.split(',')[0]}
                             <span className="inline lg:hidden"> </span>
                             <span className="hidden lg:inline"><br /></span>
@@ -53,7 +53,7 @@ const Hero = ({ course }) => {
                         {/* Info */}
                         <div className="flex items-center gap-3 text-base">
                             <img src={course.instructorImage} alt="Courselog" className="w-12 h-12 rounded-full object-cover" />
-                            <span className="font-semibold text-black">{course.instructor}</span>
+                            <span className="font-semibold text-[#00B8A9]">{course.instructor}</span>
                             <span className="text-gray-400">|</span>
                             <span className="text-gray-600">20 enrolled students</span>
                         </div>

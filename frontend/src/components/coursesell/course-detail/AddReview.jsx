@@ -46,7 +46,7 @@ export default function ReviewForm({ onAddReview }) {
 
     return (
         <div className="max-w-6xl bg- py-10 px-4 md:px-10 xl:px-35">
-            <h2 className="text-4xl font-bold text-[#0f0f3a] mb-6">Write a Review</h2>
+            <h2 className="text-4xl font-bold text-[#00B8A9] mb-6">Write a Review</h2>
 
             <div className="flex items-center mb-8">
                 {[1, 2, 3, 4, 5].map((star) => (
@@ -59,7 +59,7 @@ export default function ReviewForm({ onAddReview }) {
                         {star <= rating ? <AiFillStar /> : <AiOutlineStar />}
                     </button>
                 ))}
-                <div className="text-lg font-semibold text-[#0f0f3a] ml-2">{rating}</div>
+                <div className="text-lg font-semibold text-[#00B8A9] ml-2">{rating}</div>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -71,7 +71,7 @@ export default function ReviewForm({ onAddReview }) {
                         value={formData.title}
                         onChange={handleChange}
                         required
-                        className="border border-gray-300 rounded-md p-3 focus:outline-none focus:border-red-400"
+                        className="border border-gray-300 rounded-md p-3 focus:outline-none focus:border-[#00B8A9]"
                     />
                     <input
                         type="text"
@@ -80,7 +80,7 @@ export default function ReviewForm({ onAddReview }) {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="border border-gray-300 rounded-md p-3 focus:outline-none focus:border-red-400"
+                        className="border border-gray-300 rounded-md p-3 focus:outline-none focus:border-[#00B8A9]"
                     />
                     <input
                         type="email"
@@ -89,7 +89,7 @@ export default function ReviewForm({ onAddReview }) {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="border border-gray-300 rounded-md p-3 focus:outline-none focus:border-red-400"
+                        className="border border-gray-300 rounded-md p-3 focus:outline-none focus:border-[#00B8A9]"
                     />
                     <input
                         type="text"
@@ -98,7 +98,7 @@ export default function ReviewForm({ onAddReview }) {
                         value={formData.website}
                         onChange={handleChange}
                         required
-                        className="border border-gray-300 rounded-md p-3 focus:outline-none focus:border-red-400"
+                        className="border border-gray-300 rounded-md p-3 focus:outline-none focus:border-[#00B8A9]"
                     />
                 </div>
 
@@ -109,12 +109,12 @@ export default function ReviewForm({ onAddReview }) {
                     value={formData.summary}
                     onChange={handleChange}
                     required
-                    className="border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:border-red-400"
+                    className="border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:border-[#00B8A9]"
                 ></textarea>
 
                 <button
                     type="submit"
-                    className="relative overflow-hidden group cursor-pointer flex items-center gap-2 bg-[#f34e5c] hover:bg-[#5a4732] border-dark-color text-white px-2 py-4 font-semibold text-2xl shadow-md rounded-md transition-all duration-400"
+                    className="relative overflow-hidden group cursor-pointer flex items-center gap-2 bg-[#00B8A9] hover:bg-[#009688] border-dark-color text-white px-2 py-4 font-semibold text-2xl shadow-md rounded-md transition-all duration-400"
                 >
                     <span className="relative z-10 flex items-center gap-2">
                         Submit Review

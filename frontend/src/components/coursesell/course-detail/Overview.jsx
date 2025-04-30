@@ -28,12 +28,12 @@ const Overview = ({course}) => {
                 <div className="max-w-7xl mx-auto grid lg:grid-cols-3 gap-10">
                     {/* Left Content */}
                     <div className="lg:col-span-2">
-                        <h2 className="text-4xl font-bold mb-4">Course Overview</h2>
+                        <h2 className="text-4xl text-[#00B8A9] font-bold mb-4">Course Overview</h2>
                         <p className="text-gray-600 text-lg mb-4">
                             {course.description}
                         </p>
 
-                        <h3 className="text-2xl font-semibold mb-3">What you'll learn in this course:</h3>
+                        <h3 className="text-2xl text-[#00B8A9] font-semibold mb-3">What you'll learn in this course:</h3>
                         <ul className="mb-4 space-y-2">
                             {features.map((item, index) => (
                                 <li key={index} className="flex items-center text-green-600 gap-2">
@@ -48,7 +48,7 @@ const Overview = ({course}) => {
                         </p>
 
                         {/* Lessons Section */}
-                        <h2 className="text-3xl font-semibold mb-4">Course Content</h2>
+                        <h2 className="text-3xl text-[#00B8A9] font-semibold mb-4">Course Content</h2>
                         <div className="mt-10 space-y-4">
                             {[1, 2, 3, 4, 5].map((lessonNum) => {
                                 const isOpen = openLessons.includes(lessonNum);
@@ -62,13 +62,13 @@ const Overview = ({course}) => {
                                         >
                                             {/* Blue Line — ONLY inside the header */}
                                             <div
-                                                className={`absolute top-1/2  -translate-y-1/2 w-1.5 bg-blue-500  transition-all duration-300 ease-in-out ${isOpen
+                                                className={`absolute top-1/2  -translate-y-1/2 w-1.5 bg-[#009688]  transition-all duration-300 ease-in-out ${isOpen
                                                     ? "left-0 h-16 opacity-100"
                                                     : "-left-10 h-0 opacity-0 transition-all duration-800"
                                                     }`}
                                             ></div>
-                                            <h3 className={`text-2xl font-medium transition-colors duration-300 ${isOpen ? 'text-blue-500' : 'text-gray-700'}`}>Leason </h3>
-                                            {isOpen ? <FaChevronDown className='text-blue-600 transition-transform duration-300 transform rotate-180 ' /> : <FaChevronDown className='transition-transform duration-300 transform ' />}
+                                            <h3 className={`text-2xl font-medium transition-colors duration-300 ${isOpen ? 'text-[#00B8A9]' : 'text-gray-700'}`}>Leason </h3>
+                                            {isOpen ? <FaChevronDown className='text-[#009688] transition-transform duration-300 transform rotate-180 ' /> : <FaChevronDown className='transition-transform duration-300 transform ' />}
 
                                         </div>
 
@@ -84,9 +84,9 @@ const Overview = ({course}) => {
                                                     >
                                                         <div className='flex gap-2'>
                                                             <span className='my-auto'> <FaGooglePlay /> </span>
-                                                            <span className="text-lg  hover:text-red-500 duration-200 cursor-pointer">Lesson {lessonNum}.{item} Copy</span>
+                                                            <span className="text-lg  hover:text-[#00B8A9] duration-200 cursor-pointer">Lesson {lessonNum}.{item} Copy</span>
                                                         </div>
-                                                        <FaLock size={14} className="text-red-500" />
+                                                        <FaLock size={14} className="text-[#009688]" />
                                                     </div>
                                                 ))}
                                             </div>
@@ -100,7 +100,7 @@ const Overview = ({course}) => {
 
                     {/* Right Sidebar */}
                     <div className="bg-white rounded-2xl shadow-xl p-6 h-fit sticky top-16 ">
-                        <div className="text-3xl font-bold text-red-500 mb-4">{course.price}</div>
+                        <div className="text-3xl font-bold text-[#009688] mb-4">{course.price}</div>
                         <ul className=" text-gray-700 mb-6 divide-y divide-gray-200">
                             <li className="flex items-center justify-between py-3">
                                 <div className="flex items-center gap-2 text-gray-700">
@@ -154,14 +154,14 @@ const Overview = ({course}) => {
                         </ul>
 
                         <div className="mb-8 ">
-                            <p className="text-lg font-semibold mb-4">Secure Payment:</p>
+                            <p className="text-lg text-[#00B8A9] font-semibold mb-4">Secure Payment:</p>
                             <div className="flex">
                                 <img src="/courses/card.png" alt="Payment Methods" className="" />
                             </div>
                         </div>
 
-                        <button className=" bg-red-500 text-white py-4 px-7 rounded-md font-semibold transition duration-500
-                            border-2 border-transparent hover:bg-white hover:text-red-500 hover:border-red-500 cursor-pointer">
+                        <button className=" bg-[#00B8A9] text-white py-4 px-7 rounded-md font-semibold transition duration-500
+                            border-2 border-transparent hover:bg-[#009688] hover:border-[#009688] cursor-pointer">
                             Buy Now
                         </button>
                     </div>

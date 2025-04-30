@@ -1,9 +1,9 @@
 import React from 'react'
-import Hero from '../components/admission/Hero'
+import AdmissionForm from '../components/admission/AdmissionForm'
 
 const Admission = () => {
     return (
-        <div><Hero /></div>
+        <div><AdmissionForm /></div>
     )
 }
 

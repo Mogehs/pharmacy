@@ -8,14 +8,14 @@ export default function NewestProduct() {
             <div className=' relative'>
 
                 <div className='w-full sm:w-[70%] mx-auto '>
-                    <p className='w-[40%] sm:w-[40%] text-center text-xs bg-orange-400 p-2 text-white rounded-3xl'>
+                    <p className='w-[40%] sm:w-[40%] text-center text-xs sm:text-md bg-[#009688] p-2 text-white rounded-3xl'>
                         Get it now 45% OFF
                     </p>
 
                     <h1 className='text-md font-bold sm:text-xl'>
                         Save unto 10% extra enjoy FREE delivery with PLUS membership
                     </h1>
-                    <button className='h-[30px] w-[40%] sm:w-[40%] p-3 mt-2 flex items-center justify-center gap-2  cursor-pointer  rounded-3xl bg-orange-400 text-white'>
+                    <button className='h-[30px] w-[40%] sm:w-[30%] p-3 mt-2 flex items-center justify-center gap-2  cursor-pointer  rounded-3xl bg-[#009688]  text-white'>
                         <span className=' '>Show Now </span>
                         <span><FaArrowRight /></span>
                     </button>

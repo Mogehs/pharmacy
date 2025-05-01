@@ -45,8 +45,8 @@ export default function Category() {
             >
                 {category.map((cat, index) => (
                     <SwiperSlide key={index}>
-                        <div className="flex flex-col items-center justify-center bg-white rounded-lg shadow-md p-4 hover:bg-blue-100 transition duration-300">
-                            <div className="text-3xl mb-2 text-blue-700">{cat.icon}</div>
+                        <div className="flex cursor-pointer flex-col items-center justify-center bg-white rounded-lg shadow-md p-4 hover:bg-blue-100 transition duration-300">
+                            <div className="text-3xl mb-2 text-[#009688]">{cat.icon}</div>
                             <p className="text-sm font-medium text-center">{cat.title}</p>
                         </div>
                     </SwiperSlide>

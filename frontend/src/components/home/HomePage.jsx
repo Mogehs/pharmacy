@@ -7,6 +7,8 @@ import PopularCategory from './PopularCategory'
 import NewestProduct from './NewestProduct'
 import FeatureProduct from './FeatureProduct'
 import SpecialOffer from './SpecialOffer'
+import MoreLove from './MoreLove'
+import SuretyBox from './SuretyBox'
 
 const Hero = () => {
     return (
@@ -19,6 +21,9 @@ const Hero = () => {
             <NewestProduct/>
             <FeatureProduct/>
             <SpecialOffer/>
+            <MoreLove/>
+            <SuretyBox/>
+            <PopularCategory/>
         </div>
     )
 }

@@ -15,32 +15,32 @@ const items = [
     bg: bg1,
     medicine: medicine1,
     title: "Pyridoxine Vitamin B6",
-    color: "#d09f5f",
+    color: "#009688",
   },
   {
     bg: bg2,
     medicine: medicine2,
     title: "Ascorbic Acid Vitamin C",
-    color: "#ffa238",
+    color: "#009688",
   },
   {
     bg: bg4,
     medicine: medicine4,
     title: "Iron Supplement Tablets",
-    color: "#9c27b0",
+    color: "#009688",
   },
   {
     bg: bg5,
     medicine: medicine5,
     title: "Calcium Carbonate 600mg",
-    color: "#00bcd4",
+    color: "#009688",
   },
 ];
 
 export default function CapsuleImg() {
   return (
     <div className="w-full mx-auto sm:w-11/12 py-4 mb-4 flex flex-col sm:flex-row gap-4 items-center justify-between">
-      <div className="grid w-full sm:w-[60%] sm:grid-cols-2 grid-cols-1 gap-4">
+      <div className="grid w-full sm:w-[100%] lg:w-[60%] sm:grid-cols-2 grid-cols-1 gap-4">
         {items.map((item, index) => (
           <div
             key={index}
@@ -52,8 +52,10 @@ export default function CapsuleImg() {
               height: "300px",
             }}
           >
+
+            {/* for mobile device */}
             <div
-              className="md:w-[50%]  mx-5 flex justify-center items-center"
+              className="w-[50%]  mx-5 flex justify-center items-center"
               style={{
                 backgroundImage: `url(${item.medicine})`,
                 backgroundSize: "100% 100%",
@@ -61,9 +63,9 @@ export default function CapsuleImg() {
                 height: "80%",
               }}
             >
-              <div className="w-full sm:w-[50%] sm:hidden block">
-                <p className="text-gray-500">Get it now 45% OFF</p>
-                <h1 className="text-xl font-bold sm:text-2xl">{item.title}</h1>
+              <div className="w-full text-white rounded text-center h-full flex flex-col justify-center items-center bg-[#0096871d] sm:w-[50%] sm:hidden ">
+                <p className="text-[#fff]">Get it now 45% OFF</p>
+                <h1 className="text-lg font-bold sm:text-xl">{item.title}</h1>
                 <button
                   className="px-4 mt-2 cursor-pointer py-2 rounded-3xl"
                   style={{ backgroundColor: item.color }}
@@ -72,12 +74,14 @@ export default function CapsuleImg() {
                 </button>
               </div>
             </div>
+
+            {/* for large device */}
             <div className="w-full sm:w-[50%] sm:block hidden">
-              <p className="text-gray-500">Get it now 45% OFF</p>
-              <h1 className="text-xl font-bold sm:text-2xl">{item.title}</h1>
+              <p className="text-[#009688]">Get it now 45% OFF</p>
+              <h1 className="text-lg font-bold sm:text-xl">{item.title}</h1>
               <button
-                className="px-4 mt-2 cursor-pointer py-2 rounded-3xl"
-                style={{ backgroundColor: item.color }}
+                className="px-4 bg-[#009688] text-white mt-2 cursor-pointer py-2 rounded-3xl"
+                
               >
                 Buy Now
               </button>
@@ -86,8 +90,10 @@ export default function CapsuleImg() {
         ))}
       </div>
 
+
+        {/* its show only on lg device */}
       <div
-        className="w-full sm:w-[38%] flex justify-center items-center"
+        className="w-full sm:w-[38%] flex justify-center items-center md:hidden lg:flex"
         style={{
           background: `url(${bg3})`,
           backgroundSize: "100% 100%",
@@ -95,8 +101,10 @@ export default function CapsuleImg() {
           height: "300px",
         }}
       >
+
+        {/* show on small device  */}
         <div
-          className="w-[50%] mx-auto mt-4 flex justify-center items-end"
+          className="w-[70%] lg:w-[40%] mx-auto mt-4 flex justify-center items-end"
           style={{
             backgroundImage: `url(${medicine3})`,
             backgroundSize: "100% 100%",
@@ -104,28 +112,30 @@ export default function CapsuleImg() {
             height: "80%",
           }}
         >
-          <div className="w-full sm:w-[50%] sm:hidden block">
-            <p className="w-[80%] bg-orange-400 p-3 text-white rounded-3xl">
+          <div className="w-full text-white rounded text-center h-full flex flex-col justify-center items-center bg-[#0096871d] sm:w-[50%] sm:hidden ">
+            <p className="w-[80%] text-center mx-auto bg-[#009688] p-3 text-md text-white rounded-3xl">
               Get it now 45% OFF
             </p>
             <span>Pyridoxine Vitamin B6</span>
             <h1 className="text-xl font-bold sm:text-2xl">
               Pyridoxine Vitamin B6
             </h1>
-            <button className="px-4 mt-2 cursor-pointer py-2 rounded-3xl bg-[#ffa238] text-white">
+            <button className="px-4 mt-2 cursor-pointer py-2 rounded-3xl bg-[#009688] text-white">
               Buy Now
             </button>
           </div>
         </div>
+
+        {/* show on large device*/}
         <div className="w-full sm:w-[50%] sm:block hidden">
-          <p className="w-[80%] bg-orange-400 p-3 text-white rounded-3xl">
+          <p className="w-[90%] bg-[#009688] text-sm text-center p-3 text-white rounded-3xl">
             Get it now 45% OFF
           </p>
           <span>Pyridoxine Vitamin B6</span>
-          <h1 className="text-xl font-bold sm:text-2xl">
+          <h1 className="text-xl font-bold sm:text-xl">
             Pyridoxine Vitamin B6
           </h1>
-          <button className="px-4 mt-2 cursor-pointer py-2 rounded-3xl bg-[#ffa238] text-white">
+          <button className="px-4 mt-2 cursor-pointer py-2 rounded-3xl bg-[#009688] text-white">
             Buy Now
           </button>
         </div>

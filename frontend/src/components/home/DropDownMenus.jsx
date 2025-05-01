@@ -9,7 +9,7 @@ export default function DropDownMenus() {
     return (
         <div className="w-full sm:w-11/12 md:w-9/12 bg-white shadow-lg shadow-blue-100 mx-auto flex flex-col gap-4 items-center justify-center p-6 rounded-md">
 
-            <p className="font-semibold text-lg">Select Product</p>
+            <p className="font-semibold text-xl sm:text-3xl text-[#009688]">Select Product</p>
 
             <div className="flex flex-wrap gap-4 justify-center items-center w-full">
 
@@ -20,7 +20,7 @@ export default function DropDownMenus() {
                             setOpen1(!open1);
                             setOpen2(false);
                         }}
-                        className="w-full sm:w-auto text-black bg-blue-100 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-sm px-5 py-2.5 flex justify-between items-center"
+                        className="w-full sm:w-auto text-white bg-[#009688] focus:ring-2 focus:outline-none focus:ring-[#009688] font-medium rounded-3xl text-sm px-5 py-2.5 flex justify-between items-center"
                     >
                         {selected1}
                         <svg className="w-3 h-3 ml-2" viewBox="0 0 10 6" fill="none">
@@ -56,7 +56,7 @@ export default function DropDownMenus() {
                             setOpen2(!open2);
                             setOpen1(false);
                         }}
-                        className="w-full sm:w-auto text-black bg-blue-100 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-sm px-5 py-2.5 flex justify-between items-center"
+                        className="w-full sm:w-auto text-white bg-[#009688] focus:ring-2 focus:outline-none focus:ring-[#009688] font-medium rounded-3xl text-sm px-5 py-2.5 flex justify-between items-center"
                     >
                         {selected2}
                         <svg className="w-3 h-3 ml-2" viewBox="0 0 10 6" fill="none">
@@ -92,9 +92,9 @@ export default function DropDownMenus() {
                 <input
                     type="text"
                     placeholder="Enter SKU"
-                    className="w-full sm:w-auto rounded-3xl p-2 bg-blue-100 text-black focus:ring-2 focus:outline-none focus:ring-blue-300"
+                    className="w-full sm:w-auto text-white bg-[#009688] focus:ring-2 focus:outline-none focus:ring-[#009688] font-medium rounded-3xl text-sm px-5 py-2.5 flex justify-between items-center"
                 />
-                <button className="w-full sm:w-auto rounded-3xl p-2 bg-blue-700 text-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm px-5 py-2.5">
+                <button className="w-full sm:w-auto rounded-3xl p-2 bg-transparent text-black hover:bg-[#009688] hover:text-white transition-all ease-in delay-100 cursor-pointer border border-[#009688] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm px-5 py-2.5">
                     Show now
                 </button>
             </div>

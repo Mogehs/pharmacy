@@ -47,8 +47,8 @@ export default function PopularCategory() {
                 : 'lg:grid-cols-3'
 
     return (
-        <div className='mt-6 px-4'>
-            <h1 className='text-center font-bold text-3xl mb-5 txt-gd'>
+        <div className='mt-6 px-4 mb-4'>
+            <h1 className='text-center font-bold text-3xl mb-5 text-[#009688]'>
                 Popular Categories
             </h1>
 
@@ -57,7 +57,7 @@ export default function PopularCategory() {
                     <span
                         key={category}
                         onClick={() => setSelectedCategory(category)}
-                        className={`cursor-pointer text-white py-2 sm:py-3 px-5 rounded-3xl transition-all duration-300 ${selectedCategory === category ? 'bg-[#a8754d]' : 'bg-gray-400 hover:bg-[#a8754d]'
+                        className={`cursor-pointer text-black py-2 sm:py-3 px-5 rounded-3xl transition-all duration-300 ${selectedCategory === category ? 'bg-[#009688]' : 'bg-transparent border  hover:bg-[#009688] hover:text-white'
                             }`}
                     >
                         {category}
@@ -73,21 +73,21 @@ export default function PopularCategory() {
                     >
                         <img src={item.bg? item.bg:img} alt={item.title} className='rounded-md w-full object-cover h-36' />
                         <div className='absolute top-3 right-3 flex flex-col gap-3 opacity-0 group-hover:opacity-100 transition duration-300'>
-                            <FaHeart className='text-[#a8754d] text-xl hover:scale-110' />
-                            <TiArrowLoop className='text-[#a8754d] text-xl hover:scale-110' />
-                            <FaSearch className='text-[#a8754d] text-xl hover:scale-110' />
+                            <FaHeart className='text-[#009688] text-xl hover:scale-110' />
+                            <TiArrowLoop className='text-[#009688] text-xl hover:scale-110' />
+                            <FaSearch className='text-[#009688] text-xl hover:scale-110' />
                         </div>
 
                         <h2 className='font-bold text-lg mt-3'>{item.title}</h2>
                         <p className='text-sm text-gray-500'>{item.subtitle}</p>
-                        <div className='flex gap-1 mt-1'>
+                        <div className='flex justify-start items-center gap-1 mt-1'>
                             {[1, 2, 3].map(i => (
-                                <span key={i} className='text-yellow-500'>{item.icon}</span>
+                                <span key={i} className='text-[#009658]'>{item.icon}</span>
                             ))}
-                            <span className='text-[#a8754d] ml-1'>{item.id}</span>
+                            <span className='text-[#009688] ml-1'>{item.id}</span>
                         </div>
                         <p className='font-bold text-lg mt-2'>{item.price}</p>
-                        <div className='bg-[#a8744d41] rounded-3xl text-black py-2 px-2 w-[55%] sm:w-[80%] md:w-full mx-auto flex justify-center items-center mt-2 cursor-pointer gap-2 hover:bg-[#8c5f3c] hover:text-white transition'>
+                        <div className='bg-[#009688] rounded-3xl text-white py-2 px-2 w-[55%] sm:w-[80%] md:w-full mx-auto flex justify-center items-center mt-2 cursor-pointer gap-2 hover:bg-[#00968782] hover:text-white transition'>
                             <FaShoppingBag />
                             <button className='text-md'>Select options</button>
                         </div>

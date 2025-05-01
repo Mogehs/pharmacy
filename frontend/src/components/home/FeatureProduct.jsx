@@ -8,8 +8,7 @@ import spray from '../../../public/Home/spray.jpg'
 import ointment from '../../../public/Home/ointment.jpg'
 import oil from '../../../public/Home/oil.jpg'
 import wide from '../../../public/Home/wide.jpg'
-// import design from '../../../public/Home/design.jpg'
-// import medicine5 from '../../../public/Home/medicine5.png'
+
 export default function FeatureProduct() {
     const items = [
         { id: 1, category: 'Supplements', title: "Vitamin C 500mg", subtitle: 'Vitamins', price: '$16.00', icon: <FaStar />, bg: sup4 },
@@ -24,7 +23,7 @@ export default function FeatureProduct() {
 
     return (
         <div className='mt-6 mb-6 px-4'>
-            <h1 className='text-center font-bold text-3xl mb-8 txt-gd'>
+            <h1 className='text-center font-bold text-3xl mb-8 text-[#009688]'>
                 Featured Products
             </h1>
 
@@ -32,33 +31,34 @@ export default function FeatureProduct() {
                 {items.map((item) => (
                     <div
                         key={item.id}
-                        className="relative bg-white flex flex-col rounded-lg shadow-md overflow-hidden group hover:shadow-2xl transition-transform transform hover:scale-105 h-full"
+                        className="relative bg-white flex flex-col rounded-lg shadow-md overflow-hidden group hover:shadow-2xl transition-transform transform hover:scale-[1.03] h-full"
                     >
-                        {/* Image Section */}
+                        {/* Image */}
                         <div className="relative w-full aspect-[4/3] overflow-hidden">
                             <img src={item.bg} alt={item.title} className="object-cover w-full h-full" />
                             <div className="absolute top-3 right-3 flex flex-col gap-3 opacity-0 group-hover:opacity-100 transition duration-300">
-                                <FaHeart className="text-[#a8754d] text-xl hover:scale-110 cursor-pointer" />
-                                <TiArrowLoop className="text-[#a8754d] text-xl hover:scale-110 cursor-pointer" />
-                                <FaSearch className="text-[#a8754d] text-xl hover:scale-110 cursor-pointer" />
+                                <FaHeart className="text-[#009688] text-xl hover:scale-110 cursor-pointer" />
+                                <TiArrowLoop className="text-[#009688] text-xl hover:scale-110 cursor-pointer" />
+                                <FaSearch className="text-[#009688] text-xl hover:scale-110 cursor-pointer" />
                             </div>
                         </div>
 
-                        {/* Content Section */}
+                        {/* Content */}
                         <div className="flex flex-col justify-between flex-grow p-4">
                             <div>
                                 <h2 className="font-bold text-lg">{item.title}</h2>
                                 <p className="text-sm text-gray-500">{item.subtitle}</p>
                                 <div className="flex items-center gap-1 mt-2">
                                     {[1, 2, 3].map(i => (
-                                        <span key={i} className="text-yellow-500">{item.icon}</span>
+                                        <span key={i} className="text-[#009688]">{item.icon}</span>
                                     ))}
-                                    <span className="text-[#a8754d] ml-2">{item.id}</span>
+                                    <span className="text-[#009688] ml-2">{item.id}</span>
                                 </div>
                             </div>
+
                             <div className="mt-4">
                                 <p className="font-bold text-lg">{item.price}</p>
-                                <div className="mt-2 bg-[#a8744d41] hover:bg-[#8c5f3c] hover:text-white text-black rounded-3xl py-2 px-3 flex items-center justify-center gap-2 cursor-pointer transition">
+                                <div className="bg-[#009688] rounded-3xl text-white py-2 px-2 w-[55%] sm:w-[80%] md:w-full mx-auto flex justify-center items-center mt-2 cursor-pointer gap-2 hover:bg-[#00968782] hover:text-white transition">
                                     <FaShoppingBag />
                                     <button className="text-md">Select options</button>
                                 </div>

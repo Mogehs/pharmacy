@@ -1,29 +1,30 @@
-import React, { useState } from 'react';
-import AppointmentCalendar from './AppointmentCalendar';
+import React, { useState } from "react";
+import AppointmentCalendar from "./AppointmentCalendar";
 
 export default function ConsultationForm() {
   const [formData, setFormData] = useState({
-    guardianFirst: '',
-    guardianLast: '',
-    birthDate: '',
-    address: '',
-    email: '',
-    phone: '',
-    date: '',
+    guardianFirst: "",
+    guardianLast: "",
+    birthDate: "",
+    address: "",
+    email: "",
+    phone: "",
+    date: "",
     authorizations: [],
   });
 
   const options = [
-    'Routine medical care & treatment',
-    'Surgery',
-    'Emergency medical care & treatment',
-    'Hospitalization',
-    'Blood transfusions',
-    'Dental care & treatment',
+    "Routine medical care & treatment",
+    "Surgery",
+    "Emergency medical care & treatment",
+    "Hospitalization",
+    "Blood transfusions",
+    "Dental care & treatment",
   ];
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleCheckbox = (option) => {
@@ -37,36 +38,52 @@ export default function ConsultationForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const requiredFields = ['guardianFirst', 'guardianLast', 'birthDate', 'address', 'email', 'phone', 'date'];
-    const allTextFieldsFilled = requiredFields.every((key) => formData[key].trim() !== '');
+    const requiredFields = [
+      "guardianFirst",
+      "guardianLast",
+      "birthDate",
+      "address",
+      "email",
+      "phone",
+      "date",
+    ];
+    const allFieldsFilled = requiredFields.every(
+      (key) => formData[key].trim() !== ""
+    );
     const hasAuthorizations = formData.authorizations.length > 0;
 
-    if (!allTextFieldsFilled || !hasAuthorizations) {
-      alert('Please fill all fields and select at least one authorization.');
+    if (!allFieldsFilled || !hasAuthorizations) {
+      alert("Please fill all fields and select at least one authorization.");
       return;
     }
 
-    console.log('Form submitted:', formData);
+    console.log("Form submitted:", formData);
   };
 
   const calculateAge = (birthDate) => {
     const birth = new Date(birthDate);
     const today = new Date();
     let age = today.getFullYear() - birth.getFullYear();
-    const m = today.getMonth() - birth.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+    const monthDiff = today.getMonth() - birth.getMonth();
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birth.getDate())
+    ) {
       age--;
     }
     return age;
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-fit bg-gray-100 lg:p-6 md:p-4 p-1">
       <div className="flex flex-col lg:flex-row gap-6">
         <div className="w-full lg:w-2/3 bg-white shadow rounded p-6 space-y-8">
           <form onSubmit={handleSubmit}>
+            {/* Guardian Name */}
             <div>
-              <label className="block font-bold mb-1 text-[#00B8A9]">Patient's Name:</label>
+              <label className="block font-bold mb-1 text-[#00B8A9]">
+                Patient's Name:
+              </label>
               <div className="flex gap-4">
                 <input
                   name="guardianFirst"
@@ -85,8 +102,11 @@ export default function ConsultationForm() {
               </div>
             </div>
 
+            {/* Birth Date and Age */}
             <div>
-              <label className="block font-bold mb-1 text-[#00B8A9]">Birth Date:</label>
+              <label className="block font-bold mb-1 text-[#00B8A9]">
+                Birth Date:
+              </label>
               <input
                 name="birthDate"
                 type="date"
@@ -95,19 +115,25 @@ export default function ConsultationForm() {
                 className="w-full border border-[#00B8A9] rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#009688]"
               />
             </div>
-
             <div>
-              <label className="block font-bold mb-1 text-[#00B8A9]">Age:</label>
+              <label className="block font-bold mb-1 text-[#00B8A9]">
+                Age:
+              </label>
               <input
                 type="text"
                 readOnly
-                value={formData.birthDate ? calculateAge(formData.birthDate) : ''}
-                className="w-full border border-[#00B8A9] rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#009688]"
+                value={
+                  formData.birthDate ? calculateAge(formData.birthDate) : ""
+                }
+                className="w-full border border-[#00B8A9] rounded px-3 py-2 bg-gray-100 focus:outline-none"
               />
             </div>
 
+            {/* Address */}
             <div>
-              <label className="block font-bold mb-1 text-[#00B8A9]">Address:</label>
+              <label className="block font-bold mb-1 text-[#00B8A9]">
+                Address:
+              </label>
               <input
                 name="address"
                 placeholder="Street, City, State"
@@ -117,9 +143,12 @@ export default function ConsultationForm() {
               />
             </div>
 
+            {/* Email and Phone */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block font-bold mb-1 text-[#00B8A9]">Email Address:</label>
+                <label className="block font-bold mb-1 text-[#00B8A9]">
+                  Email Address:
+                </label>
                 <input
                   type="email"
                   name="email"
@@ -129,7 +158,9 @@ export default function ConsultationForm() {
                 />
               </div>
               <div>
-                <label className="block font-bold mb-1 text-[#00B8A9]">Phone Number:</label>
+                <label className="block font-bold mb-1 text-[#00B8A9]">
+                  Phone Number:
+                </label>
                 <input
                   type="tel"
                   name="phone"
@@ -140,12 +171,15 @@ export default function ConsultationForm() {
               </div>
             </div>
 
+            {/* Authorization Checkboxes */}
             <div>
-              <label className="block font-bold mb-2 text-[#00B8A9]">Authorization applies to:</label>
+              <label className="block font-bold mb-2 text-[#00B8A9]">
+                Authorization applies to:
+              </label>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                {options.map((option, index) => (
+                {options.map((option) => (
                   <label
-                    key={index}
+                    key={option}
                     className="flex items-center gap-2 border border-[#00B8A9] rounded px-3 py-2 cursor-pointer"
                   >
                     <input
@@ -153,23 +187,27 @@ export default function ConsultationForm() {
                       checked={formData.authorizations.includes(option)}
                       onChange={() => handleCheckbox(option)}
                     />
-                    <span className="text-nowrap md:text-wrap text-sm">{option}</span>
+                    <span className="text-sm">{option}</span>
                   </label>
                 ))}
               </div>
             </div>
 
+            {/* Appointment Date */}
             <div>
-              <label className="block font-bold mb-1 text-[#00B8A9]">Appointment Date:</label>
+              <label className="block font-bold mb-1 text-[#00B8A9]">
+                Appointment Date:
+              </label>
               <input
                 name="date"
                 type="date"
                 value={formData.date}
-                readOnly
+                onChange={handleChange}
                 className="w-full border border-[#00B8A9] rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#009688]"
               />
             </div>
 
+            {/* Submit */}
             <button
               type="submit"
               className="hover:bg-[#009688] bg-[#00B8A9] text-white font-semibold px-6 py-2 rounded cursor-pointer mt-5 transition-all duration-600 ease-in-out"
@@ -179,7 +217,8 @@ export default function ConsultationForm() {
           </form>
         </div>
 
-        <div className="w-full lg:w-2/3 bg-white">
+        {/* Calendar */}
+        <div className="w-full h-fit lg:w-2/3 bg-white ">
           <AppointmentCalendar
             selectedDate={formData.date}
             onDateSelect={(selectedDate) =>

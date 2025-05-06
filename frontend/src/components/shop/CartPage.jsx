@@ -1,183 +1,303 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { removeFromCart, updateQuantity } from "../features/shop/CartSlice";
-import { useNavigate } from "react-router-dom";
-import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
-import { FaArrowLeftLong } from "react-icons/fa6";
-import { increaseProductStock } from "../features/shop/ShopSlice.js";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  useGetCartQuery,
+  useUpdateCartMutation,
+  useRemoveFromCartMutation,
+  useClearCartMutation,
+} from "../features/cartApi";
+import { useSelector } from "react-redux";
+import { useCreateCheckoutSessionMutation } from "../features/stripeApi";
+import { toast } from "react-toastify";
 
 const CartPage = () => {
-  // Get cart items from the Redux store, defaulting to an empty array if undefined
-  const cartItems = useSelector((state) => state.cart.cartItems || []);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const { data: cartItems } = useGetCartQuery();
+  const user = useSelector((state) => state.user.user);
+  const [updateCartItem] = useUpdateCartMutation();
+  const [removeCartItem] = useRemoveFromCartMutation();
+  const [clearCartMutation] = useClearCartMutation();
+  const [createCheckoutSession] = useCreateCheckoutSessionMutation();
+  const [shippingAddress, setShippingAddress] = useState({
+    address: user?.address || "",
+    address2: "",
+    city: "",
+    postalCode: "",
+  });
+  const userId = user?._id;
+  const [checkLoad, setCheckLoad] = useState(false);
 
-  const products = useSelector((state) => state.shop.filteredProducts);
-
-  const handleQuantityChange = (id, qty) => {
-    const product = products.find((p) => p.id === id); // Find the product
-    const cartItem = cartItems.find((item) => item.id === id); // Find the cart item
-
-    if (!product || !cartItem) return; // If no product or cart item found, exit
-    const maxQuantity = cartItem.stock;
-
-    if (qty < 1) return; // Prevent less than 1
-    if (qty > maxQuantity) return; // Prevent exceeding available + cart quantity
-
-    dispatch(updateQuantity({ id, quantity: qty }));
-  };
-
-  const handleRemove = (id) => {
-    dispatch(removeFromCart(id));
-    dispatch(increaseProductStock(id));
-  };
-
-  // Calculate the total price, using reduce with a fallback for empty cart
-  const total = cartItems.reduce(
-    (acc, item) => acc + item.price * item.quantity,
+  const totalPrice = cartItems?.products?.reduce(
+    (acc, item) => acc + item?.productId?.price * item.quantity,
     0
   );
 
+  const handleIncrement = (item) => {
+    updateCartItem({ id: item._id, quantity: item.quantity + 1 });
+  };
+
+  const handleDecrement = (item) => {
+    if (item.quantity > 1) {
+      updateCartItem({ id: item._id, quantity: item.quantity - 1 });
+    }
+  };
+
+  const handleRemoveFromCart = (item) => {
+    removeCartItem(item._id);
+  };
+
+  const handleClearCart = () => {
+    clearCartMutation();
+  };
+
+  const handleAddressChange = (e) => {
+    const { name, value } = e.target;
+    setShippingAddress((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleCheckout = async () => {
+    const { address, city, postalCode } = shippingAddress;
+
+    if (!address.trim() || !city.trim() || !postalCode.trim()) {
+      toast.error("Please fill in all required shipping address fields.");
+      return;
+    }
+
+    try {
+      setCheckLoad(true);
+      const items = cartItems.products.map((item) => ({
+        productId: item?.productId?._id,
+        quantity: item?.quantity,
+        productName: item?.productId?.name,
+        price: item?.productId?.price,
+        image: item?.productId?.image,
+      }));
+
+      const { data } = await createCheckoutSession({
+        userId,
+        items,
+        shippingAddress,
+      });
+
+      if (data?.url) {
+        window.location.href = data.url;
+      }
+    } catch (err) {
+      console.error("Checkout error:", err);
+    } finally {
+      setCheckLoad(false);
+    }
+  };
+
+  if (cartItems == null || cartItems?.products?.length === 0) {
+    return (
+      <div className="flex flex-col justify-center items-center mt-10 h-[100dvh] px-4">
+        <div className="text-6xl mb-6 animate-bounce text-[#ff9800]">🛒</div>
+        <h2 className="text-4xl font-bold mb-4 font-fredoka text-dark-color text-center">
+          Your Cart is Empty
+        </h2>
+        <p className="text-lg text-medium-color mb-6 text-center max-w-md">
+          Looks like you haven't added anything to your cart yet. Browse our
+          collection and add your favorite items to get started.
+        </p>
+        <Link
+          to="/home"
+          className="bg-medium-color text-white px-8 py-4 rounded-md hover:bg-dark-color transition-all font-fredoka text-lg mt-6"
+        >
+          ⤺ Return to Home
+        </Link>
+        <p className="text-sm text-gray-400 mt-4">
+          Need help? Contact our customer support.
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <>
-      <div className="w-full min-h-screen bg-[#E8F6F3] text-[#2E3A59]">
-        <div className="w-[90vw] mx-auto flex flex-col lg:flex-row justify-around py-10 gap-8">
-          {/* Cart Section */}
-          <div className="w-full lg:w-[70%] p-6 bg-white text-[#2E3A59] rounded-lg shadow-md">
-            <div className="flex justify-between items-center pb-6 border-b border-[#00B8A9]">
-              <h1 className="text-3xl font-bold text-[#00B8A9]">
-                Shopping Cart
-              </h1>
-              <span className="text-lg font-medium">
-                {cartItems.length} items
-              </span>
-            </div>
-
-            {cartItems.length === 0 ? (
-              <p className="text-gray-500 mt-4">Your cart is empty.</p>
-            ) : (
-              <>
-                {cartItems.map((item) => (
-                  <div
-                    key={item.id}
-                    className="flex flex-col sm:flex-row justify-between items-center py-4 border-b border-gray-200"
-                  >
-                    <div className="flex items-center gap-4 flex-1">
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-20 h-20 object-cover rounded-md"
-                      />
-                      <div className="flex flex-col">
-                        <h3 className="font-semibold">{item.title}</h3>
-                        <p className="text-sm text-gray-600">
-                          ${item.price.toFixed(2)}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-3 sm:flex-row flex-col">
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={() =>
-                            handleQuantityChange(item.id, item.quantity - 1)
-                          }
-                          disabled={item.quantity <= 1}
-                          className="text-2xl text-[#00B8A9] disabled:opacity-30"
-                        >
-                          <CiCircleMinus />
-                        </button>
-
-                        <input
-                          type="number"
-                          value={item.quantity}
-                          min="1"
-                          onChange={(e) =>
-                            handleQuantityChange(
-                              item.id,
-                              parseInt(e.target.value)
-                            )
-                          }
-                          className="w-16 px-2 py-1 border border-gray-300 rounded text-center"
+    <div>
+      <div className={`px-4 sm:px-6 md:px-20 min-h-screen mt-10`}>
+        <div className="flex flex-col lg:flex-row gap-10">
+          <div className="flex-1 overflow-x-auto">
+            <div className="w-full overflow-auto">
+              <table className="min-w-[600px] w-full shadow-md rounded overflow-hidden">
+                <thead className="bg-light-color text-sm uppercase text-dark-color hidden sm:table-header-group">
+                  <tr>
+                    <th className="text-left p-4 w-30">Product</th>
+                    <th className="text-left p-4 w-30">Price</th>
+                    <th className="text-left p-4 w-30">Quantity</th>
+                    <th className="text-left p-4 w-30">Remove</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {cartItems?.products?.map((item) => (
+                    <tr
+                      key={item.id}
+                      className="border-b border-dark-color sm:table-row flex flex-col sm:flex-row gap-2 p-4 sm:p-0"
+                    >
+                      <td className="p-0 sm:p-4 flex items-center gap-4">
+                        <img
+                          src={item?.productId?.image}
+                          alt={item.title}
+                          className="w-16 h-16 object-cover border rounded"
                         />
-
+                        <span className="text-sm font-medium">
+                          {item.title}
+                        </span>
+                      </td>
+                      <td className="p-0 sm:p-4">
+                        <span className="sm:hidden text-dark-color block text-xs mb-1">
+                          Price
+                        </span>
+                        ${item?.productId?.price}
+                      </td>
+                      <td className="p-0 sm:p-4">
+                        <span className="sm:hidden text-dark-color block text-xs mb-1">
+                          Quantity
+                        </span>
+                        <div className="flex items-center border rounded px-3 py-1 w-max bg-light-color">
+                          <button
+                            onClick={() => handleDecrement(item)}
+                            className="px-2 font-bold text-lg"
+                          >
+                            −
+                          </button>
+                          <span className="px-3 w-10 text-center">
+                            {item.quantity}
+                          </span>
+                          <button
+                            onClick={() => handleIncrement(item)}
+                            className="px-2 font-bold text-lg"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </td>
+                      <td className="p-0 sm:p-4">
+                        <span className="sm:hidden text-dark-color block text-xs mb-1">
+                          Remove
+                        </span>
                         <button
-                          onClick={() =>
-                            handleQuantityChange(item.id, item.quantity + 1)
-                          }
-                          disabled={item.quantity >= item.stock}
-                          className="text-2xl text-[#00B8A9] disabled:opacity-30"
+                          onClick={() => handleRemoveFromCart(item)}
+                          className="text-dark-color hover:text-medium-color transition-all text-xl border-dark-color"
                         >
-                          <CiCirclePlus />
+                          × Remove
                         </button>
-                      </div>
-
-                      <button
-                        onClick={() => handleRemove(item.id)}
-                        className="text-[#FF6B6B] text-sm font-semibold mt-2 sm:mt-0"
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </>
-            )}
-
-            <div
-              onClick={() => navigate("/products")}
-              className="flex items-center mt-6 gap-2 font-semibold cursor-pointer text-[#00B8A9] hover:text-[#0C2D48]"
-            >
-              <FaArrowLeftLong />
-              <span>Back to Shop</span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-          </div>
 
-          {/* Summary Section */}
-          <div className="w-full lg:w-[30%] p-6 bg-white text-[#2E3A59] rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-4 border-b pb-4 border-[#00B8A9]">
-              Summary
-            </h2>
-
-            <div className="space-y-6">
-              <div>
-                <label className="block text-lg font-medium mb-2">
-                  Shipping
-                </label>
-                <select className="w-full border border-gray-300 px-3 py-2 rounded bg-white outline-none">
-                  <option value="" disabled hidden>
-                    Standard Delivery
-                  </option>
-                  <option value="5">Standard $5</option>
-                  <option value="2">2 Days</option>
-                  <option value="3">3 Days</option>
-                  <option value="4">4 Days</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-lg font-medium mb-2">
-                  Address
-                </label>
-                <textarea
-                  className="w-full border border-gray-300 px-3 py-2 rounded outline-none"
-                  placeholder="Enter your address"
-                />
-              </div>
-
-              <div className="flex justify-between text-lg font-semibold">
-                <span>Total</span>
-                <span>${total.toFixed(2)}</span>
-              </div>
-
-              <button className="w-full bg-[#00B8A9] text-white py-3 font-bold rounded hover:bg-[#009688] transition duration-200">
-                Checkout
+            <div className="mt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+              <button
+                onClick={handleClearCart}
+                className="border border-dark-color px-6 py-2 rounded hover:bg-light-color w-full md:w-auto transition-all"
+              >
+                Clear Cart
               </button>
             </div>
           </div>
+
+          <div className="w-full lg:w-96 p-8 rounded shadow-md space-y-6 ">
+            <div>
+              <div className="flex justify-between text-lg font-medium">
+                <span>Subtotal</span>
+                <span>${totalPrice}</span>
+              </div>
+              <hr className="my-3" />
+            </div>
+
+            <div>
+              <h4 className="text-sm font-semibold mb-3">Shipping Address</h4>
+              <form className="space-y-4 text-sm">
+                {/* Shipping Address Input Fields */}
+                <div>
+                  <label htmlFor="address" className="block mb-2">
+                    Address Line 1
+                  </label>
+                  <input
+                    id="address"
+                    type="text"
+                    name="address"
+                    value={shippingAddress.address}
+                    onChange={handleAddressChange}
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                    placeholder="Enter address"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="address2" className="block mb-2">
+                    Address Line 2 (optional)
+                  </label>
+                  <input
+                    id="address2"
+                    type="text"
+                    name="address2"
+                    value={shippingAddress.address2}
+                    onChange={handleAddressChange}
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                    placeholder="Apt, suite, unit, etc. (optional)"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="city" className="block mb-2">
+                      City
+                    </label>
+                    <input
+                      id="city"
+                      type="text"
+                      name="city"
+                      value={shippingAddress.city}
+                      onChange={handleAddressChange}
+                      className="w-full p-2 border border-gray-300 rounded-md"
+                      placeholder="Enter city"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="postalCode" className="block mb-2">
+                      Postal Code
+                    </label>
+                    <input
+                      id="postalCode"
+                      type="text"
+                      name="postalCode"
+                      value={shippingAddress.postalCode}
+                      onChange={handleAddressChange}
+                      className="w-full p-2 border border-gray-300 rounded-md"
+                      placeholder="Enter postal code"
+                      required
+                    />
+                  </div>
+                </div>
+              </form>
+              <hr className="my-4" />
+            </div>
+
+            <div className="flex justify-between items-center text-lg font-semibold">
+              <span>Total</span>
+              <span>${totalPrice}</span>
+            </div>
+
+            <button
+              onClick={handleCheckout}
+              className="w-full bg-[#00B8A9] text-white py-3 rounded hover:bg-medium-color text-sm font-semibold tracking-wide transition-all"
+              disabled={checkLoad}
+            >
+              {checkLoad ? <p>Proceeding...</p> : <p>Proceed to Checkout</p>}
+            </button>
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -14,11 +14,14 @@ import storage from "redux-persist/lib/storage";
 import shopReducer from "../components/features/shop/CartSlice";
 import cartReducer from "../components/features/shop/CartSlice";
 import userReducer from "../components/features/userSlice";
+import productReducer from "../components/features/productSlice";
 
 import { productsApi } from "../components/features/productsApi";
 import { orderApi } from "../components/features/ordersApi";
 import { userApi } from "../components/features/userApi";
 import { courseApi } from "../components/features/courseApi";
+import { cartApi } from "../components/features/cartApi";
+import { stripeApi } from "../components/features/stripeApi";
 
 // Load cart from localStorage
 const loadCartFromLocalStorage = () => {
@@ -45,11 +48,14 @@ const rootReducer = combineReducers({
   shop: shopReducer,
   cart: cartReducer,
   user: userReducer,
+  product: productReducer,
 
   [productsApi.reducerPath]: productsApi.reducer,
   [orderApi.reducerPath]: orderApi.reducer,
   [courseApi.reducerPath]: courseApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
+  [cartApi.reducerPath]: cartApi.reducer,
+  [stripeApi.reducerPath]: stripeApi.reducer,
 });
 
 const persistConfig = {
@@ -74,7 +80,9 @@ const store = configureStore({
       productsApi.middleware,
       orderApi.middleware,
       userApi.middleware,
-      courseApi.middleware
+      courseApi.middleware,
+      cartApi.middleware,
+      stripeApi.middleware
     ),
 });
 

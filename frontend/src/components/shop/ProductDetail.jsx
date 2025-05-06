@@ -1,146 +1,127 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../features/shop/CartSlice";
-
-import { CiYoutube } from "react-icons/ci";
-import { FaFacebookF, FaLinkedinIn, FaWhatsapp } from "react-icons/fa";
-import { FaTelegramPlane } from "react-icons/fa";
-import { IoIosCheckmark } from "react-icons/io";
-import StarRating from "./StarRating";
+import { Heart, ShoppingCart, Loader2 } from "lucide-react";
+import { FaShippingFast, FaShieldAlt, FaGift, FaUndo } from "react-icons/fa";
+import { toast } from "react-toastify";
+import { useGetProductsQuery } from "../features/productsApi";
+import { useAddToCartMutation } from "../features/cartApi";
 import RelatedProductsCarousel from "./RelatedProductCarousal";
-import { decreaseProductStock } from "../features/shop/ShopSlice";
 
-const ProductDetail = () => {
-  const dispatch = useDispatch();
+const CartPage = () => {
   const { id } = useParams();
-  const products = useSelector((state) => state.shop.filteredProducts);
-  const product = products.find((p) => p.id.toString() === id);
+  const { data: products, isLoading, isError } = useGetProductsQuery();
+  const [addToCart, { isLoading: isAddingToCart }] = useAddToCartMutation();
+  const [product, setProduct] = useState(null);
+  const [mainImage, setMainImage] = useState("");
+  const [qty] = useState(1);
 
-  const handleAddToCart = (product) => {
-    if (product.stock > 0) {
-      dispatch(addToCart(product));
-      dispatch(decreaseProductStock(product.id));
-    } else {
-      alert("Out of Stock!");
+  useEffect(() => {
+    if (products && id) {
+      const foundProduct = products.find((p) => p._id.toString() === id);
+      if (foundProduct) {
+        setProduct(foundProduct);
+        setMainImage(foundProduct.image);
+      }
+    }
+  }, [products, id]);
+
+  if (isLoading) return <div className="p-8 text-center">Loading...</div>;
+  if (isError || !product)
+    return <div className="p-8 text-center">Product not found!</div>;
+
+  const handleAddToCart = async () => {
+    try {
+      const response = await addToCart({
+        productId: id,
+        quantity: qty,
+      }).unwrap();
+      if (
+        response?.products?.length >= 0 ||
+        response?.message === "Product added to cart"
+      ) {
+        toast.success("Product added to cart successfully");
+      } else {
+        toast.warning("Something went wrong. Try again.");
+      }
+    } catch (error) {
+      console.error("Add to Cart Error:", error);
+      toast.error(error?.data?.message || "Failed to add product to cart");
     }
   };
 
-  if (!product) {
-    return (
-      <div className="p-6 text-center text-red-500 font-semibold">
-        Product not found.
-      </div>
-    );
-  }
-
   return (
-    <div className="flex justify-center flex-wrap gap-4 p-6">
-      {/* Left Image Section */}
-      <div className="w-full md:w-[63%] space-y-4">
-        {/* Image Wrapper */}
-        <div className="relative w-full h-[300px] sm:h-[400px] overflow-hidden rounded-xl shadow-lg group">
-          <img
-            src={product.image}
-            alt={product.title}
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-          {/* Optional overlay (for caption or contrast) */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent rounded-xl"></div>
-        </div>
-
-        {/* Description */}
-        <p className="text-gray-700 leading-relaxed text-sm sm:text-base md:text-lg px-1">
-          {product.description}
-        </p>
-      </div>
-
-      {/* Right Details Section */}
-      <div className="w-full md:w-[35%] p-3">
-        <div className="flex flex-col gap-3 border-b border-[#00B8A9] py-4">
-          <h1 className="text-[#00B8A9] text-2xl font-bold">{product.title}</h1>
-          <div className="flex items-center gap-2">
-            <StarRating rating={product.rating} />
-            <span className="text-sm text-gray-600">
-              ({product.numReviews} customer reviews)
-            </span>
+    <div className="p-4 sm:p-6 max-w-7xl mx-auto text-dark-color">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 my-10">
+        {/* Product Images */}
+        <div>
+          <div className="mb-10">
+            <img
+              src={mainImage}
+              alt={product.title}
+              className="w-full h-[300px] sm:h-[400px] md:h-[335px] object-cover rounded-xl"
+            />
+          </div>
+          <div className="flex gap-3 overflow-x-auto pb-2 sm:justify-start justify-center">
+            {product?.images?.map((item, idx) => (
+              <img
+                key={idx}
+                src={item}
+                alt={item.title}
+                onClick={() => setMainImage(item)}
+                className="min-w-[60px] sm:min-w-[80px] h-16 sm:h-18 object-contain border rounded-md cursor-pointer hover:scale-105 hover:border-medium-color transition-transform duration-200 shadow-md"
+              />
+            ))}
           </div>
         </div>
 
-        <div className="border-b border-[#00B8A9] py-4">
-          <ul className="flex flex-col gap-3 text-gray-700">
-            <li className="flex items-center gap-2">
-              <IoIosCheckmark /> Original Quality
-            </li>
-            <li className="flex items-center gap-2">
-              <IoIosCheckmark /> Fast Delivery
-            </li>
-            <li className="flex items-center gap-2">
-              <IoIosCheckmark /> Secure Packaging
-            </li>
-          </ul>
-        </div>
+        {/* Product Details */}
+        <div>
+          <h1 className="text-2xl font-bold mb-2">{product.name}</h1>
+          <p className="text-gray-600 my-4 h-fit">{product.description}</p>
+          <hr className="mb-4" />
+          <p className="text-2xl text-medium-color font-bold mb-4">
+            ${product.price}
+          </p>
 
-        <div className="flex flex-col gap-5 py-4 border-b border-[#00B8A9]">
-          <h1 className="text-2xl font-bold text-primary-color">
-            ₹ {product.price}
-          </h1>
-
-          <div className="w-full flex flex-col gap-2 p-3 rounded-sm">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6 w-full">
             <button
-              onClick={() => handleAddToCart(product)}
-              disabled={product.stock === 0}
-              className={`px-4 text-sm py-2 cursor-pointer border border-[#00B8A9] 
-    ${
-      product.stock === 0
-        ? "bg-gray-400 cursor-not-allowed"
-        : "hover:text-[#fff] hover:bg-[#009688] bg-[#00B8A9] text-white"
-    } 
-    rounded-full transition-all duration-600 ease-in-out mt-4`}
+              onClick={handleAddToCart}
+              disabled={isAddingToCart}
+              className={`${
+                isAddingToCart ? "opacity-70 cursor-not-allowed" : ""
+              } bg-[#00B8A9] hover:bg-medium-color text-white py-2 px-6 rounded flex items-center justify-center gap-2 w-full sm:w-[200px] md:w-[250px] lg:w-[300px] xl:w-[350px] transition-all duration-300`}
             >
-              {product.stock === 0 ? "Out of Stock" : "Add to Cart"}
+              {isAddingToCart ? (
+                <>
+                  <Loader2 className="animate-spin" size={18} />
+                  Adding...
+                </>
+              ) : (
+                <>
+                  <ShoppingCart size={18} /> ADD TO CART
+                </>
+              )}
+            </button>
+            <button className="border p-2 rounded hover:bg-light-color w-full sm:w-12 md:w-16 lg:w-20 h-10 flex items-center justify-center transition-all duration-300">
+              <Heart size={20} />
             </button>
           </div>
 
-          <p className="text-red-600 font-medium">
-            {product.stock > 0 ? `In Stock (${product.stock})` : "Out of Stock"}
-          </p>
-        </div>
-
-        {/* Info Tags */}
-        <div className="border-b py-3 border-[#00B8A9] text-sm">
-          <ul className="flex flex-col gap-1">
-            <li>
-              <span className="text-blue-900 font-semibold">SKU:</span> #
-              {product.id}
-            </li>
-            <li>
-              <span className="text-blue-900 font-semibold">Category:</span>{" "}
-              {product.category}
-            </li>
-            <li>
-              <span className="text-blue-900 font-semibold">Tag:</span> Health
-            </li>
-          </ul>
-        </div>
-
-        {/* Social Media */}
-        <div className="flex flex-wrap gap-4 py-5">
-          <span className="px-2 py-2 text-blue-500 bg-gray-200 rounded-full cursor-pointer">
-            <FaFacebookF />
-          </span>
-          <span className="px-2 py-2 text-blue-500 bg-gray-200 rounded-full cursor-pointer">
-            <FaLinkedinIn />
-          </span>
-          <span className="px-2 py-2 text-green-700 bg-gray-200 rounded-full cursor-pointer">
-            <FaWhatsapp />
-          </span>
-          <span className="px-2 py-2 text-blue-600 bg-gray-200 rounded-full cursor-pointer">
-            <FaTelegramPlane />
-          </span>
-          <span className="px-2 py-2 text-red-500 bg-gray-200 rounded-full cursor-pointer">
-            <CiYoutube />
-          </span>
+          <div className="border border-dashed p-4 rounded-md grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-dark-color bg-white shadow-sm mt-10">
+            <p className="flex items-center gap-2">
+              <FaShippingFast size={20} /> Free home delivery on orders above
+              Rs.999
+            </p>
+            <p className="flex items-center gap-2">
+              <FaShieldAlt size={20} /> 100% genuine and verified medicines
+            </p>
+            <p className="flex items-center gap-2">
+              <FaGift size={20} /> Exclusive discounts for registered patients
+            </p>
+            <p className="flex items-center gap-2">
+              <FaUndo size={20} /> Hassle-free return on damaged products
+            </p>
+          </div>
         </div>
       </div>
       <RelatedProductsCarousel />
@@ -148,4 +129,4 @@ const ProductDetail = () => {
   );
 };
 
-export default ProductDetail;
+export default CartPage;

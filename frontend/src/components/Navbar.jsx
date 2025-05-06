@@ -10,9 +10,11 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectUniqueCategories } from "../components/features/shop/ShopSelector";
-import { setCategory } from "../components/features/shop/ShopSlice";
 import { useLogoutUserMutation } from "./features/userApi";
 import { setUser } from "./features/userSlice";
+import { useGetProductsQuery } from "./features/productsApi";
+import { setCategory } from "./features/productSlice";
+import { useGetCartQuery } from "./features/cartApi";
 
 const others = [
   { id: 1, name: "Courses", link: "/courses" },
@@ -20,14 +22,17 @@ const others = [
 ];
 
 const Navbar = () => {
+  const { data: products = [] } = useGetProductsQuery();
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [productDropdown, setProductDropdown] = useState(false);
   const [otherDropdown, setOtherDropdown] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Replace with actual auth logic
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const user = useSelector((state) => state.user.user);
   const [logoutUser] = useLogoutUserMutation();
 
-  const cartItems = useSelector((state) => state.cart.cartItems || []);
+  const { data: cart = [] } = useGetCartQuery();
+  const cartItems = cart?.products;
   const dispatch = useDispatch();
   const categories = useSelector(selectUniqueCategories);
 
@@ -98,19 +103,17 @@ const Navbar = () => {
                 ref={productDropdownRef}
                 className="absolute top-8 left-0 bg-white shadow-lg rounded-md w-56 py-2 z-50 overflow-y-auto h-[50vh] space-y-1 px-2 scrollbar-thin scrollbar-thumb-[#a8754d] scrollbar-track-gray-100 hover:scrollbar-thumb-[#925f3c]"
               >
-                {categories.map((category) => (
-                  <li key={category}>
+                {products.map((item) => (
+                  <li key={item}>
                     <Link
                       to="/products"
                       onClick={() => {
-                        dispatch(
-                          setCategory(category === "All" ? "" : category)
-                        );
+                        dispatch(setCategory(item.category));
                         setProductDropdown(false);
                       }}
                       className="block px-4 py-2 hover:text-[#009688] text-[#00B8A9]"
                     >
-                      {category}
+                      {item.category}
                     </Link>
                   </li>
                 ))}
@@ -166,9 +169,9 @@ const Navbar = () => {
             className="relative hover:text-[#009688] text-[#00B8A9] text-2xl"
           >
             <FaShoppingCart />
-            {cartItems.length > 0 && (
+            {cartItems?.length > 0 && (
               <span className="absolute -top-2 -right-2 bg-[#00B8A9] text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-bounce">
-                {cartItems.length}
+                {cartItems?.length}
               </span>
             )}
           </Link>
@@ -301,7 +304,7 @@ const Navbar = () => {
             onClick={() => setMenuOpen(false)}
             className="block text-[#00B8A9] hover:text-[#009688]"
           >
-            Cart ({cartItems.length})
+            Cart ({cartItems?.length})
           </Link>
 
           <Link to="/appointments" onClick={() => setMenuOpen(false)}>

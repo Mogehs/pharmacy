@@ -1,12 +1,12 @@
-import React from 'react'
-import Shopnav from '../components/shop/Shopnav'
+import React from "react";
+import Shopnav from "../components/shop/Shopnav";
 
 const Shop = () => {
-    return (
-        <div>
-            <Shopnav />
-        </div>
-    )
-}
+  return (
+    <div>
+      <Shopnav />
+    </div>
+  );
+};
 
-export default Shop
+export default Shop;

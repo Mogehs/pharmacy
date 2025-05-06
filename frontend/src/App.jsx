@@ -30,12 +30,13 @@ import ProductDetail from "./components/shop/ProductDetail";
 import Courses from "./components/Dashboard/Courses";
 import Students from "./components/Dashboard/Students";
 
-import ViewCard from "./components/shop/testing/ViewCard";
 import ScrollToTop from "./utils/ScrollToTop";
 import Admission from "./pages/Admission";
+import { ToastContainer } from "react-toastify";
 
 const MainLayout = () => (
   <div className="lg:mx-auto lg:max-w-[1536px]">
+    <ToastContainer></ToastContainer>
     <ScrollToTop />
     <Navbar />
     <Outlet />
@@ -65,7 +66,7 @@ const router = createBrowserRouter([
   { path: "/login", element: <Login /> },
   { path: "/sign-up", element: <Signup /> },
   { path: "/verify-otp", element: <OTPForm /> },
-  { path: "/user-verification", element: <VerifyUser /> },
+  { path: "/user-verification/:id", element: <VerifyUser /> },
   { path: "/update-password", element: <UpdatePassword /> },
   { path: "/forgot-password", element: <ForgotPassword /> },
 

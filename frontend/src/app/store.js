@@ -11,12 +11,14 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-// Reducers
 import shopReducer from "../components/features/shop/CartSlice";
 import cartReducer from "../components/features/shop/CartSlice";
+import userReducer from "../components/features/userSlice";
 
-// RTK Query
 import { productsApi } from "../components/features/productsApi";
+import { orderApi } from "../components/features/ordersApi";
+import { userApi } from "../components/features/userApi";
+import { courseApi } from "../components/features/courseApi";
 
 // Load cart from localStorage
 const loadCartFromLocalStorage = () => {
@@ -30,7 +32,6 @@ const loadCartFromLocalStorage = () => {
   }
 };
 
-// Save cart to localStorage
 const saveCartToLocalStorage = (state) => {
   try {
     const serializedCart = JSON.stringify(state.cart);
@@ -40,42 +41,46 @@ const saveCartToLocalStorage = (state) => {
   }
 };
 
-// Root Reducer
 const rootReducer = combineReducers({
   shop: shopReducer,
   cart: cartReducer,
+  user: userReducer,
+
   [productsApi.reducerPath]: productsApi.reducer,
+  [orderApi.reducerPath]: orderApi.reducer,
+  [courseApi.reducerPath]: courseApi.reducer,
+  [userApi.reducerPath]: userApi.reducer,
 });
 
-// Persist Config
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user"], // Add 'user' reducer if needed
+  whitelist: ["user"],
 };
 
-// Persisted Reducer
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// Configure Store
 const store = configureStore({
   reducer: persistedReducer,
   preloadedState: {
-    cart: loadCartFromLocalStorage(), // load cart from localStorage
+    cart: loadCartFromLocalStorage(),
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(productsApi.middleware),
+    }).concat(
+      productsApi.middleware,
+      orderApi.middleware,
+      userApi.middleware,
+      courseApi.middleware
+    ),
 });
 
-// Subscribe to store changes for cart persistence
 store.subscribe(() => {
   saveCartToLocalStorage(store.getState());
 });
 
-// Export
 export const persistor = persistStore(store);
 export default store;

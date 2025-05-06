@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectUniqueCategories } from "../components/features/shop/ShopSelector";
 import { setCategory } from "../components/features/shop/ShopSlice";
+import { useLogoutUserMutation } from "./features/userApi";
+import { setUser } from "./features/userSlice";
 
 const others = [
   { id: 1, name: "Courses", link: "/courses" },
@@ -22,6 +24,8 @@ const Navbar = () => {
   const [productDropdown, setProductDropdown] = useState(false);
   const [otherDropdown, setOtherDropdown] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Replace with actual auth logic
+  const user = useSelector((state) => state.user.user);
+  const [logoutUser] = useLogoutUserMutation();
 
   const cartItems = useSelector((state) => state.cart.cartItems || []);
   const dispatch = useDispatch();
@@ -48,6 +52,19 @@ const Navbar = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [user]);
+
+  const handleLogout = () => {
+    logoutUser();
+    dispatch(setUser(null));
+  };
 
   return (
     <nav className="bg-white shadow-md px-4 py-3 sticky top-0 z-60">
@@ -158,7 +175,7 @@ const Navbar = () => {
 
           {isLoggedIn ? (
             <button
-              onClick={() => setIsLoggedIn(false)}
+              onClick={handleLogout}
               className="px-4 py-2 border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] hover:border-[#009688]"
             >
               <FaSignOutAlt className="inline-block mr-1" /> Logout
@@ -305,7 +322,10 @@ const Navbar = () => {
             </button>
           ) : (
             <Link to="/login" onClick={() => setMenuOpen(false)}>
-              <button className="w-full py-2 border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] hover:border-[#009688]">
+              <button
+                className="w-full py-2 border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] hover:border-[#009688]"
+                onClick={handleLogout}
+              >
                 Login
               </button>
             </Link>

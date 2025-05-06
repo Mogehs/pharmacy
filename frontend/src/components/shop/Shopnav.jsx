@@ -7,7 +7,7 @@ import Sidebar from "./Sidebar";
 
 const Shopnav = () => {
   const [showSidebar, setShowSidebar] = useState(true);
-  const [showSort, setShowSort] = useState(false); // toggle dropdown
+  const [showSort, setShowSort] = useState(false);
   const dispatch = useDispatch();
   const sortOption = useSelector((state) => state.shop.sortOption);
 

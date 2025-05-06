@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   LineChart,
   Line,
@@ -9,16 +9,48 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { motion } from "framer-motion";
-
-const data = [
-  { name: "Jan", sales: 400 },
-  { name: "Feb", sales: 300 },
-  { name: "Mar", sales: 500 },
-  { name: "Apr", sales: 700 },
-  { name: "May", sales: 600 },
-];
+import { useGetAllOrdersQuery } from "../features/ordersApi";
+import { format } from "date-fns";
 
 const DashboardChart = () => {
+  const { data: orders, isLoading } = useGetAllOrdersQuery();
+
+  // Generate dynamic chart data
+  const chartData = useMemo(() => {
+    if (!orders || orders.length === 0) return [];
+
+    const monthlyTotals = {};
+
+    orders.forEach((order) => {
+      if (order.isPaid) {
+        const month = format(new Date(order.createdAt), "MMM"); // e.g., "Apr"
+        if (!monthlyTotals[month]) {
+          monthlyTotals[month] = 0;
+        }
+        monthlyTotals[month] += order.totalPrice;
+      }
+    });
+
+    const monthOrder = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    return monthOrder.map((m) => ({
+      name: m,
+      sales: monthlyTotals[m] || 0,
+    }));
+  }, [orders]);
+
   return (
     <motion.div
       className="bg-white p-6 rounded-xl shadow-lg"
@@ -26,13 +58,13 @@ const DashboardChart = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <h3 className="text-xl font-bold text-[#00B8A9] mb-6 tracking-wide">
+      <h3 className="text-xl font-bold text-dark-color mb-6 tracking-wide">
         📈 Monthly Sales Overview
       </h3>
 
       <div className="w-full h-[300px] md:h-[400px]">
         <ResponsiveContainer>
-          <LineChart data={data}>
+          <LineChart data={chartData}>
             <CartesianGrid strokeDasharray="4 4" stroke="#e0e0e0" />
             <XAxis dataKey="name" stroke="#8884d8" fontSize={12} />
             <YAxis stroke="#8884d8" fontSize={12} />

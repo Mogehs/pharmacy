@@ -13,6 +13,7 @@ const Sidebar = () => {
   const [price, setPrice] = useState(960);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const categories = useSelector(selectUniqueCategories);
+  console.log(categories);
 
   const handlePriceChange = (e) => {
     const value = parseInt(e.target.value, 10);

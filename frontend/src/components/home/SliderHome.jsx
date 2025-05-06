@@ -12,6 +12,7 @@ import off from "/Home/off.png";
 import { FaArrowRight } from "react-icons/fa";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { IoIosArrowForward } from "react-icons/io";
+import { useSelector } from "react-redux";
 
 const images = [
   {

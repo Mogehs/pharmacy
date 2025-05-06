@@ -2,43 +2,24 @@ import mongoose from "mongoose";
 
 const courseSchema = new mongoose.Schema(
   {
-    title: {
-      type: String,
-      required: true,
-    },
-    description: String,
-
-    // Cover image from Google Drive
-    coverImage: {
-      type: String, // URL (e.g., Drive link)
-      required: true,
-    },
-
-    courseLink: {
-      type: String,
-      required: true,
-    },
-
-    // Indicates whether course is free
-    isFree: {
-      type: Boolean,
-      default: false,
-    },
-
-    // Price if not free, default to 0
-    price: {
-      type: Number,
-      default: 0,
-    },
-
-    // Instructor as input text (not ObjectId)
-    instructor: {
-      type: String,
-      required: true,
-    },
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    coverImage: { type: String, required: true },
+    coverImagePublicId: { type: String, required: true },
+    courseOverview: { type: String },
+    courseOutline: { type: String },
+    customerReviews: { type: [String] },
+    courseLevel: { type: String },
+    courseDuration: { type: String },
+    lessons: { type: Number },
+    quizes: { type: Number },
+    language: { type: String },
+    courseLink: { type: String },
+    isFree: { type: Boolean, default: false },
+    price: { type: Number },
+    instructor: { type: String },
   },
   { timestamps: true }
 );
 
-const Course = mongoose.model("Course", courseSchema);
-export default Course;
+export default mongoose.model("Course", courseSchema);

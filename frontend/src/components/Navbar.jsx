@@ -307,7 +307,7 @@ const Navbar = () => {
           </Link>
 
           <Link to="/appointments" onClick={() => setMenuOpen(false)}>
-            <button className="w-full py-2 border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] hover:border-[#009688]">
+            <button className="w-full py-2 border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] hover:border-[#009688] mb-2">
               Get Appointment
             </button>
           </Link>

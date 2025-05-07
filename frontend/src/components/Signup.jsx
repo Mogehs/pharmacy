@@ -1,21 +1,17 @@
 import { useState } from "react";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { useRegisterUserMutation } from "./features/userApi";
 
 export default function RegisterPage() {
-  const [registerUser] = useRegisterUserMutation();
+  const [registerUser, { isLoading }] = useRegisterUserMutation();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
-    rememberMe: false,
   });
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(""); // Add error state to display on UI
 
-  // Handle Input Changes
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prevData) => ({
@@ -24,11 +20,10 @@ export default function RegisterPage() {
     }));
   };
 
-  // Handle Form Submission
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    // Validate Form Fields
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.name || !formData.email || !formData.password) {
       toast.error("Please fill out all required fields", {
         position: "top-center",
@@ -36,8 +31,12 @@ export default function RegisterPage() {
       return;
     }
 
-    setIsLoading(true);
-    setError(""); // Reset any previous error messages
+    if (!emailRegex.test(formData.email)) {
+      toast.error("Please enter a valid email address", {
+        position: "top-center",
+      });
+      return;
+    }
 
     try {
       const response = await registerUser({
@@ -46,34 +45,17 @@ export default function RegisterPage() {
         password: formData.password,
       }).unwrap();
 
-      // Show success message from backend response
-      toast.success(response.message || "Registered successfully!", {
-        position: "top-center",
-      });
-
-      navigate(`/user-verification/${response.userId}`);
+      toast.success(response.message);
+      return navigate(`/user-verification/${response.userId}`);
     } catch (error) {
-      console.error("Registration error:", error);
-
-      // Check for error data and show appropriate toast message
-      const errorMessage =
-        error?.data?.message || "Registration failed. Please try again.";
-      toast.error(errorMessage, {
-        position: "top-center",
-      });
-
-      // Set error state to display on the UI as well
-      setError(errorMessage);
-    } finally {
-      setIsLoading(false);
+      return toast.error(error?.data?.message);
     }
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-4">
-      <div className="flex flex-col md:flex-row w-full max-w-4xl bg-white shadow-lg rounded-xl overflow-hidden">
-        {/* Left Side */}
-        <div className="hidden md:flex w-[60%] bg-gray-50 items-center justify-start">
+    <div className="flex h-fit items-center justify-center p-7">
+      <div className="flex flex-col sm:h-[33rem] md:flex-row w-full max-w-4xl bg-white shadow-lg rounded-xl overflow-hidden">
+        <div className="hidden md:flex w-[60%] bg-gray-50 items-center justify-start ">
           <img
             src="/login.jpg"
             alt="Signup"
@@ -81,12 +63,11 @@ export default function RegisterPage() {
           />
         </div>
 
-        {/* Right Side */}
         <form
           className="w-full md:w-1/2 flex flex-col p-8"
           onSubmit={handleRegister}
         >
-          <h2 className="text-3xl font-bold text-gray-800 mb-2 text-center">
+          <h2 className="text-3xl font-bold text-gray-800 mb-10 text-center">
             Create an Account
           </h2>
 
@@ -120,7 +101,7 @@ export default function RegisterPage() {
             />
           </div>
 
-          <div className="mb-4">
+          <div className="mb-2">
             <label className="block text-gray-700 text-md font-medium">
               Password
             </label>
@@ -135,28 +116,7 @@ export default function RegisterPage() {
             />
           </div>
 
-          {/* Error message */}
-          {error && (
-            <div className="text-red-500 text-sm mt-2 text-center">{error}</div>
-          )}
-
-          <div className="flex items-center justify-between my-4">
-            <div className="flex items-center cursor-pointer">
-              <input
-                type="checkbox"
-                name="rememberMe"
-                id="remember"
-                className="mr-2 cursor-pointer"
-                checked={formData.rememberMe}
-                onChange={handleChange}
-              />
-              <label
-                htmlFor="remember"
-                className="text-gray-600 cursor-pointer text-sm"
-              >
-                Remember me
-              </label>
-            </div>
+          <div className="flex items-center justify-between mb-10">
             <Link
               to="/login"
               className="text-blue-500 font-medium cursor-pointer text-sm"

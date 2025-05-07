@@ -28,6 +28,7 @@ const ResendOtp = () => {
       setOtpSent(true);
     } catch (error) {
       toast.error("Failed to send OTP", { position: "top-center" });
+      console.log(error);
     }
   };
 
@@ -59,6 +60,7 @@ const ResendOtp = () => {
       navigate("/login");
     } catch (err) {
       toast.error("Invalid OTP", { position: "top-center" });
+      console.log(err);
     }
   };
 

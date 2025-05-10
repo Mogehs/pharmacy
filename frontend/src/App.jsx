@@ -72,7 +72,6 @@ const router = createBrowserRouter([
   { path: "/forgot-password", element: <ForgotPassword /> },
   { path: "/resend-otp", element: <ResendOtp /> },
 
-  // Admin Routes
   {
     path: "/dashboard",
     element: <AdminLayout />,

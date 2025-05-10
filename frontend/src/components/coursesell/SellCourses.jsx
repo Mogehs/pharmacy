@@ -170,7 +170,9 @@ export default function CourseGrid() {
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 6;
 
-  const { data: pharmacyCourses } = useGetCoursesQuery();
+  const { data: pharmacyCourses = [] } = useGetCoursesQuery();
+
+  console.log(pharmacyCourses);
 
   const filteredCourses =
     selectedFilter === "All Category"
@@ -226,7 +228,7 @@ export default function CourseGrid() {
           >
             <div className="relative">
               <img
-                src={course.image}
+                src={course.coverImage}
                 alt={course.title}
                 className="w-full h-56 object-cover hover:scale-105 transition-transform duration-300"
               />
@@ -256,7 +258,7 @@ export default function CourseGrid() {
 
               <div className="flex items-center gap-2 mb-4">
                 <img
-                  src={course.instructorImage}
+                  src="/default.jpg"
                   alt={course.instructor}
                   className="w-10 h-10 rounded-full object-cover"
                 />
@@ -270,7 +272,7 @@ export default function CourseGrid() {
                   ⭐⭐⭐⭐⭐
                 </div>
                 <Link
-                  to={`/courses/${course.id}`}
+                  to={`/courses/${course._id}`}
                   className="text-[#00B8A9] text-sm font-semibold underline hover:text-[#009688]"
                 >
                   Know details

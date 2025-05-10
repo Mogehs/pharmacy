@@ -75,7 +75,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link to="/" className="flex-shrink-0">
           <img
-            src="./logo.jpg"
+            src="/logo.jpg"
             alt="Logo"
             className="h-12 w-12 rounded-full object-cover"
           />

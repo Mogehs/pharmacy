@@ -241,7 +241,7 @@ export default function CourseGrid() {
                 </span>
               </div>
               <div className="absolute top-3 right-3 bg-red-500 text-white text-xs sm:text-sm font-bold w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full shadow">
-                {course.students}
+                {course.level}
               </div>
             </div>
 

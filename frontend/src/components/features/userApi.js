@@ -34,10 +34,10 @@ export const userApi = createApi({
 
     // OTP
     verifyOTP: builder.mutation({
-      query: ({ id, otp }) => ({
+      query: ({ id, otp, email }) => ({
         url: `/users/verify-otp/${id}`,
         method: "POST",
-        body: { otp },
+        body: { otp, email },
       }),
     }),
     resendOTP: builder.mutation({

@@ -40,26 +40,31 @@ export const getCart = async (req, res) => {
     const cart = await Cart.findOne({ userId: req.user._id }).populate(
       "products.productId"
     );
-    if (!cart) return res.status(404).json({ message: "Cart not found" });
+
+    if (!cart) {
+      return res.status(200).json({ message: "Cart is empty", products: [] });
+    }
+
+    if (cart.products.length === 0) {
+      return res.status(200).json({ ...cart.toObject(), products: [] });
+    }
+
     res.status(200).json(cart);
   } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Failed to get cart", details: error.message });
+    res.status(500).json({
+      error: "Failed to get cart",
+      details: error.message,
+    });
   }
 };
 
 // Remove Product
 export const removeFromCart = async (req, res) => {
   const { productId } = req.params;
-
   try {
     const cart = await Cart.findOne({ userId: req.user._id });
     if (!cart) return res.status(404).json({ message: "Cart not found" });
-
-    cart.products = cart.products.filter(
-      (p) => p.productId.toString() !== productId
-    );
+    cart.products = cart.products.filter((p) => p._id.toString() !== productId);
     await cart.save();
     res.status(200).json(cart);
   } catch (error) {
@@ -71,8 +76,11 @@ export const removeFromCart = async (req, res) => {
 
 // Clear Cart
 export const clearCart = async (req, res) => {
+  console.log("req created");
+  let userId = req.user._id.toString();
+  console.log(userId);
   try {
-    await Cart.findOneAndDelete({ userId: req.user._id });
+    await Cart.findOneAndDelete(userId);
     res.status(200).json({ message: "Cart cleared" });
   } catch (error) {
     res
@@ -81,7 +89,6 @@ export const clearCart = async (req, res) => {
   }
 };
 
-// PATCH /api/cart/update
 export const updateCartItem = async (req, res) => {
   const userId = req.user._id;
   const { id, quantity } = req.body;
@@ -101,7 +108,6 @@ export const updateCartItem = async (req, res) => {
       return res.status(404).json({ message: "Product not found in cart" });
     }
 
-    // Update the quantity
     cart.products[itemIndex].quantity = quantity;
     await cart.save();
 

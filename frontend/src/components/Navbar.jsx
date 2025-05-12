@@ -19,6 +19,15 @@ const Navbar = () => {
   const { data: products = [] } = useGetProductsQuery();
   const { data: cart = [] } = useGetCartQuery();
   const cartItems = cart?.products;
+  const uniqueCategories = Array.from(
+    new Set(products.map((product) => product.category))
+  );
+  const categories = useSelector(selectUniqueCategories);
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+  const [logoutUser] = useLogoutUserMutation();
+  const { data: cart = [] } = useGetCartQuery();
+  const cartItems = cart?.products;
 
   const categories = useSelector(selectUniqueCategories);
   const user = useSelector((state) => state.user.user);
@@ -39,10 +48,19 @@ const Navbar = () => {
   }, [user]);
 
   useEffect(() => {
+    setIsLoggedIn(!!user);
+  }, [user]);
+
+  useEffect(() => {
     const handleClickOutside = (event) => {
       const target = event.target;
 
+      const target = event.target;
+
       if (
+        !productDropdownRef.current?.contains(target) &&
+        !otherDropdownRef.current?.contains(target) &&
+        !menuRef.current?.contains(target)
         !productDropdownRef.current?.contains(target) &&
         !otherDropdownRef.current?.contains(target) &&
         !menuRef.current?.contains(target)
@@ -50,8 +68,10 @@ const Navbar = () => {
         setProductDropdown(false);
         setOtherDropdown(false);
         setMenuOpen(false);
+        setMenuOpen(false);
       }
     };
+
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -67,7 +87,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link to="/" className="flex-shrink-0">
           <img
-            src="./logo.jpg"
+            src="/logo.jpg"
             alt="Logo"
             className="h-12 w-12 rounded-full object-cover"
           />
@@ -80,26 +100,35 @@ const Navbar = () => {
           </li>
 
           <li className="relative" ref={productDropdownRef}>
+          <li className="relative" ref={productDropdownRef}>
             <div
               className="flex items-center gap-1 cursor-pointer hover:text-[#009688] text-[#00B8A9]"
               onClick={() => {
                 setProductDropdown(!productDropdown);
                 setOtherDropdown(false);
               }}
+              onClick={() => {
+                setProductDropdown(!productDropdown);
+                setOtherDropdown(false);
+              }}
             >
+              Products
               Products
               <FaChevronDown
                 className={`text-sm mt-1 ${!productDropdown && "-rotate-90"}`}
               />
             </div>
             {productDropdown && (
+              <ul className="absolute top-8 left-0 bg-white shadow-lg rounded-md w-56 py-2 z-50 overflow-y-auto h-[50vh] space-y-1 px-2 scrollbar-thin scrollbar-thumb-[#a8754d] scrollbar-track-gray-100 hover:scrollbar-thumb-[#925f3c]">
+                {uniqueCategories.map((item) => (
+                  <li key={item}>
               <ul className="absolute top-13 left-0 bg-white shadow-lg rounded-md w-68 py-2 z-50 overflow-y-auto h-[50vh] space-y-1 px-2 scrollbar-thin scrollbar-thumb-[#a8754d] scrollbar-track-gray-100 hover:scrollbar-thumb-[#925f3c]">
                 {products.map((item) => (
                   <li key={item.category}>
                     <Link
                       to="/products"
                       onClick={() => {
-                        dispatch(setCategory(item.category));
+                        dispatch(setCategory(item));
                         setProductDropdown(false);
                       }}
                       className="block px-4 py-2 hover:text-[#009688] text-[#00B8A9]"
@@ -123,7 +152,13 @@ const Navbar = () => {
           </li>
 
           <li className="relative" ref={otherDropdownRef}>
+          <li className="relative" ref={otherDropdownRef}>
             <div
+              className="flex items-center gap-1 cursor-pointer hover:text-[#009688] text-[#00B8A9]"
+              onClick={() => {
+                setOtherDropdown(!otherDropdown);
+                setProductDropdown(false);
+              }}
               className="flex items-center gap-1 cursor-pointer hover:text-[#009688] text-[#00B8A9]"
               onClick={() => {
                 setOtherDropdown(!otherDropdown);
@@ -131,11 +166,13 @@ const Navbar = () => {
               }}
             >
               Others
+              Others
               <FaChevronDown
                 className={`text-sm mt-1 ${!otherDropdown && "-rotate-90"}`}
               />
             </div>
             {otherDropdown && (
+              <ul className="absolute top-8 left-0 bg-white shadow-lg rounded-md w-56 py-2 z-50 overflow-y-auto h-[20vh] space-y-1 px-2 scrollbar-thin scrollbar-thumb-[#a8754d] scrollbar-track-gray-100 hover:scrollbar-thumb-[#925f3c]">
               <ul className="absolute top-13 left-0 bg-white shadow-lg rounded-md w-72 py-2 z-50 overflow-y-auto h-[20vh] space-y-1 px-2 scrollbar-thin scrollbar-thumb-[#a8754d] scrollbar-track-gray-100 hover:scrollbar-thumb-[#925f3c]">
                 {others.map((other) => (
                   <li key={other.id}>
@@ -155,6 +192,7 @@ const Navbar = () => {
 
         {/* Right Section */}
         <div className="hidden lg:flex items-center space-x-4">
+          <Link to="/cart" className="relative text-2xl text-[#00B8A9]">
           <Link to="/cart" className="relative text-2xl text-[#00B8A9]">
             <FaShoppingCart />
             {cartItems?.length > 0 && (
@@ -204,22 +242,32 @@ const Navbar = () => {
 
           {/* Mobile Products Dropdown */}
           <div ref={productDropdownRef}>
+          {/* Mobile Products Dropdown */}
+          <div ref={productDropdownRef}>
             <div
               className="flex items-center gap-1 text-[#00B8A9] hover:text-[#009688] cursor-pointer"
               onClick={() => {
                 setProductDropdown(!productDropdown);
                 setOtherDropdown(false);
               }}
+              onClick={() => {
+                setProductDropdown(!productDropdown);
+                setOtherDropdown(false);
+              }}
             >
+              Products <FaChevronDown className="text-sm mt-1" />
               Products <FaChevronDown className="text-sm mt-1" />
             </div>
             {productDropdown && (
+              <ul className="overflow-y-auto h-[50vh] space-y-1 px-2">
+                {uniqueCategories.map((category) => (
               <ul className="overflow-y-auto h-[50vh] space-y-1 px-2">
                 {categories.map((category) => (
                   <li key={category}>
                     <Link
                       to="/products"
                       onClick={() => {
+                        dispatch(setCategory(category));
                         dispatch(setCategory(category === "All" ? "" : category));
                         setMenuOpen(false);
                         setProductDropdown(false);
@@ -236,16 +284,24 @@ const Navbar = () => {
 
           {/* Mobile Others Dropdown */}
           <div ref={otherDropdownRef}>
+          {/* Mobile Others Dropdown */}
+          <div ref={otherDropdownRef}>
             <div
               className="flex items-center gap-1 text-[#00B8A9] hover:text-[#009688] cursor-pointer"
               onClick={() => {
                 setOtherDropdown(!otherDropdown);
                 setProductDropdown(false);
               }}
+              onClick={() => {
+                setOtherDropdown(!otherDropdown);
+                setProductDropdown(false);
+              }}
             >
+              Others <FaChevronDown className="text-sm mt-1" />
               Others <FaChevronDown className="text-sm mt-1" />
             </div>
             {otherDropdown && (
+              <ul className="space-y-1 px-2">
               <ul className="space-y-1 px-2">
                 {others.map((other) => (
                   <li key={other.id}>
@@ -279,7 +335,7 @@ const Navbar = () => {
           </Link>
 
           <Link to="/appointments" onClick={() => setMenuOpen(false)}>
-            <button className="w-full py-2 border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] hover:border-[#009688]">
+            <button className="w-full py-2 border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] hover:border-[#009688] mb-2">
               Get Appointment
             </button>
           </Link>
@@ -287,6 +343,7 @@ const Navbar = () => {
           {isLoggedIn ? (
             <button
               onClick={() => {
+                handleLogout();
                 handleLogout();
                 setMenuOpen(false);
               }}
@@ -296,6 +353,7 @@ const Navbar = () => {
             </button>
           ) : (
             <Link to="/login" onClick={() => setMenuOpen(false)}>
+              <button className="w-full py-2 border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] hover:border-[#009688]">
               <button className="w-full py-2 border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] hover:border-[#009688]">
                 Login
               </button>

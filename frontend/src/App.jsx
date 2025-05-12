@@ -33,10 +33,11 @@ import Students from "./components/Dashboard/Students";
 import ScrollToTop from "./utils/ScrollToTop";
 import Admission from "./pages/Admission";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ResendOtp from "./components/ResendOtp";
 
 const MainLayout = () => (
   <div className="lg:mx-auto lg:max-w-[1536px]">
-    <ToastContainer></ToastContainer>
     <ScrollToTop />
     <Navbar />
     <Outlet />
@@ -67,10 +68,10 @@ const router = createBrowserRouter([
   { path: "/sign-up", element: <Signup /> },
   { path: "/verify-otp", element: <OTPForm /> },
   { path: "/user-verification/:id", element: <VerifyUser /> },
-  { path: "/update-password", element: <UpdatePassword /> },
+  { path: "/update-password/:token", element: <UpdatePassword /> },
   { path: "/forgot-password", element: <ForgotPassword /> },
+  { path: "/resend-otp", element: <ResendOtp /> },
 
-  // Admin Routes
   {
     path: "/dashboard",
     element: <AdminLayout />,
@@ -86,7 +87,12 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router}></RouterProvider>;
+  return (
+    <>
+      <ToastContainer />
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
 export default App;

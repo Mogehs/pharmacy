@@ -15,6 +15,7 @@ const Customers = () => {
     refetch,
   } = useGetAllUsersQuery();
 
+  console.log(customers);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [isEditingRole, setIsEditingRole] = useState(false);

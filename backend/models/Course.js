@@ -15,8 +15,7 @@ const courseSchema = new mongoose.Schema(
     quizes: { type: Number },
     language: { type: String },
     courseLink: { type: String },
-    isFree: { type: Boolean, default: false },
-    price: { type: Number },
+    price: { type: Number, default: 0 },
     instructor: { type: String },
   },
   { timestamps: true }

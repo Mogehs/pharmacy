@@ -10,63 +10,51 @@ const AddCourseOverlay = ({ onClose, onAdd }) => {
     courseOutline: "",
     courseLevel: "",
     courseDuration: "",
-    lessons: 0,
-    quizes: 0,
-    language: "English",
+    lessons: "",
+    quizes: "",
+    language: "English/Urdu",
     courseLink: "",
-    isFree: false,
-    price: 0,
+    price: "",
     instructor: "",
   });
 
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value, type, checked, files } = e.target;
+    const { name, value, type, files } = e.target;
 
-    if (type === "file") {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: files[0],
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: type === "checkbox" ? checked : value,
-      }));
-    }
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "file" ? files[0] : value,
+    }));
   };
 
   const handleSubmit = async () => {
-    const { title, courseCoverImg, courseLink, instructor } = formData;
+    const { title, courseCoverImg, courseLink, instructor, price } = formData;
 
-    if (!title || !courseCoverImg || !courseLink || !instructor) return;
+    if (!title || !courseCoverImg || !courseLink || !instructor || !price) {
+      alert("Please fill all required fields marked with *");
+      return;
+    }
+
+    if (Number(price) <= 0) {
+      alert("Please enter a valid price.");
+      return;
+    }
 
     setLoading(true);
 
     try {
       const data = new FormData();
-
-      data.append("title", formData.title);
-      data.append("description", formData.description);
-      data.append("courseCoverImg", formData.courseCoverImg);
-      data.append("courseOverview", formData.courseOverview);
-      data.append("courseOutline", formData.courseOutline);
-      data.append("courseLevel", formData.courseLevel);
-      data.append("courseDuration", formData.courseDuration);
-      data.append("lessons", formData.lessons.toString());
-      data.append("quizes", formData.quizes.toString());
-      data.append("language", formData.language);
-      data.append("courseLink", formData.courseLink);
-      data.append("isFree", formData.isFree.toString());
-      data.append("price", formData.isFree ? "0" : formData.price.toString());
-      data.append("instructor", formData.instructor);
+      for (const key in formData) {
+        data.append(key, formData[key]);
+      }
 
       await onAdd(data);
-
       onClose();
     } catch (error) {
       console.error("Error adding course:", error);
+      alert("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -137,6 +125,7 @@ const AddCourseOverlay = ({ onClose, onAdd }) => {
             name="language"
             placeholder="Language"
             onChange={handleChange}
+            value={formData.language}
             className="border p-2 rounded w-full"
           />
           <input
@@ -153,28 +142,14 @@ const AddCourseOverlay = ({ onClose, onAdd }) => {
             onChange={handleChange}
             className="border p-2 rounded w-full"
           />
-
-          <div className="flex items-center gap-2 sm:col-span-2">
-            <input
-              type="checkbox"
-              name="isFree"
-              checked={formData.isFree}
-              onChange={handleChange}
-            />
-            <label htmlFor="isFree" className="text-sm">
-              Is Free?
-            </label>
-          </div>
-
-          {!formData.isFree && (
-            <input
-              name="price"
-              type="number"
-              placeholder="Price"
-              onChange={handleChange}
-              className="border p-2 rounded w-full sm:col-span-2"
-            />
-          )}
+          <input
+            name="price"
+            type="number"
+            placeholder="Price *"
+            value={formData.price}
+            onChange={handleChange}
+            className="border p-2 rounded w-full sm:col-span-2"
+          />
 
           <textarea
             name="description"
@@ -213,11 +188,7 @@ const AddCourseOverlay = ({ onClose, onAdd }) => {
             } text-white rounded hover:${loading ? "" : "bg-[#009688]"}`}
             disabled={loading}
           >
-            {loading ? (
-              <div className="loader"></div> // Add a loader here (e.g., spinner)
-            ) : (
-              "Add"
-            )}
+            {loading ? <div className="loader"></div> : "Add"}
           </button>
         </div>
       </motion.div>

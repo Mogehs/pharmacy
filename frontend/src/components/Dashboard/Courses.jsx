@@ -24,9 +24,9 @@ const Courses = () => {
 
   const filteredCourses = courses.filter(
     (course) =>
-      course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      course.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      course.id.toLowerCase().includes(searchTerm.toLowerCase())
+      course?.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      course?.category?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      course?._id?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleEditCourse = (course) => {
@@ -196,7 +196,7 @@ const Courses = () => {
         <DeleteCourseConfirmation
           course={selectedCourse}
           onClose={() => setIsDeleting(false)}
-          onDelete={() => handleDeleteCourse(selectedCourse.id)}
+          onDelete={() => handleDeleteCourse(selectedCourse._id)}
         />
       )}
     </motion.div>

@@ -3,7 +3,7 @@ import { FaGoogle } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginUserMutation } from "./features/userApi";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setUser } from "./features/userSlice";
 
 export default function LoginPage() {
@@ -11,13 +11,13 @@ export default function LoginPage() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const dispatch = useDispatch();
 
-  const [
-    loginUser,
-    { isLoading, isSuccess, isError, error, data: responseData },
-  ] = useLoginUserMutation();
+  const [loginUser, { isLoading, error }] = useLoginUserMutation();
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleLogin = async (e) => {
@@ -30,7 +30,7 @@ export default function LoginPage() {
 
     try {
       const response = await loginUser(formData).unwrap();
-      toast.success("Login successful");
+      toast.success(response.message);
       dispatch(setUser(response.user));
       navigate("/");
     } catch (err) {
@@ -39,12 +39,12 @@ export default function LoginPage() {
   };
 
   useEffect(() => {
-    if (isError) {
+    if (error) {
       toast.error(error?.data?.message || "Login failed. Please try again.", {
         position: "top-center",
       });
     }
-  }, [isError, error]);
+  }, [error]);
 
   return (
     <div className="flex min-h-screen items-center justify-center p-4">
@@ -94,17 +94,17 @@ export default function LoginPage() {
             </div>
 
             <div className="flex items-center justify-between my-4">
-              <div className="flex items-center">
-                <input type="checkbox" id="remember" className="mr-2" />
-                <label htmlFor="remember" className="text-gray-600 text-sm">
-                  Remember me
-                </label>
-              </div>
               <Link
                 to="/forgot-password"
                 className="text-blue-500 font-medium cursor-pointer text-sm"
               >
                 Forgot password?
+              </Link>
+              <Link
+                to="/resend-otp"
+                className="text-green-500 font-medium cursor-pointer text-sm"
+              >
+                Resend OTP
               </Link>
             </div>
 

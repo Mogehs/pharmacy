@@ -59,35 +59,55 @@ export const registerUser = async (req, res) => {
     // Send OTP
     await sendEmail(email, "Verify your account", html);
 
-    res
-      .status(201)
-      .json({ message: "OTP sent to email. Please verify.", userId: user._id });
+    res.status(201).json({
+      success: true,
+      message: "OTP sent to email. Please verify.",
+      userId: user._id,
+    });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ success: false, message: err.message });
   }
 };
 
 // Verify OTP
+
 export const verifyOTP = async (req, res) => {
   try {
-    const userId = req.params.id;
-    const { otp } = req.body;
+    const { otp, email } = req.body;
+    let user;
 
-    const user = await User.findById(userId);
-    if (!user) return res.status(404).json({ message: "User not found" });
+    // Find user by ID (if provided) or email
+    if (req.params.id && req.params.id !== "undefined") {
+      user = await User.findById(req.params.id);
+    } else if (email) {
+      user = await User.findOne({ email });
+    } else {
+      return res.status(400).json({ message: "Email or user ID is required" });
+    }
 
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Validate OTP and expiration
     const isMatch = await bcrypt.compare(otp, user.otp);
-    if (!isMatch || user.otpExpiresAt < Date.now())
-      return res.status(400).json({ message: "Invalid or expired OTP" });
+    const isExpired = user.otpExpiresAt < Date.now();
 
+    if (!isMatch || isExpired) {
+      return res.status(400).json({ message: "Invalid or expired OTP" });
+    }
+
+    // Mark user as verified
     user.isVerified = true;
     user.otp = undefined;
     user.otpExpiresAt = undefined;
+
     await user.save();
 
-    res.json({ message: "Account verified successfully" });
+    res.status(200).json({ message: "Account verified successfully" });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error("OTP Verification Error:", err.message);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -98,9 +118,7 @@ export const resendOTP = async (req, res) => {
 
     const user = await User.findOne({ email });
     if (!user)
-      return res
-        .status(404)
-        .json({ message: "Please enter the registeration email" });
+      return res.status(404).json({ message: "Please enter registered email" });
 
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const hashedOtp = await bcrypt.hash(otp, 10);
@@ -161,10 +179,9 @@ export const resendOTP = async (req, res) => {
       </html>
     `;
 
-    // Send OTP email with HTML content
     await sendEmail(email, "New OTP", html);
 
-    res.json({ message: "New OTP sent to email" });
+    res.status(200).json({ success: true, message: "New OTP sent to email" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -246,7 +263,7 @@ export const requestPasswordReset = async (req, res) => {
     user.resetTokenExpires = tokenExpire;
     await user.save();
 
-    const resetLink = `${process.env.FRONTEND_URL}/${token}`;
+    const resetLink = `${process.env.FRONTEND_URL}/update-password/${token}`;
     const html = `
     <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9;">
       <div style="max-width: 600px; margin: auto; background-color: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
@@ -269,7 +286,6 @@ export const requestPasswordReset = async (req, res) => {
 export const resetPassword = async (req, res) => {
   try {
     const { token, newPassword } = req.body;
-
     const user = await User.findOne({
       resetToken: token,
       resetTokenExpires: { $gt: Date.now() },

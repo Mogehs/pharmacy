@@ -3,13 +3,8 @@ import Order from "../models/Order.js";
 // Create a new order (after Stripe session created)
 export const createOrder = async (req, res) => {
   try {
-    const {
-      products,
-      totalAmount,
-      paymentIntentId,
-      shippingAddress,
-      paymentMethod,
-    } = req.body;
+    const { products, totalAmount, paymentIntentId, shippingAddress } =
+      req.body;
     const userId = req.user._id;
 
     const newOrder = new Order({
@@ -18,7 +13,7 @@ export const createOrder = async (req, res) => {
       totalAmount,
       paymentIntentId,
       shippingAddress,
-      paymentMethod,
+      paymentMethod: "Stripe",
       isPaid: false,
     });
 
@@ -33,9 +28,14 @@ export const createOrder = async (req, res) => {
 // Get all orders (admin usage or filter)
 export const getAllOrders = async (req, res) => {
   try {
+    if (!req.user.role == "admin") {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
+
     const orders = await Order.find()
-      .populate("userId")
-      .populate("products.productId");
+      .populate("user")
+      .populate("items.product");
+
     res.status(200).json(orders);
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch orders", error });
@@ -45,10 +45,15 @@ export const getAllOrders = async (req, res) => {
 // Get orders of logged-in user
 export const getMyOrders = async (req, res) => {
   try {
-    const userId = req.user._id;
-    const orders = await Order.find({ userId }).populate("products.productId");
+    const userId = req.user._id.toString();
+
+    const orders = await Order.find({ user: userId })
+      .populate("items.product") // ✅ Matches the schema correctly
+      .sort({ createdAt: -1 });
+
     res.status(200).json(orders);
   } catch (error) {
+    console.error("Error fetching orders:", error);
     res.status(500).json({ message: "Failed to fetch your orders", error });
   }
 };
@@ -63,7 +68,7 @@ export const getOrderById = async (req, res) => {
     if (!order) return res.status(404).json({ message: "Order not found" });
 
     const userId = req.user._id;
-    if (!order.userId._id.equals(userId) && !req.user.isAdmin) {
+    if (!order.user._id.equals(userId) && !req.user.isAdmin) {
       return res.status(403).json({ message: "Unauthorized" });
     }
 
@@ -76,9 +81,13 @@ export const getOrderById = async (req, res) => {
 // Update order status (admin only)
 export const updateOrderStatus = async (req, res) => {
   try {
+    if (!req.user.role == "admin") {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
+
     const { status } = req.body;
 
-    if (!["processing", "shipped", "delivered"].includes(status)) {
+    if (!["Preparing Package", "Ready To Ship", "Delivered"].includes(status)) {
       return res.status(400).json({ message: "Invalid status value" });
     }
 
@@ -86,7 +95,9 @@ export const updateOrderStatus = async (req, res) => {
       req.params.id,
       { status },
       { new: true }
-    );
+    )
+      .populate("items.product")
+      .populate("user");
 
     if (!updatedOrder) {
       return res.status(404).json({ message: "Order not found" });
@@ -116,5 +127,21 @@ export const markOrderAsPaid = async (req, res) => {
   } catch (error) {
     console.error("Error marking order as paid:", error);
     res.status(500).json({ message: "Failed to mark order as paid", error });
+  }
+};
+
+export const deleteOrder = async (req, res) => {
+  try {
+    const orderId = req.params.id;
+
+    const deletedOrder = await Order.findByIdAndDelete(orderId);
+    if (!deletedOrder) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    res.status(200).json({ message: "Order deleted successfully" });
+  } catch (error) {
+    console.error("Delete Order Error:", error);
+    res.status(500).json({ message: "Server error while deleting order" });
   }
 };

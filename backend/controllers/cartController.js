@@ -76,9 +76,7 @@ export const removeFromCart = async (req, res) => {
 
 // Clear Cart
 export const clearCart = async (req, res) => {
-  console.log("req created");
   let userId = req.user._id.toString();
-  console.log(userId);
   try {
     await Cart.findOneAndDelete(userId);
     res.status(200).json({ message: "Cart cleared" });

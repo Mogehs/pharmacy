@@ -151,10 +151,7 @@ export const updateCourse = async (req, res) => {
     const updatedCourse = await course.save();
     res.status(200).json(updatedCourse);
   } catch (error) {
-    res.status(500).json({
-      error: "Failed to update course",
-      details: error.message,
-    });
+    console.log(error);
   }
 };
 

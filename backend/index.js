@@ -24,7 +24,6 @@ app.post(
   stripeWebhook
 );
 
-// Middleware
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

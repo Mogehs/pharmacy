@@ -1,4 +1,5 @@
 import Order from "../models/Order.js";
+import Cart from "../models/Cart.js";
 import Stripe from "stripe";
 
 export const stripeWebhook = async (req, res) => {
@@ -20,20 +21,27 @@ export const stripeWebhook = async (req, res) => {
   if (event.type === "checkout.session.completed") {
     const session = event.data.object;
 
-    // Find and update the order
-    const order = await Order.findOne({
-      totalPrice: session.amount_total / 100,
-    });
-    if (order) {
-      order.isPaid = true;
-      order.paidAt = new Date();
-      order.paymentResult = {
-        id: session.id,
-        status: session.payment_status,
-        update_time: new Date().toISOString(),
-        email_address: session.customer_email,
-      };
-      await order.save();
+    try {
+      const order = await Order.findOne({
+        totalPrice: session.amount_total / 100,
+      });
+
+      if (order) {
+        order.isPaid = true;
+        order.paidAt = new Date();
+        order.paymentResult = {
+          id: session.id,
+          status: session.payment_status,
+          update_time: new Date().toISOString(),
+          email_address: session.customer_email,
+        };
+        await order.save();
+
+        await Cart.findOneAndDelete({ userId: order.user });
+      }
+    } catch (err) {
+      console.error("Error processing order and clearing cart:", err);
+      return res.status(500).json({ error: "Internal server error" });
     }
   }
 

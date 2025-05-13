@@ -17,7 +17,7 @@ import { setCategory } from "./features/productSlice";
 import { useGetCartQuery } from "./features/cartApi";
 
 const others = [
-  { id: 1, name: "YouTube Videos", link: "/youtubevideos" },
+  { id: 1, name: "YouTube Videos", link: "/youtubevideo" },
   { id: 2, name: "Courses", link: "/courses" },
   { id: 3, name: "Admission", link: "/admissions" },
 ];

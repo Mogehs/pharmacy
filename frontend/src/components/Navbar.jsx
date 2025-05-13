@@ -178,12 +178,19 @@ const Navbar = () => {
           </Link>
 
           {isLoggedIn ? (
-            <button
-              onClick={handleLogout}
-              className="px-4 py-2 border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] text-sm hover:border-[#009688] cursor-pointer"
-            >
-              <FaSignOutAlt className="inline-block mr-1" /> Logout
-            </button>
+            <>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] text-sm hover:border-[#009688] cursor-pointer"
+              >
+                <FaSignOutAlt className="inline-block mr-1" /> Logout
+              </button>
+              <Link to="/appointments">
+                <button className="px-4 text-sm py-2 border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] hover:border-[#009688] cursor-pointer">
+                  Get Appointment
+                </button>
+              </Link>
+            </>
           ) : (
             <Link to="/login">
               <button className="px-4 py-2 text-sm border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] hover:border-[#009688] flex items-center gap-2 cursor-pointer">
@@ -191,12 +198,6 @@ const Navbar = () => {
               </button>
             </Link>
           )}
-
-          <Link to="/appointments">
-            <button className="px-4 text-sm py-2 border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] hover:border-[#009688] cursor-pointer">
-              Get Appointment
-            </button>
-          </Link>
         </div>
 
         {/* Mobile Icon */}
@@ -264,6 +265,7 @@ const Navbar = () => {
             >
               Others <FaChevronDown className="text-sm mt-1" />
             </div>
+
             {otherDropdown && (
               <ul className="overflow-y-auto h-[20vh] space-y-1 px-2">
                 {others.map((other) => (
@@ -283,6 +285,38 @@ const Navbar = () => {
               </ul>
             )}
           </div>
+          <ul className="space-y-4">
+            <li className="hover:text-[#009688] text-[#00B8A9]">
+              <Link to="/blogs">Blogs</Link>
+            </li>
+            <li className="hover:text-[#009688] text-[#00B8A9]">
+              <Link to="/about">About</Link>
+            </li>
+            <li className="hover:text-[#009688] text-[#00B8A9]">
+              <Link to="/contact">Contact</Link>
+            </li>
+          </ul>
+          {isLoggedIn ? (
+            <div className="grid grid-cols-1 gap-2">
+              <button
+                onClick={handleLogout}
+                className="px-4 text-sm py-2 border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] hover:border-[#009688] cursor-pointer max-sm:w-full"
+              >
+                <FaSignOutAlt className="inline-block mr-1" /> Logout
+              </button>
+              <Link to="/appointments">
+                <button className="px-4 text-sm py-2 border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] hover:border-[#009688] cursor-pointer max-sm:w-full">
+                  Get Appointment
+                </button>
+              </Link>
+            </div>
+          ) : (
+            <Link to="/login">
+              <button className="px-4 py-2 text-sm border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] hover:border-[#009688] flex items-center gap-2 cursor-pointer">
+                <FaSignInAlt /> Login
+              </button>
+            </Link>
+          )}
         </div>
       )}
     </nav>

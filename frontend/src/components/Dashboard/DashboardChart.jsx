@@ -13,7 +13,7 @@ import { useGetAllOrdersQuery } from "../features/ordersApi";
 import { format } from "date-fns";
 
 const DashboardChart = () => {
-  const { data: orders, isLoading } = useGetAllOrdersQuery();
+  const { data: orders } = useGetAllOrdersQuery();
 
   // Generate dynamic chart data
   const chartData = useMemo(() => {

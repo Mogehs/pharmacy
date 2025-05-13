@@ -44,8 +44,8 @@ const Courses = () => {
     setIsAdding(false);
   };
 
-  const handleSaveCourse = async (updatedCourse) => {
-    await updateCourse(updatedCourse);
+  const handleSaveCourse = async (updatedCourse, id) => {
+    await updateCourse({ id, course: updatedCourse });
     setIsEditing(false);
   };
 
@@ -145,7 +145,7 @@ const Courses = () => {
                   <td className="px-3 py-2 text-nowrap">
                     {course.isFree ? "Yes" : "No"}
                   </td>
-                  <td className="flex items-center px-3 py-2 text-center space-x-2">
+                  <td className="flex items-center px-3 py-2 text-center space-x-2 mt-3">
                     <button
                       onClick={() => handleEditCourse(course)}
                       className="text-sm px-4 py-1 rounded-full text-white bg-blue-500 hover:bg-blue-600 transition"

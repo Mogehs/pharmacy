@@ -11,7 +11,7 @@ const Hero = ({ course }) => {
   return (
     <div>
       {/* Hero Section */}
-      <div className="bg-[#f7f7fb] py-16">
+      <div className="bg-[#f7f7fb] py-16 max-w-screen:lg px-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-10">
           {/* Left Section */}
           <div className="lg:mx-auto max-lg:px-6">

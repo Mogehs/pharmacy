@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import EditRoleOverlay from "./EditRoleOverlay";
+
 import DeleteCustomerConfirmation from "./DeleteCustomerConfirmation";
 import UserSummaryCard from "./UserSummaryCard";
 import { useGetAllUsersQuery } from "../features/userApi";
@@ -15,10 +15,8 @@ const Customers = () => {
     refetch,
   } = useGetAllUsersQuery();
 
-  console.log(customers);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCustomer, setSelectedCustomer] = useState(null);
-  const [isEditingRole, setIsEditingRole] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [customersList, setCustomersList] = useState([]);
 
@@ -37,25 +35,11 @@ const Customers = () => {
       customer._id.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleEditRole = (customer) => {
-    setSelectedCustomer(customer);
-    setIsEditingRole(true);
-  };
-
   const handleDeleteCustomer = () => {
     setCustomersList((prev) =>
       prev.filter((customer) => customer._id !== selectedCustomer._id)
     );
     setIsDeleting(false);
-  };
-
-  const handleSaveRole = (updatedCustomer) => {
-    setCustomersList((prev) =>
-      prev.map((customer) =>
-        customer.id === updatedCustomer._id ? updatedCustomer : customer
-      )
-    );
-    setIsEditingRole(false);
   };
 
   return (
@@ -109,7 +93,7 @@ const Customers = () => {
                     <th className="p-3 text-nowrap">Name</th>
                     <th className="p-3 text-nowrap">Email</th>
                     <th className="p-3 text-nowrap">Role</th>
-                    <th className="p-3 text-center text-nowrap">Actions</th>
+                    {/* <th className="p-3 text-center text-nowrap">Actions</th> */}
                   </tr>
                 </thead>
                 <tbody>
@@ -133,13 +117,7 @@ const Customers = () => {
                         <td className="px-3 py-2 text-nowrap">
                           {customer.role}
                         </td>
-                        <td className="flex items-center px-3 py-2 text-center space-x-2">
-                          <button
-                            onClick={() => handleEditRole(customer)}
-                            className="text-sm px-3 py-1 rounded-full text-white bg-blue-500 hover:bg-blue-600 transition text-nowrap"
-                          >
-                            Edit Role
-                          </button>
+                        {/* <td className="flex items-center px-3 py-2 text-center space-x-2">
                           <button
                             onClick={() => {
                               setSelectedCustomer(customer);
@@ -149,7 +127,7 @@ const Customers = () => {
                           >
                             Delete
                           </button>
-                        </td>
+                        </td> */}
                       </tr>
                     ))
                   ) : (
@@ -169,13 +147,6 @@ const Customers = () => {
         )}
 
         {/* Modals */}
-        {isEditingRole && selectedCustomer && (
-          <EditRoleOverlay
-            customer={selectedCustomer}
-            onClose={() => setIsEditingRole(false)}
-            onSave={handleSaveRole}
-          />
-        )}
 
         {isDeleting && selectedCustomer && (
           <DeleteCustomerConfirmation

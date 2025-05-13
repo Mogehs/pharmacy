@@ -16,7 +16,7 @@ const Footer = () => {
             <div className="flex items-center ">
               <div className="flex-shrink-0">
                 <img
-                  src="./logo.jpg"
+                  src="/logo.jpg"
                   alt="Logo"
                   className="h-12 w-12 rounded-full object-cover"
                 />

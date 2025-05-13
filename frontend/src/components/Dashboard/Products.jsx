@@ -7,6 +7,7 @@ import {
   useDeleteProductMutation,
 } from "../features/productsApi";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 
 const Products = () => {
   const { data: products = [], isLoading, refetch } = useGetProductsQuery();
@@ -36,9 +37,18 @@ const Products = () => {
   };
 
   const handleDeleteProduct = async (productId) => {
-    await deleteProduct(productId);
-    setIsDeleting(false);
-    refetch();
+    try {
+      let res = await deleteProduct(productId);
+      if (res.data.success == true) {
+        return toast.success(res.data.message);
+      } else {
+        return toast.error(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   const handleSaveProduct = () => {
@@ -90,7 +100,7 @@ const Products = () => {
       </div>
 
       {/* Product Table */}
-      <div className="overflow-x-auto rounded-lg border border-gray-200 shadow-md">
+      <div className="overflow-x-auto rounded-lg border-1 border-neutral-300">
         <table className="w-full text-sm text-left table-auto">
           <thead className="bg-gray-100 text-medium-color text-sm uppercase tracking-wide">
             <tr>
@@ -130,7 +140,7 @@ const Products = () => {
                     ${Number(product.price).toFixed(2)}
                   </td>
                   <td className="px-4 py-2 text-nowrap">{product.stock}</td>
-                  <td className="flex justify-center items-center px-4 py-2 space-x-3">
+                  <td className="flex justify-center items-center px-4 py-2 space-x-3 mt-5">
                     <button
                       onClick={() => handleEditProduct(product)}
                       className="px-4 py-2 text-sm rounded-full text-white bg-blue-500 hover:bg-blue-600 transition"

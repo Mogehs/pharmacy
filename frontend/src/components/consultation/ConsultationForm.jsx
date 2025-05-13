@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import AppointmentCalendar from "./AppointmentCalendar";
+import { useCreateAppointmentMutation } from "../features/AppointmentApi";
+import { toast } from "react-toastify";
 
 export default function ConsultationForm() {
+  const [createAppointment, { isLoading }] = useCreateAppointmentMutation();
+
   const [formData, setFormData] = useState({
     guardianFirst: "",
     guardianLast: "",
@@ -36,8 +40,9 @@ export default function ConsultationForm() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     const requiredFields = [
       "guardianFirst",
       "guardianLast",
@@ -53,11 +58,31 @@ export default function ConsultationForm() {
     const hasAuthorizations = formData.authorizations.length > 0;
 
     if (!allFieldsFilled || !hasAuthorizations) {
-      alert("Please fill all fields and select at least one authorization.");
+      toast.warn(
+        "Please fill all fields and select at least one authorization."
+      );
       return;
     }
 
-    console.log("Form submitted:", formData);
+    try {
+      const res = await createAppointment(formData).unwrap();
+      setFormData({
+        guardianFirst: "",
+        guardianLast: "",
+        birthDate: "",
+        address: "",
+        email: "",
+        phone: "",
+        date: "",
+        authorizations: [],
+      });
+      if (res.success) {
+        toast.success(res.message);
+      }
+    } catch (error) {
+      console.error("Failed to submit appointment:", error);
+      toast.error(error?.data?.message || "Something went wrong.");
+    }
   };
 
   const calculateAge = (birthDate) => {
@@ -200,7 +225,8 @@ export default function ConsultationForm() {
               </label>
               <input
                 name="date"
-                type="date"
+                type="text"
+                disabled
                 value={formData.date}
                 onChange={handleChange}
                 className="w-full border border-[#00B8A9] rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#009688]"
@@ -210,21 +236,29 @@ export default function ConsultationForm() {
             {/* Submit */}
             <button
               type="submit"
-              className="hover:bg-[#009688] bg-[#00B8A9] text-white font-semibold px-6 py-2 rounded cursor-pointer mt-5 transition-all duration-600 ease-in-out"
+              disabled={isLoading}
+              className="hover:bg-[#009688] bg-[#00B8A9] text-white font-semibold px-6 py-2 rounded cursor-pointer mt-5 transition-all duration-600 ease-in-out disabled:opacity-50"
             >
-              Submit
+              {isLoading ? "Submitting..." : "Submit"}
             </button>
           </form>
         </div>
 
-        {/* Calendar */}
-        <div className="w-full h-fit lg:w-2/3 bg-white ">
-          <AppointmentCalendar
-            selectedDate={formData.date}
-            onDateSelect={(selectedDate) =>
-              setFormData((prev) => ({ ...prev, date: selectedDate }))
-            }
-          />
+        <div className="h-fit w-full lg:w-1/3">
+          <div className="">
+            <AppointmentCalendar
+              selectedDate={formData.date}
+              onDateSelect={(selectedDate) =>
+                setFormData((prev) => ({ ...prev, date: selectedDate }))
+              }
+            />
+          </div>
+          <div className="text-center mt-10 text-red-700 font-semibold">
+            <p className="text-sm sm:text-base">
+              <strong>Note:</strong> Clinic hours are from{" "}
+              <span className="font-bold">8:00 AM to 8:00 PM</span>.
+            </p>
+          </div>
         </div>
       </div>
     </div>

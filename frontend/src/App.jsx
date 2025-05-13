@@ -35,6 +35,7 @@ import Admission from "./pages/Admission";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ResendOtp from "./components/ResendOtp";
+import AppointmentsOrders from "./pages/AppointmentsOrders";
 import YouTubeVideos from "./components/YouTubeVideos";
 
 const MainLayout = () => (
@@ -62,6 +63,7 @@ const router = createBrowserRouter([
       { path: "/courses", element: <CourseSells /> },
       { path: "/courses/:id", element: <CourseDetail /> },
       { path: "/admissions", element: <Admission /> },
+      { path: "/orders", element: <AppointmentsOrders /> },
       { path: "/youtubevideo", element: <YouTubeVideos/> },
       { path: "*", element: <PageNotFound /> },
     ],

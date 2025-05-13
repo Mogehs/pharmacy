@@ -26,6 +26,10 @@ const orderSchema = new mongoose.Schema(
       update_time: String,
       email_address: String,
     },
+    status: {
+      type: String,
+      default: "Preparing Package",
+    },
   },
   { timestamps: true }
 );

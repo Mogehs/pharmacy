@@ -40,22 +40,9 @@ const Overview = ({ course }) => {
             <h3 className="text-2xl text-[#00B8A9] font-semibold mb-3">
               What you'll learn in this course:
             </h3>
-            <ul className="mb-4 space-y-2">
-              {course.features?.map((item, index) => (
-                <li
-                  key={index}
-                  className="flex items-center text-green-600 gap-2"
-                >
-                  <FaCheck />
-                  <span className="text-gray-700 text-lg">{item}</span>
-                </li>
-              ))}
-            </ul>
+            <ul className="mb-4 space-y-2">{course.courseOverview}</ul>
 
-            <p className="text-gray-700 mb-8">
-              {course.outcome ||
-                "By the end of the course, you'll be equipped with everything you need to work confidently."}
-            </p>
+            <p className="text-gray-700 mb-8"></p>
 
             {/* Lessons Section */}
             <h2 className="text-3xl text-[#00B8A9] font-semibold mb-4">
@@ -128,7 +115,7 @@ const Overview = ({ course }) => {
           </div>
           <div className="bg-white rounded-2xl shadow-xl p-6 h-fit sticky top-16 ">
             <div className="text-3xl font-bold text-[#009688] mb-4">
-              {course.price == 0 ? "Fasdas" : course.price}
+              {course.price == 0 ? "Free" : `${course.price}$`}
             </div>
             <ul className=" text-gray-700 mb-6 divide-y divide-gray-200">
               <li className="flex items-center justify-between py-3">
@@ -136,36 +123,36 @@ const Overview = ({ course }) => {
                   <FaLayerGroup className="text-gray-700" />
                   <span className="font-medium">Course level:</span>
                 </div>
-                <span>High</span>
+                <span>{course.courseLevel}</span>
               </li>
               <li className="flex items-center justify-between py-3">
                 <div className="flex items-center gap-2 text-gray-700">
                   <FaClock className="text-gray-700" />
                   <span className="font-medium">Course Duration:</span>
                 </div>
-                <span>10 weeks</span>
+                <span>{course.courseDuration} Days</span>
               </li>
               <li className="flex items-center justify-between py-3">
                 <div className="flex items-center gap-2 text-gray-700">
                   <FaBook className="text-gray-700" />
                   <span className="font-medium">Lessons:</span>
                 </div>
-                <span>12</span>
+                <span>{course.lessons}</span>
               </li>
               <li className="flex items-center justify-between py-3">
                 <div className="flex items-center gap-2 text-gray-700">
                   <FaQuestionCircle className="text-gray-700" />
                   <span className="font-medium">Quizzes:</span>
                 </div>
-                <span>0</span>
+                <span>{course.quizes}</span>
               </li>
-              <li className="flex items-center justify-between py-3 ">
+              {/* <li className="flex items-center justify-between py-3 ">
                 <div className="flex items-center gap-2 text-gray-700">
                   <FaCheck className="text-gray-700" />
                   <span className="font-medium">Pass Percentage:</span>
                 </div>
                 <span>80%</span>
-              </li>
+              </li> */}
               <li className="flex items-center justify-between py-3">
                 <div className="flex items-center gap-2 text-gray-700">
                   <FaCertificate className="text-gray-700" />
@@ -178,7 +165,7 @@ const Overview = ({ course }) => {
                   <FaLanguage className="text-gray-700" />
                   <span className="font-medium">Language:</span>
                 </div>
-                <span>English/Urdu</span>
+                <span>{course.language}</span>
               </li>
             </ul>
             {course.price === 0 ? (

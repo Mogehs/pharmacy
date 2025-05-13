@@ -9,7 +9,6 @@ import {
 } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { selectUniqueCategories } from "../components/features/shop/ShopSelector";
 import { useLogoutUserMutation } from "./features/userApi";
 import { setUser } from "./features/userSlice";
 import { useGetProductsQuery } from "./features/productsApi";
@@ -20,6 +19,7 @@ const others = [
   { id: 1, name: "YouTube Videos", link: "/youtubevideo" },
   { id: 2, name: "Courses", link: "/courses" },
   { id: 3, name: "Admission", link: "/admissions" },
+  { id: 4, name: "Orders & Appointments", link: "/orders" },
 ];
 
 const Navbar = () => {
@@ -27,7 +27,6 @@ const Navbar = () => {
   const { data: products = [] } = useGetProductsQuery();
   const { data: cart = {} } = useGetCartQuery();
   const cartItems = cart?.products || [];
-  const categories = useSelector(selectUniqueCategories);
   const user = useSelector((state) => state.user.user);
   const [logoutUser] = useLogoutUserMutation();
 
@@ -66,6 +65,9 @@ const Navbar = () => {
     logoutUser();
     dispatch(setUser(null));
   };
+  const categories = [
+    ...new Set(products?.map((product) => product.category).filter(Boolean)),
+  ];
 
   return (
     <nav className="bg-white shadow-md px-4 py-3 sticky top-0 z-60">
@@ -94,11 +96,13 @@ const Navbar = () => {
             >
               Products
               <FaChevronDown
-                className={`text-sm mt-1 ${!productDropdown && "-rotate-90"}`}
+                className={`text-sm mt-1 ${
+                  !productDropdown && "-rotate-90"
+                } transition-all duration-400`}
               />
             </div>
             {productDropdown && (
-              <ul className="absolute top-8 left-0 bg-white shadow-lg rounded-md w-56 py-2 z-50 overflow-y-auto h-[50vh] space-y-1 px-2 scrollbar-thin scrollbar-thumb-[#a8754d] scrollbar-track-gray-100 hover:scrollbar-thumb-[#925f3c]">
+              <ul className="absolute top-8 left-0 bg-white shadow-lg rounded-md w-56 py-2 z-50 overflow-y-auto max-h-[50vh] mt-5 space-y-1 px-2 scrollbar-thin scrollbar-thumb-[#a8754d] scrollbar-track-gray-100 hover:scrollbar-thumb-[#925f3c]">
                 {categories.map((category) => (
                   <li key={category}>
                     <Link
@@ -139,11 +143,13 @@ const Navbar = () => {
             >
               Others
               <FaChevronDown
-                className={`text-sm mt-1 ${!otherDropdown && "-rotate-90"}`}
+                className={`text-sm mt-1 ${
+                  !otherDropdown && "-rotate-90"
+                } transition-all duration-400`}
               />
             </div>
             {otherDropdown && (
-              <ul className="absolute top-8 left-0 bg-white shadow-lg rounded-md w-56 py-2 z-50 overflow-y-auto h-[20vh] space-y-1 px-2 scrollbar-thin scrollbar-thumb-[#a8754d] scrollbar-track-gray-100 hover:scrollbar-thumb-[#925f3c]">
+              <ul className="absolute top-8 left-0 bg-white shadow-lg rounded-md w-56 py-2 z-50 overflow-y-auto max-h-[50vh] mt-5 space-y-1 px-2 scrollbar-thin scrollbar-thumb-[#a8754d] scrollbar-track-gray-100 hover:scrollbar-thumb-[#925f3c]">
                 {others.map((other) => (
                   <li key={other.id}>
                     <Link
@@ -172,25 +178,26 @@ const Navbar = () => {
           </Link>
 
           {isLoggedIn ? (
-            <button
-              onClick={handleLogout}
-              className="px-4 py-2 border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] hover:border-[#009688]"
-            >
-              <FaSignOutAlt className="inline-block mr-1" /> Logout
-            </button>
+            <>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] text-sm hover:border-[#009688] cursor-pointer"
+              >
+                <FaSignOutAlt className="inline-block mr-1" /> Logout
+              </button>
+              <Link to="/appointments">
+                <button className="px-4 text-sm py-2 border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] hover:border-[#009688] cursor-pointer">
+                  Get Appointment
+                </button>
+              </Link>
+            </>
           ) : (
             <Link to="/login">
-              <button className="px-4 py-2 border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] hover:border-[#009688] flex items-center gap-2">
+              <button className="px-4 py-2 text-sm border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] hover:border-[#009688] flex items-center gap-2 cursor-pointer">
                 <FaSignInAlt /> Login
               </button>
             </Link>
           )}
-
-          <Link to="/appointments">
-            <button className="px-4 text-sm py-2 border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] hover:border-[#009688]">
-              Get Appointment
-            </button>
-          </Link>
         </div>
 
         {/* Mobile Icon */}
@@ -258,6 +265,7 @@ const Navbar = () => {
             >
               Others <FaChevronDown className="text-sm mt-1" />
             </div>
+
             {otherDropdown && (
               <ul className="overflow-y-auto h-[20vh] space-y-1 px-2">
                 {others.map((other) => (
@@ -277,6 +285,38 @@ const Navbar = () => {
               </ul>
             )}
           </div>
+          <ul className="space-y-4">
+            <li className="hover:text-[#009688] text-[#00B8A9]">
+              <Link to="/blogs">Blogs</Link>
+            </li>
+            <li className="hover:text-[#009688] text-[#00B8A9]">
+              <Link to="/about">About</Link>
+            </li>
+            <li className="hover:text-[#009688] text-[#00B8A9]">
+              <Link to="/contact">Contact</Link>
+            </li>
+          </ul>
+          {isLoggedIn ? (
+            <div className="grid grid-cols-1 gap-2">
+              <button
+                onClick={handleLogout}
+                className="px-4 text-sm py-2 border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] hover:border-[#009688] cursor-pointer max-sm:w-full"
+              >
+                <FaSignOutAlt className="inline-block mr-1" /> Logout
+              </button>
+              <Link to="/appointments">
+                <button className="px-4 text-sm py-2 border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] hover:border-[#009688] cursor-pointer max-sm:w-full">
+                  Get Appointment
+                </button>
+              </Link>
+            </div>
+          ) : (
+            <Link to="/login">
+              <button className="px-4 py-2 text-sm border border-[#00B8A9] bg-[#00B8A9] text-white rounded-full hover:bg-[#009688] hover:border-[#009688] flex items-center gap-2 cursor-pointer">
+                <FaSignInAlt /> Login
+              </button>
+            </Link>
+          )}
         </div>
       )}
     </nav>

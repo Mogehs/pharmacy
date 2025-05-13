@@ -234,14 +234,14 @@ export default function CourseGrid() {
               />
               <div className="absolute top-3 left-3 flex gap-2">
                 <span className="bg-yellow-400 text-white text-xs font-semibold px-2 py-1 rounded">
-                  {course.label1}
+                  Price: {course.price}$
                 </span>
                 <span className="bg-green-500 text-white text-xs font-semibold px-2 py-1 rounded">
-                  {course.label2}
+                  Lessons: {course.lessons}
                 </span>
               </div>
-              <div className="absolute top-3 right-3 bg-red-500 text-white text-xs sm:text-sm font-bold w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full shadow">
-                {course.level}
+              <div className="absolute top-3 right-3 bg-red-500 text-white text-xs  font-bold p-1 flex items-center justify-center rounded-md shadow">
+                {course.courseLevel}
               </div>
             </div>
 
@@ -253,7 +253,7 @@ export default function CourseGrid() {
                 by {course.instructor}
               </p>
               <p className="text-sm text-gray-500 mb-4">
-                Price: {course.price}
+                Price: {course.price} $
               </p>
 
               <div className="flex items-center gap-2 mb-4">

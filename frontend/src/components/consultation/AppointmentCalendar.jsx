@@ -64,7 +64,7 @@ const AppointmentCalendar = ({ onDateSelect, selectedDate }) => {
           key={`day-${day}`}
           onClick={handleClick}
           disabled={isWeekend}
-          className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full text-sm flex items-center justify-center transition-all
+          className={`w-10 h-10 sm:w-11 sm:h-11 rounded-lg text-sm flex items-center justify-center transition-all
             ${
               isSelected
                 ? "bg-[#009688] text-white shadow-md"
@@ -83,7 +83,7 @@ const AppointmentCalendar = ({ onDateSelect, selectedDate }) => {
   };
 
   return (
-    <div className="max-w-sm sm:max-w-md mx-auto shadow-lg rounded-xl p-5 bg-white">
+    <div className="max-w-sm sm:max-w-md mx-auto shadow-sm rounded-lg p-5 bg-white">
       <div className="flex justify-between items-center mb-4">
         <button
           onClick={prevMonth}

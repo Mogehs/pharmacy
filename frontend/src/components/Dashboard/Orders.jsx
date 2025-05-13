@@ -68,7 +68,7 @@ const Orders = () => {
 
   return (
     <motion.div
-      className="bg-white rounded-xl shadow-xl p-6 mt-6 max-w-full overflow-hidden"
+      className="bg-white rounded-xl shadow-xl p-6 mt-6 w-[76vw] overflow-hidden"
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
@@ -91,6 +91,7 @@ const Orders = () => {
             <tr>
               <th className="p-3 text-nowrap">Order ID</th>
               <th className="p-3 text-nowrap">Customer</th>
+              <th className="p-3 text-nowrap">Shipping Address</th>
               <th className="p-3 text-nowrap">Date</th>
               <th className="p-3 text-nowrap">Total</th>
               <th className="p-3 text-nowrap">Status</th>
@@ -111,6 +112,11 @@ const Orders = () => {
                   >
                     <td className="px-3 py-3">{order._id}</td>
                     <td className="px-3 py-3">{order.user?.email || "N/A"}</td>
+                    <td className="px-3 py-3">
+                      {order.shippingAddress.address},{" "}
+                      {order.shippingAddress.city},
+                      {order.shippingAddress.postalCode}
+                    </td>
                     <td className="px-3 py-3">
                       {new Date(order.createdAt).toLocaleDateString()}
                     </td>

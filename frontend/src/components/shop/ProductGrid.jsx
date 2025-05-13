@@ -45,25 +45,25 @@ const ProductGrid = () => {
   }
 
   return (
-    <div className="flex flex-col gap-8 flex-1 px-4 py-6 text-dark-color">
+    <div className="flex flex-col gap-8 flex-1 px-4 py-5 text-dark-color">
       {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {currentItems.map((product) => (
           <div
             key={product._id}
-            className="border border-light-color bg-white rounded-lg p-4 shadow-sm group transition hover:border-dark-color"
+            className="border border-light-color bg-white rounded-lg p-2  shadow-sm group transition hover:border-dark-color"
           >
             <div className="relative">
               <img
                 src={product.image}
                 alt={product.name}
-                className="w-full h-60 object-contain mb-3 rounded transition-transform duration-500 ease-in-out group-hover:scale-95"
+                className="w-full h-40 object-contain mb-2 rounded transition-transform duration-500 ease-in-out group-hover:scale-95"
               />
               {/* Hover Overlay */}
               <div className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition duration-300">
                 <button
                   onClick={() => handleViewProduct(product._id)}
-                  className="bg-medium-color text-white p-3 rounded-md hover:bg-dark-color transition duration-300 flex items-center gap-2"
+                  className="bg-medium-color text-white p-3 rounded-md bg-black cursor-pointer hover:bg-black transition duration-300 flex items-center gap-2"
                 >
                   <FaRegEye />
                   <span>View Product</span>

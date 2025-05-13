@@ -1,51 +1,68 @@
 import Appointment from "../models/Appointment.js";
-import User from "../models/User.js"; // Optional, in case you need user validation
 
-// Create an appointment
 export const createAppointment = async (req, res) => {
   try {
-    const { date, timeSlot } = req.body;
-
-    const userId = req.user._id;
-
-    if (!userId || !date || !timeSlot) {
-      return res.status(400).json({ message: "All fields are required" });
-    }
-
-    const appointment = await Appointment.create({
-      userId,
+    const {
+      address,
+      authorizations,
+      birthDate,
       date,
-      timeSlot,
+      email,
+      guardianFirst,
+      guardianLast,
+      phone,
+    } = req.body;
+
+    const appointment = new Appointment({
+      user: req.user._id,
+      address,
+      authorizations,
+      birthDate,
+      date,
+      email,
+      guardianFirst,
+      guardianLast,
+      phone,
     });
 
-    res.status(201).json({
-      success: true,
-      message: "Appointment created successfully",
-      appointment,
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    const saved = await appointment.save();
+    res
+      .status(201)
+      .json({
+        success: true,
+        message: "Your Appointment Created Successfully",
+        saved,
+      });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
   }
 };
 
-// Get all appointments
 export const getAllAppointments = async (req, res) => {
   try {
-    const appointments = await Appointment.find()
-      .populate("_id", "name email") // Populates basic user info
-      .sort({ createdAt: -1 });
-
-    res.json({ success: true, appointments });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    const appointments = await Appointment.find().populate(
+      "user",
+      "name email"
+    );
+    res.status(200).json(appointments);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
 
-// Get appointment by ID
+export const getMyAppointments = async (req, res) => {
+  try {
+    const appointments = await Appointment.find({ user: req.user._id });
+    res.status(200).json(appointments);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 export const getAppointmentById = async (req, res) => {
   try {
     const appointment = await Appointment.findById(req.params.id).populate(
-      "_id",
+      "user",
       "name email"
     );
 
@@ -53,57 +70,35 @@ export const getAppointmentById = async (req, res) => {
       return res.status(404).json({ message: "Appointment not found" });
     }
 
-    res.json({ success: true, appointment });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
-
-// Update appointment status (admin or doctor use)
-export const updateAppointmentStatus = async (req, res) => {
-  try {
-    const { status } = req.body;
-
-    const updated = await Appointment.findByIdAndUpdate(
-      req.params.id,
-      { status },
-      { new: true }
-    );
-
-    if (!updated) {
-      return res.status(404).json({ message: "Appointment not found" });
-    }
-
-    res.json({
-      success: true,
-      message: "Appointment status updated",
-      appointment: updated,
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
-
-// Delete an appointment
-export const deleteAppointment = async (req, res) => {
-  try {
-    const deleted = await Appointment.findByIdAndDelete(req.params.id);
-
-    if (req.user.role !== "admin") {
+    if (appointment.user._id.toString() !== req.user._id.toString()) {
       return res
         .status(403)
-        .json({ message: "You are not authorized to delete this appointment" });
+        .json({ message: "Not authorized to view this appointment" });
     }
-    if (!deleted) {
+
+    res.status(200).json(appointment);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+export const deleteAppointment = async (req, res) => {
+  try {
+    const appointment = await Appointment.findById(req.params.id);
+
+    if (!appointment) {
       return res.status(404).json({ message: "Appointment not found" });
     }
 
-    if (!deleted) {
-      return res.status(404).json({ message: "Appointment not found" });
+    if (appointment.user.toString() !== req.user._id.toString()) {
+      return res
+        .status(403)
+        .json({ message: "Not authorized to delete this appointment" });
     }
 
-    res.json({ success: true, message: "Appointment deleted" });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    await appointment.remove();
+    res.status(200).json({ message: "Appointment deleted" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };

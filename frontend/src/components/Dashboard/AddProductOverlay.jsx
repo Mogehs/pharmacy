@@ -39,7 +39,6 @@ const AddProductOverlay = ({ onClose, onAdd }) => {
   const handleSubmit = async () => {
     const { name, category, price, stock, description, images } = newProduct;
 
-    console.log("clickesss");
     if (name && category && description && images.length > 0) {
       setIsSubmitting(true);
       const formData = new FormData();
@@ -54,17 +53,20 @@ const AddProductOverlay = ({ onClose, onAdd }) => {
 
       try {
         const response = await createProduct(formData).unwrap();
-        toast.success("✅ Product added successfully!");
-        onAdd(response);
+        if (response.success == true) {
+          toast.success(response.message);
+          onAdd(response);
+        } else {
+          toast.error(response.message);
+        }
         onClose();
       } catch (error) {
         console.error("Failed to create product:", error);
-        toast.error("❌ Failed to add product. Please try again.");
       } finally {
         setIsSubmitting(false);
       }
     } else {
-      toast.warn("⚠️ Please fill in all required fields including images.");
+      toast.warn("Please fill in all required fields including images.");
     }
   };
 

@@ -1,11 +1,11 @@
 import Order from "../models/Order.js";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-
 export const stripeWebhook = async (req, res) => {
   const sig = req.headers["stripe-signature"];
   let event;
+
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
   try {
     event = stripe.webhooks.constructEvent(
@@ -14,22 +14,17 @@ export const stripeWebhook = async (req, res) => {
       process.env.STRIPE_WEBHOOK_SECRET
     );
   } catch (err) {
-    console.error("Webhook verification failed:", err.message);
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
   if (event.type === "checkout.session.completed") {
     const session = event.data.object;
-    const { userId, orderId } = session.metadata;
 
-    try {
-      const order = await Order.findById(orderId);
-
-      if (!order) {
-        console.warn("Order not found for ID:", orderId);
-        return res.status(404).json({ message: "Order not found" });
-      }
-
+    // Find and update the order
+    const order = await Order.findOne({
+      totalPrice: session.amount_total / 100,
+    });
+    if (order) {
       order.isPaid = true;
       order.paidAt = new Date();
       order.paymentResult = {
@@ -38,12 +33,7 @@ export const stripeWebhook = async (req, res) => {
         update_time: new Date().toISOString(),
         email_address: session.customer_email,
       };
-
       await order.save();
-
-      await Cart.findOneAndDelete({ userId });
-    } catch (error) {
-      return res.status(500).json({ message: "Internal Server Error" });
     }
   }
 

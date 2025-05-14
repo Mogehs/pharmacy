@@ -11,6 +11,7 @@ import orderRoutes from "./routes/orderRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import courseRoutes from "./routes/courseRoutes.js";
 import stripeRoutes from "./routes/stripeRoute.js";
+import videoRoutes from "./routes/videoRoutes.js";
 
 import { stripeWebhook } from "./stripe/stripeWebHook.js";
 
@@ -43,6 +44,7 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/courses", courseRoutes);
 app.use("/api/stripe", stripeRoutes);
+app.use("/api/videos", videoRoutes);
 
 // DB connection & Server
 const PORT = process.env.PORT || 5000;

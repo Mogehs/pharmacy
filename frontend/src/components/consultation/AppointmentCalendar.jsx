@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { useGetAllAppointmentsQuery } from "../features/AppointmentApi";
 
 const AppointmentCalendar = ({ onDateSelect, selectedDate }) => {
+  const { data: appointments } = useGetAllAppointmentsQuery();
+  console.log(appointments);
+
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const month = currentDate.toLocaleString("default", { month: "long" });

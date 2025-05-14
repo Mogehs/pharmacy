@@ -37,6 +37,7 @@ import "react-toastify/dist/ReactToastify.css";
 import ResendOtp from "./components/ResendOtp";
 import AppointmentsOrders from "./pages/AppointmentsOrders";
 import YouTubeVideos from "./components/YouTubeVideos";
+import Appointments from "./components/Dashboard/Appointments";
 
 const MainLayout = () => (
   <div className="lg:mx-auto lg:max-w-[1536px]">
@@ -64,7 +65,7 @@ const router = createBrowserRouter([
       { path: "/courses/:id", element: <CourseDetail /> },
       { path: "/admissions", element: <Admission /> },
       { path: "/orders", element: <AppointmentsOrders /> },
-      { path: "/youtubevideo", element: <YouTubeVideos/> },
+      { path: "/youtubevideo", element: <YouTubeVideos /> },
       { path: "*", element: <PageNotFound /> },
     ],
   },
@@ -86,6 +87,7 @@ const router = createBrowserRouter([
       { path: "/dashboard/orders", element: <Orders /> },
       { path: "/dashboard/courses", element: <Courses /> },
       { path: "/dashboard/students", element: <Students /> },
+      { path: "/dashboard/appointments", element: <Appointments /> },
     ],
   },
 ]);

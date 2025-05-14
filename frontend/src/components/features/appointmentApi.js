@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
 export const appointmentApi = createApi({
   reducerPath: "appointmentApi",
   baseQuery: fetchBaseQuery({
@@ -40,6 +41,18 @@ export const appointmentApi = createApi({
       }),
       invalidatesTags: ["Appointment"],
     }),
+
+    updateAppointment: builder.mutation({
+      query: ({ id, updatedData }) => ({
+        url: `/appointments/${id}/status`,
+        method: "PUT",
+        body: updatedData,
+      }),
+      invalidatesTags: (result, error, { id }) => [
+        { type: "Appointment", id },
+        { type: "Appointment" },
+      ],
+    }),
   }),
 });
 
@@ -49,4 +62,5 @@ export const {
   useGetMyAppointmentsQuery,
   useGetAppointmentByIdQuery,
   useDeleteAppointmentMutation,
+  useUpdateAppointmentMutation, // ← Export the hook
 } = appointmentApi;

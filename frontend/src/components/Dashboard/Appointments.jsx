@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import {
   useGetAllAppointmentsQuery,
   useUpdateAppointmentMutation,
-} from "../features/AppointmentApi";
+} from "../features/appointmentApi";
 
 const Appointments = () => {
   const [searchTerm, setSearchTerm] = useState("");

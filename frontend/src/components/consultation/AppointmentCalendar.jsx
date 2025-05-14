@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import { useGetAllAppointmentsQuery } from "../features/AppointmentApi";
+import { useGetAllAppointmentsQuery } from "../features/appointmentApi";
 
 const AppointmentCalendar = ({ onDateSelect, selectedDate }) => {
   const { data: appointments } = useGetAllAppointmentsQuery();

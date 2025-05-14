@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AppointmentCalendar from "./AppointmentCalendar";
-import { useCreateAppointmentMutation } from "../features/AppointmentApi";
+import { useCreateAppointmentMutation } from "../features/appointmentApi";
 import { toast } from "react-toastify";
 
 export default function ConsultationForm() {

@@ -1,5 +1,5 @@
 import React from "react";
-import { useGetMyAppointmentsQuery } from "../features/AppointmentApi";
+import { useGetMyAppointmentsQuery } from "../features/appointmentApi";
 
 const statusColors = {
   Scheduled: "bg-blue-100 text-blue-800",

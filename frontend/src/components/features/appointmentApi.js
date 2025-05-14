@@ -62,5 +62,5 @@ export const {
   useGetMyAppointmentsQuery,
   useGetAppointmentByIdQuery,
   useDeleteAppointmentMutation,
-  useUpdateAppointmentMutation, // ← Export the hook
+  useUpdateAppointmentMutation,
 } = appointmentApi;

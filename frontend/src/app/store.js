@@ -22,7 +22,7 @@ import { userApi } from "../components/features/userApi";
 import { courseApi } from "../components/features/courseApi";
 import { cartApi } from "../components/features/cartApi";
 import { stripeApi } from "../components/features/stripeApi";
-import { appointmentApi } from "../components/features/AppointmentApi";
+import { appointmentApi } from "../components/features/appointmentApi";
 import { videoApi } from "../components/features/videoApi";
 
 // Load cart from localStorage

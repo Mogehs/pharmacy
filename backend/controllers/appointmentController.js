@@ -26,13 +26,11 @@ export const createAppointment = async (req, res) => {
     });
 
     const saved = await appointment.save();
-    res
-      .status(201)
-      .json({
-        success: true,
-        message: "Your Appointment Created Successfully",
-        saved,
-      });
+    res.status(201).json({
+      success: true,
+      message: "Your Appointment Created Successfully",
+      saved,
+    });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -100,5 +98,41 @@ export const deleteAppointment = async (req, res) => {
     res.status(200).json({ message: "Appointment deleted" });
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+};
+
+export const updateAppointmentStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    const allowedStatuses = ["Completed", "Cancelled"];
+    if (!allowedStatuses.includes(status)) {
+      return res.status(400).json({
+        message: "Invalid status. Only 'Completed' or 'Cancelled' are allowed.",
+      });
+    }
+
+    const appointment = await Appointment.findById(id);
+    if (!appointment) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+
+    if (appointment.status !== "Scheduled") {
+      return res.status(400).json({
+        message: "Only appointments with status 'Scheduled' can be updated.",
+      });
+    }
+
+    appointment.status = status;
+    await appointment.save();
+
+    res.status(200).json({
+      message: `Appointment marked as ${status}.`,
+      appointment,
+    });
+  } catch (error) {
+    console.error("Error updating appointment status:", error);
+    res.status(500).json({ message: "Server error" });
   }
 };

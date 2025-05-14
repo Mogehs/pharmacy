@@ -38,6 +38,7 @@ import ResendOtp from "./components/ResendOtp";
 import AppointmentsOrders from "./pages/AppointmentsOrders";
 import YouTubeVideos from "./components/YouTubeVideos";
 import Appointments from "./components/Dashboard/Appointments";
+import AddVideos from "./components/Dashboard/AddVideos";
 
 const MainLayout = () => (
   <div className="lg:mx-auto lg:max-w-[1536px]">
@@ -88,6 +89,7 @@ const router = createBrowserRouter([
       { path: "/dashboard/courses", element: <Courses /> },
       { path: "/dashboard/students", element: <Students /> },
       { path: "/dashboard/appointments", element: <Appointments /> },
+      { path: "/dashboard/add-videos", element: <AddVideos /> },
     ],
   },
 ]);

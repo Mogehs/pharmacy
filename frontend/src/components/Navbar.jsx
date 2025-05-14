@@ -14,11 +14,12 @@ import { setUser } from "./features/userSlice";
 import { useGetProductsQuery } from "./features/productsApi";
 import { setCategory } from "./features/productSlice";
 import { useGetCartQuery } from "./features/cartApi";
+import { AnimatePresence, motion } from "framer-motion";
 
 const others = [
   { id: 1, name: "YouTube Videos", link: "/youtubevideo" },
   { id: 2, name: "Courses", link: "/courses" },
-  { id: 3, name: "Admission", link: "/admissions" },
+  // { id: 3, name: "Admission", link: "/admissions" },
   { id: 4, name: "Orders & Appointments", link: "/orders" },
 ];
 
@@ -101,26 +102,30 @@ const Navbar = () => {
                 } transition-all duration-400`}
               />
             </div>
-            {productDropdown && (
-              <ul className="absolute top-8 left-0 bg-white shadow-lg rounded-md w-56 py-2 z-50 overflow-y-auto max-h-[50vh] mt-5 space-y-1 px-2 scrollbar-thin scrollbar-thumb-[#a8754d] scrollbar-track-gray-100 hover:scrollbar-thumb-[#925f3c]">
-                {categories.map((category) => (
-                  <li key={category}>
-                    <Link
-                      to="/products"
-                      onClick={() => {
-                        dispatch(
-                          setCategory(category === "All" ? "" : category)
-                        );
-                        setProductDropdown(false);
-                      }}
-                      className="block px-4 py-2 hover:text-[#009688] text-[#00B8A9]"
-                    >
-                      {category}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
+            <AnimatePresence initial={false}>
+              {productDropdown && (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                  <ul className="absolute top-8 left-0 bg-white shadow-lg rounded-md w-56 py-2 z-50 overflow-y-auto max-h-[50vh] mt-5 space-y-1 px-2 scrollbar-thin scrollbar-thumb-[#a8754d] scrollbar-track-gray-100 hover:scrollbar-thumb-[#925f3c]">
+                    {categories.map((category) => (
+                      <li key={category}>
+                        <Link
+                          to="/products"
+                          onClick={() => {
+                            dispatch(
+                              setCategory(category === "All" ? "" : category)
+                            );
+                            setProductDropdown(false);
+                          }}
+                          className="block px-4 py-2 hover:text-[#009688] text-[#00B8A9]"
+                        >
+                          {category}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </li>
 
           <li className="hover:text-[#009688] text-[#00B8A9]">

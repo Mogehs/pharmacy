@@ -23,6 +23,7 @@ import { courseApi } from "../components/features/courseApi";
 import { cartApi } from "../components/features/cartApi";
 import { stripeApi } from "../components/features/stripeApi";
 import { appointmentApi } from "../components/features/AppointmentApi";
+import { videoApi } from "../components/features/videoApi";
 
 // Load cart from localStorage
 const loadCartFromLocalStorage = () => {
@@ -57,6 +58,7 @@ const rootReducer = combineReducers({
   [userApi.reducerPath]: userApi.reducer,
   [cartApi.reducerPath]: cartApi.reducer,
   [stripeApi.reducerPath]: stripeApi.reducer,
+  [videoApi.reducerPath]: videoApi.reducer,
   [appointmentApi.reducerPath]: appointmentApi.reducer,
 });
 
@@ -85,7 +87,8 @@ const store = configureStore({
       courseApi.middleware,
       cartApi.middleware,
       stripeApi.middleware,
-      appointmentApi.middleware
+      appointmentApi.middleware,
+      videoApi.middleware
     ),
 });
 

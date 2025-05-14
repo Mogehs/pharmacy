@@ -9,6 +9,7 @@ import {
   MdClose,
 } from "react-icons/md";
 import { FaPeopleGroup } from "react-icons/fa6";
+import { CiYoutube } from "react-icons/ci";
 import { PiStudent } from "react-icons/pi";
 import { FaDiscourse } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
@@ -26,7 +27,12 @@ const Sidebar = () => {
     { to: "/dashboard/orders", label: "Orders", icon: <MdBorderStyle /> },
     { to: "/dashboard/products", label: "Products", icon: <MdInventory /> },
     { to: "/dashboard/courses", label: "Courses", icon: <FaDiscourse /> },
-    { to: "/dashboard/students", label: "Students", icon: <PiStudent /> },
+    {
+      to: "/dashboard/add-videos",
+      label: "YouTube Videos",
+      icon: <CiYoutube />,
+    },
+    // { to: "/dashboard/students", label: "Students", icon: <PiStudent /> },
     { to: "/dashboard/customers", label: "Customers", icon: <MdPeople /> },
   ];
 
@@ -61,7 +67,7 @@ const Sidebar = () => {
                 to={to}
                 end={to === "/dashboard"}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 p-3 rounded hover:bg-medium-color transition ${
+                  `flex items-center gap-3 px-3 py-1 rounded hover:bg-medium-color transition ${
                     isActive ? "bg-[#00B8A9] border-l-4 border-[#009688]" : ""
                   }`
                 }

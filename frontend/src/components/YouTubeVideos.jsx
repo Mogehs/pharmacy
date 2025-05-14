@@ -1,31 +1,9 @@
-import React from "react";  
+import React from "react";
 import { ArrowRight } from "lucide-react";
-
-const videoData = [
-  {
-    category: "Online Pharmacy",
-    title: "How Online Pharmacies Work",
-    description:
-      "Learn how online pharmacies operate, from prescription to doorstep delivery.",
-    videoUrl: "https://www.youtube.com/watch?v=oC4ClUJ6sMI",
-  },
-  {
-    category: "Online Pharmacy",
-    title: "Benefits of Online Pharmacy Services",
-    description:
-      "Explore the convenience, safety, and savings of using online pharmacy platforms.",
-    videoUrl: "https://www.youtube.com/watch?v=Js0a_d6lRVU",
-  },
-  {
-    category: "Online Pharmacy",
-    title: "Ordering Medicines Online: A Step-by-Step Guide",
-    description:
-      "A complete walkthrough on how to place an order and consult online pharmacists.",
-    videoUrl: "https://www.youtube.com/watch?v=_rr6HJT1IKY",
-  },
-];
+import { useGetVideosQuery } from "./features/videoApi";
 
 const YouTubeVideos = () => {
+  const { data: videoData = [] } = useGetVideosQuery();
   return (
     <div className="bg-white text-black p-6 md:p-10 space-y-10">
       {videoData.map((video, index) => (
@@ -55,7 +33,7 @@ const YouTubeVideos = () => {
               <iframe
                 width="480"
                 height="360"
-                src={video.videoUrl.replace("watch?v=", "embed/")}
+                src={video.link.replace("watch?v=", "embed/")}
                 title={video.title}
                 className="w-full md:w-[480px] h-[360px] rounded shadow"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

@@ -24,6 +24,8 @@ const userSchema = new mongoose.Schema(
     ],
     orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
     enrolledCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }],
+
+    savedCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }],
   },
   { timestamps: true }
 );

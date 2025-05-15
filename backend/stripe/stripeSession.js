@@ -19,12 +19,17 @@ export const createCheckoutSession = async (req, res) => {
       quantity: item.quantity,
     }));
 
+    // Create Stripe Checkout Session with metadata
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
       success_url: `${process.env.CLIENT_URL}/success`,
       cancel_url: `${process.env.CLIENT_URL}/cancel`,
+      metadata: {
+        type: "order",
+        userId,
+      },
     });
 
     // Save a pending order

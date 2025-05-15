@@ -1,12 +1,13 @@
 import Order from "../models/Order.js";
 import Cart from "../models/Cart.js";
+import User from "../models/User.js";
 import Stripe from "stripe";
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const stripeWebhook = async (req, res) => {
   const sig = req.headers["stripe-signature"];
   let event;
-
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
   try {
     event = stripe.webhooks.constructEvent(
@@ -20,27 +21,35 @@ export const stripeWebhook = async (req, res) => {
 
   if (event.type === "checkout.session.completed") {
     const session = event.data.object;
+    const metadata = session.metadata || {};
 
     try {
-      const order = await Order.findOne({
-        totalPrice: session.amount_total / 100,
-      });
+      if (metadata.type === "order") {
+        // Handle normal order
+        const order = await Order.findById(metadata.orderId);
+        if (order) {
+          order.isPaid = true;
+          order.paidAt = new Date();
+          order.paymentResult = {
+            id: session.id,
+            status: session.payment_status,
+            update_time: new Date().toISOString(),
+            email_address: session.customer_email,
+          };
+          await order.save();
 
-      if (order) {
-        order.isPaid = true;
-        order.paidAt = new Date();
-        order.paymentResult = {
-          id: session.id,
-          status: session.payment_status,
-          update_time: new Date().toISOString(),
-          email_address: session.customer_email,
-        };
-        await order.save();
-
-        await Cart.findOneAndDelete({ userId: order.user });
+          await Cart.findOneAndDelete({ userId: order.user });
+        }
+      } else if (metadata.type === "course") {
+        const { userId, courseId } = metadata;
+        if (userId && courseId) {
+          await User.findByIdAndUpdate(userId, {
+            $addToSet: { purchasedCourses: courseId },
+          });
+        }
       }
     } catch (err) {
-      console.error("Error processing order and clearing cart:", err);
+      console.error("Error processing webhook:", err);
       return res.status(500).json({ error: "Internal server error" });
     }
   }

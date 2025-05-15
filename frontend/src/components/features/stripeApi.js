@@ -19,7 +19,22 @@ export const stripeApi = createApi({
         },
       }),
     }),
+
+    createCourseCheckoutSession: builder.mutation({
+      query: ({ userId, courseId, courseName, price }) => ({
+        url: `/stripe/create-course-session/${userId}`,
+        method: "POST",
+        body: {
+          courseId,
+          courseName,
+          price,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useCreateCheckoutSessionMutation } = stripeApi;
+export const {
+  useCreateCheckoutSessionMutation,
+  useCreateCourseCheckoutSessionMutation,
+} = stripeApi;

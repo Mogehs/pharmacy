@@ -15,16 +15,41 @@ import {
   FaQuestionCircle,
   FaGoogleDrive,
 } from "react-icons/fa";
+import { useCreateCourseCheckoutSessionMutation } from "../../features/stripeApi";
+import { useSelector } from "react-redux";
 const Overview = ({ course }) => {
   const [openLessons, setOpenLessons] = useState([]);
+  const user = useSelector((state) => state.user.user);
+  const [createCourseCheckoutSession, { isLoading }] =
+    useCreateCourseCheckoutSessionMutation();
+
   const lessonCount = course?.lessons;
   const lessons = Array.from({ length: lessonCount }, (_, i) => i + 1);
-  console.log(course);
 
   const toggleLesson = (index) => {
     setOpenLessons((prev) =>
       prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
     );
+  };
+
+  const handleBuyCourse = async () => {
+    try {
+      const res = await createCourseCheckoutSession({
+        userId: user._id,
+        courseId: course._id,
+        courseName: course.title,
+        price: course.price,
+      });
+
+      if (res.data?.url) {
+        window.location.href = res.data.url;
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      console.error("Stripe Checkout Error:", error);
+      alert("Error initiating payment.");
+    }
   };
 
   return (
@@ -185,10 +210,15 @@ const Overview = ({ course }) => {
                   </div>
                 </div>
                 <button
-                  className=" bg-[#00B8A9] text-white py-4 px-7 rounded-md font-semibold transition duration-500
-                            border-2 border-transparent hover:bg-[#009688] hover:border-[#009688] cursor-pointer"
+                  onClick={handleBuyCourse}
+                  disabled={isLoading}
+                  className={`bg-[#00B8A9] text-white py-4 px-7 rounded-md font-semibold transition duration-500 border-2 border-transparent hover:bg-[#009688] hover:border-[#009688] ${
+                    isLoading
+                      ? "opacity-50 cursor-not-allowed"
+                      : "cursor-pointer"
+                  }`}
                 >
-                  Buy Now
+                  {isLoading ? "Processing..." : "Buy Now"}
                 </button>
               </>
             )}

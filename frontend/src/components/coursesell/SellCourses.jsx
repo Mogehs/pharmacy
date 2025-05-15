@@ -172,8 +172,6 @@ export default function CourseGrid() {
 
   const { data: pharmacyCourses = [] } = useGetCoursesQuery();
 
-  console.log(pharmacyCourses);
-
   const filteredCourses =
     selectedFilter === "All Category"
       ? pharmacyCourses

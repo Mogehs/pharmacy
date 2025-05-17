@@ -25,7 +25,6 @@ export const stripeWebhook = async (req, res) => {
 
     try {
       if (metadata.type === "order") {
-        // Handle normal order
         const order = await Order.findById(metadata.orderId);
         if (order) {
           order.isPaid = true;

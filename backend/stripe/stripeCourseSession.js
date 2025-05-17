@@ -31,6 +31,7 @@ export const createCourseSession = async (req, res) => {
       success_url: `${process.env.CLIENT_URL}/success`,
       cancel_url: `${process.env.CLIENT_URL}/cancel`,
       metadata: {
+        type: "course",
         userId,
         courseId,
       },

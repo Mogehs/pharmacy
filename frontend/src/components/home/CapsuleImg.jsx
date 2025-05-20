@@ -9,6 +9,7 @@ import medicine2 from "/Home/medicine2.png";
 import medicine3 from "/Home/medicine3.png";
 import medicine4 from "/Home/medicine4.png";
 import medicine5 from "/Home/medicine5.png";
+import { Link } from "react-router-dom";
 
 const items = [
   {
@@ -52,7 +53,6 @@ export default function CapsuleImg() {
               height: "300px",
             }}
           >
-
             {/* for mobile device */}
             <div
               className="w-[50%]  mx-5 flex justify-center items-center"
@@ -66,12 +66,11 @@ export default function CapsuleImg() {
               <div className="w-full text-white rounded text-center h-full flex flex-col justify-center items-center bg-[#0096871d] sm:w-[50%] sm:hidden ">
                 <p className="text-[#fff]">Get it now 45% OFF</p>
                 <h1 className="text-lg font-bold sm:text-xl">{item.title}</h1>
-                <button
-                  className="px-4 mt-2 cursor-pointer py-2 rounded-3xl"
-                  style={{ backgroundColor: item.color }}
-                >
-                  Buy Now
-                </button>
+                <Link to="/products">
+                  <button className="px-4 mt-2 cursor-pointer py-2 rounded-3xl bg-[#009688] text-white">
+                    Buy Now
+                  </button>
+                </Link>
               </div>
             </div>
 
@@ -79,19 +78,17 @@ export default function CapsuleImg() {
             <div className="w-full sm:w-[50%] sm:block hidden">
               <p className="text-[#009688]">Get it now 45% OFF</p>
               <h1 className="text-lg font-bold sm:text-xl">{item.title}</h1>
-              <button
-                className="px-4 bg-[#009688] text-white mt-2 cursor-pointer py-2 rounded-3xl"
-                
-              >
-                Buy Now
-              </button>
+              <Link to="/products">
+                <button className="px-4 mt-2 cursor-pointer py-2 rounded-3xl bg-[#009688] text-white">
+                  Buy Now
+                </button>
+              </Link>
             </div>
           </div>
         ))}
       </div>
 
-
-        {/* its show only on lg device */}
+      {/* its show only on lg device */}
       <div
         className="w-full sm:w-[38%] flex justify-center items-center md:hidden lg:flex"
         style={{
@@ -101,7 +98,6 @@ export default function CapsuleImg() {
           height: "300px",
         }}
       >
-
         {/* show on small device  */}
         <div
           className="w-[70%] lg:w-[40%] mx-auto mt-4 flex justify-center items-end"
@@ -120,9 +116,11 @@ export default function CapsuleImg() {
             <h1 className="text-xl font-bold sm:text-2xl">
               Pyridoxine Vitamin B6
             </h1>
-            <button className="px-4 mt-2 cursor-pointer py-2 rounded-3xl bg-[#009688] text-white">
-              Buy Now
-            </button>
+            <Link to="/products">
+              <button className="px-4 mt-2 cursor-pointer py-2 rounded-3xl bg-[#009688] text-white">
+                Buy Now
+              </button>
+            </Link>
           </div>
         </div>
 
@@ -135,9 +133,11 @@ export default function CapsuleImg() {
           <h1 className="text-xl font-bold sm:text-xl">
             Pyridoxine Vitamin B6
           </h1>
-          <button className="px-4 mt-2 cursor-pointer py-2 rounded-3xl bg-[#009688] text-white">
-            Buy Now
-          </button>
+          <Link to="/products">
+            <button className="px-4 mt-2 cursor-pointer py-2 rounded-3xl bg-[#009688] text-white">
+              Buy Now
+            </button>
+          </Link>
         </div>
       </div>
     </div>

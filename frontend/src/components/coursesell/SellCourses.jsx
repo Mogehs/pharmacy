@@ -1,181 +1,32 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useGetCoursesQuery } from "../features/courseApi";
-
-const filters = [
-  "All Category",
-  "Clinical Pharmacy",
-  "Chemistry",
-  "Pharmacology",
-  "Safety",
-  "Research",
-  "Hospital Practice",
-  "Biopharmaceutics",
-  "Pharmacy Law",
-  "Toxicology",
-  "Therapeutics",
-  "Pharmacy Management",
-  "Community Pharmacy",
-];
-
-// const pharmacyCourses = [
-//   {
-//     id: 1,
-//     title: "Advanced Clinical Pharmacy Techniques",
-//     instructor: "Dr. Sarah Khan",
-//     image: "./courses/cr1.jpg",
-//     instructorImage: "./courses/dr1.jpg",
-//     price: "$45",
-//     label1: "Hot",
-//     label2: "New",
-//     students: "5623",
-//     category: "Clinical Pharmacy"
-//   },
-//   {
-//     id: 2,
-//     title: "Pharmaceutical Chemistry Basics",
-//     instructor: "Dr. Rai Hamza",
-//     image: "./courses/cr2.jpg",
-//     instructorImage: "./courses/dt1.jpg",
-//     price: "$30",
-//     label1: "New",
-//     label2: "Top",
-//     students: "4387",
-//     category: "Chemistry"
-//   },
-//   {
-//     id: 3,
-//     title: "Pharmacology for Beginners",
-//     instructor: "Dr. Ayesha Randhawa",
-//     image: "./courses/cr3.jpg",
-//     instructorImage: "./courses/dr2.jpg",
-//     price: "$35",
-//     label1: "Hot",
-//     label2: "Free",
-//     students: "2890",
-//     category: "Pharmacology"
-//   },
-//   {
-//     id: 4,
-//     title: "Drug Interactions & Safety",
-//     instructor: "Dr. Usman Tariq",
-//     image: "./courses/cr4.jpg",
-//     instructorImage: "./courses/dt2.jpg",
-//     price: "$40",
-//     label1: "Updated",
-//     label2: "Hot",
-//     students: "3502",
-//     category: "Safety"
-//   },
-//   {
-//     id: 5,
-//     title: "Clinical Trials & Research",
-//     instructor: "Dr. Areeba Rehman",
-//     image: "./courses/cr5.jpg",
-//     instructorImage: "./courses/dr3.jpg",
-//     price: "$50",
-//     label1: "Trending",
-//     label2: "Top",
-//     students: "3120",
-//     category: "Research"
-//   },
-//   {
-//     id: 6,
-//     title: "Hospital Pharmacy Practice",
-//     instructor: "Dr. Bilal Nawaz",
-//     image: "./courses/cr6.jpg",
-//     instructorImage: "./courses/dt3.jpg",
-//     price: "$38",
-//     label1: "New",
-//     label2: "Hot",
-//     students: "4233",
-//     category: "Hospital Practice"
-//   },
-//   {
-//     id: 7,
-//     title: "Essentials of Biopharmaceutics",
-//     instructor: "Dr. CH Tahseen",
-//     image: "./courses/cr7.jpg",
-//     instructorImage: "./courses/dt4.jpg",
-//     price: "$42",
-//     label1: "Hot",
-//     label2: "New",
-//     students: "2701",
-//     category: "Biopharmaceutics"
-//   },
-//   {
-//     id: 8,
-//     title: "Pharmacy Law & Ethics",
-//     instructor: "Dr. Sara zafar",
-//     image: "./courses/cr8.jpg",
-//     instructorImage: "./courses/dr4.jpg",
-//     price: "$29",
-//     label1: "Updated",
-//     label2: "Top",
-//     students: "1832",
-//     category: "Pharmacy Law"
-//   },
-//   {
-//     id: 9,
-//     title: "Introduction to Toxicology",
-//     instructor: "Dr. Waqas Abbas",
-//     image: "./courses/cr9.jpg",
-//     instructorImage: "./courses/dt5.jpg",
-//     price: "$34",
-//     label1: "New",
-//     label2: "Free",
-//     students: "2214",
-//     category: "Toxicology"
-//   },
-//   {
-//     id: 10,
-//     title: "Therapeutics and Drug Therapy",
-//     instructor: "Dr. Kinza Tariq",
-//     image: "./courses/cr10.jpg",
-//     instructorImage: "./courses/dr5.jpg",
-//     price: "$46",
-//     label1: "Trending",
-//     label2: "Hot",
-//     students: "3999",
-//     category: "Therapeutics"
-//   },
-//   {
-//     id: 11,
-//     title: "Pharmacy Business & Management",
-//     instructor: "Dr. Fakhar Abbas",
-//     image: "./courses/cr11.jpg",
-//     instructorImage: "./courses/dt6.jpg",
-//     price: "$55",
-//     label1: "Top",
-//     label2: "Hot",
-//     students: "2745",
-//     category: "Pharmacy Management"
-//   },
-//   {
-//     id: 12,
-//     title: "Community Pharmacy Essentials",
-//     instructor: "Dr. Kiran Rida",
-//     image: "./courses/cr12.jpg",
-//     instructorImage: "./courses/dr6.jpg",
-//     price: "$33",
-//     label1: "Hot",
-//     label2: "Free",
-//     students: "3699",
-//     category: "Community Pharmacy"
-//   }
-// ];
+import { useSelector } from "react-redux";
 
 export default function CourseGrid() {
-  const [selectedFilter, setSelectedFilter] = useState("All Category");
+  const { user } = useSelector((state) => state.user);
+
+  const purchasedCourseIds = user?.purchasedCourses || [];
+  const filters = ["All Courses", "Purchased Courses"];
+
+  const [selectedFilter, setSelectedFilter] = useState("All Courses");
+  const [searchTerm, setSearchTerm] = useState(""); // 🔍 Search state
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 6;
 
   const { data: pharmacyCourses = [] } = useGetCoursesQuery();
 
-  const filteredCourses =
-    selectedFilter === "All Category"
+  // 🔎 Filter courses
+  const filteredByType =
+    selectedFilter === "All Courses"
       ? pharmacyCourses
-      : pharmacyCourses.filter((course) => course.category === selectedFilter);
+      : pharmacyCourses.filter((course) =>
+          purchasedCourseIds.includes(course._id)
+        );
+
+  const filteredCourses = filteredByType.filter((course) =>
+    course.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
@@ -194,8 +45,8 @@ export default function CourseGrid() {
         </h2>
       </div>
 
-      {/* Filters */}
-      <div className="flex flex-wrap justify-center gap-3 mb-10">
+      {/* 🔘 Filters */}
+      <div className="flex flex-wrap justify-center gap-3 mb-6">
         {filters.map((filter, index) => {
           const isActive = selectedFilter === filter;
           return (
@@ -217,7 +68,21 @@ export default function CourseGrid() {
         })}
       </div>
 
-      {/* Courses Grid */}
+      {/* 🔍 Search Bar */}
+      <div className="mb-10 flex justify-center">
+        <input
+          type="text"
+          placeholder="Search courses..."
+          value={searchTerm}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+            setCurrentPage(1); // reset pagination on search
+          }}
+          className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-[#00B8A9]"
+        />
+      </div>
+
+      {/* 📚 Courses Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
         {currentCourses.map((course, index) => (
           <div
@@ -238,7 +103,7 @@ export default function CourseGrid() {
                   Lessons: {course.lessons}
                 </span>
               </div>
-              <div className="absolute top-3 right-3 bg-red-500 text-white text-xs  font-bold p-1 flex items-center justify-center rounded-md shadow">
+              <div className="absolute top-3 right-3 bg-red-500 text-white text-xs font-bold p-1 flex items-center justify-center rounded-md shadow">
                 {course.courseLevel}
               </div>
             </div>
@@ -281,7 +146,7 @@ export default function CourseGrid() {
         ))}
       </div>
 
-      {/* Pagination */}
+      {/* ⏩ Pagination */}
       <div className="flex justify-center mt-10 space-x-2 flex-wrap">
         {Array.from({ length: totalPages }).map((_, idx) => (
           <button

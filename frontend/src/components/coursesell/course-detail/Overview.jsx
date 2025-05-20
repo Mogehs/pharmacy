@@ -47,7 +47,7 @@ const Overview = ({ course }) => {
         alert("Something went wrong. Please try again.");
       }
     } catch (error) {
-      console.error("Stripe Checkout Error:", error);
+      le.error("Stripe Checkout Error:", error);
       alert("Error initiating payment.");
     }
   };
@@ -116,21 +116,36 @@ const Overview = ({ course }) => {
                       }`}
                     >
                       <div className="px-4 pb-4 pt-2 space-y-2">
-                        <div className="flex justify-between items-center text-gray-800">
-                          <div className="flex gap-2">
-                            <span className="my-auto">
-                              <FaGoogleDrive />
-                            </span>
-                            <span className="text-lg hover:text-[#00B8A9] duration-200 cursor-pointer">
-                              {course.courseLink}
-                            </span>
+                        {course.price === 0 ||
+                        user?.purchasedCourses?.includes(course._id) ? (
+                          <div className="flex justify-between items-center text-gray-800">
+                            <div className="flex gap-2">
+                              <span className="my-auto">
+                                <FaGoogleDrive />
+                              </span>
+                              <a
+                                href={course.courseLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-lg hover:text-[#00B8A9] duration-200 cursor-pointer"
+                              >
+                                View Course
+                              </a>
+                            </div>
                           </div>
-                          {course.price === 0 ? (
-                            <></>
-                          ) : (
+                        ) : (
+                          <div className="flex justify-between items-center text-gray-500">
+                            <div className="flex gap-2">
+                              <span className="my-auto">
+                                <FaGoogleDrive />
+                              </span>
+                              <span className="text-lg">
+                                Course locked. Purchase to access.
+                              </span>
+                            </div>
                             <FaLock size={14} className="text-[#009688]" />
-                          )}
-                        </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -138,11 +153,16 @@ const Overview = ({ course }) => {
               })}
             </div>
           </div>
-          <div className="bg-white rounded-2xl shadow-xl p-6 h-fit sticky top-16 ">
+          <div className="bg-white rounded-2xl shadow-xl p-6 h-fit sticky top-16">
             <div className="text-3xl font-bold text-[#009688] mb-4">
-              {course.price == 0 ? "Free" : `${course.price}$`}
+              {course.price === 0
+                ? "Free"
+                : user?.purchasedCourses?.includes(course._id)
+                ? "Purchased"
+                : `${course.price}$`}
             </div>
-            <ul className=" text-gray-700 mb-6 divide-y divide-gray-200">
+
+            <ul className="text-gray-700 mb-6 divide-y divide-gray-200">
               <li className="flex items-center justify-between py-3">
                 <div className="flex items-center gap-2 text-gray-700">
                   <FaLayerGroup className="text-gray-700" />
@@ -171,13 +191,6 @@ const Overview = ({ course }) => {
                 </div>
                 <span>{course.quizes}</span>
               </li>
-              {/* <li className="flex items-center justify-between py-3 ">
-                <div className="flex items-center gap-2 text-gray-700">
-                  <FaCheck className="text-gray-700" />
-                  <span className="font-medium">Pass Percentage:</span>
-                </div>
-                <span>80%</span>
-              </li> */}
               <li className="flex items-center justify-between py-3">
                 <div className="flex items-center gap-2 text-gray-700">
                   <FaCertificate className="text-gray-700" />
@@ -193,35 +206,41 @@ const Overview = ({ course }) => {
                 <span>{course.language}</span>
               </li>
             </ul>
-            {course.price === 0 ? (
-              <></>
-            ) : (
-              <>
-                <div className="mb-8 ">
-                  <p className="text-lg text-[#00B8A9] font-semibold mb-4">
-                    Secure Payment:
-                  </p>
-                  <div className="flex">
-                    <img
-                      src="/courses/card.png"
-                      alt="Payment Methods"
-                      className=""
-                    />
+
+            {/* Show Payment Section only if course is not free AND not already purchased */}
+            {course.price !== 0 &&
+              !user?.purchasedCourses?.includes(course._id) && (
+                <>
+                  <div className="mb-8">
+                    <p className="text-lg text-[#00B8A9] font-semibold mb-4">
+                      Secure Payment:
+                    </p>
+                    <div className="flex">
+                      <img src="/courses/card.png" alt="Payment Methods" />
+                    </div>
                   </div>
+
+                  <button
+                    onClick={handleBuyCourse}
+                    disabled={isLoading}
+                    className={`bg-[#00B8A9] text-white py-4 px-7 rounded-md font-semibold transition duration-500 border-2 border-transparent hover:bg-[#009688] hover:border-[#009688] ${
+                      isLoading
+                        ? "opacity-50 cursor-not-allowed"
+                        : "cursor-pointer"
+                    }`}
+                  >
+                    {isLoading ? "Processing..." : "Buy Now"}
+                  </button>
+                </>
+              )}
+
+            {/* If course is already purchased and not free, show confirmation */}
+            {course.price !== 0 &&
+              user?.purchasedCourses?.includes(course._id) && (
+                <div className="text-green-600 font-medium text-center mt-4">
+                  You have already purchased this course.
                 </div>
-                <button
-                  onClick={handleBuyCourse}
-                  disabled={isLoading}
-                  className={`bg-[#00B8A9] text-white py-4 px-7 rounded-md font-semibold transition duration-500 border-2 border-transparent hover:bg-[#009688] hover:border-[#009688] ${
-                    isLoading
-                      ? "opacity-50 cursor-not-allowed"
-                      : "cursor-pointer"
-                  }`}
-                >
-                  {isLoading ? "Processing..." : "Buy Now"}
-                </button>
-              </>
-            )}
+              )}
           </div>
         </div>
       </div>

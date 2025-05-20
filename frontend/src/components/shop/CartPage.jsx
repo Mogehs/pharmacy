@@ -26,8 +26,8 @@ const CartPage = () => {
   });
 
   const [checkLoad, setCheckLoad] = useState(false);
-  const [clearLoading, setClearLoading] = useState(false); // ✅
-  const [removingItemId, setRemovingItemId] = useState(null); // ✅
+  const [clearLoading, setClearLoading] = useState(false);
+  const [removingItemId, setRemovingItemId] = useState(null);
 
   const userId = user?._id;
 
@@ -47,7 +47,7 @@ const CartPage = () => {
   };
 
   const handleRemoveFromCart = async (item) => {
-    setRemovingItemId(item._id); // ✅
+    setRemovingItemId(item._id);
     try {
       await removeCartItem(item._id);
     } finally {

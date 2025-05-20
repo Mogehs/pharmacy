@@ -39,6 +39,7 @@ import AppointmentsOrders from "./pages/AppointmentsOrders";
 import YouTubeVideos from "./components/YouTubeVideos";
 import Appointments from "./components/Dashboard/Appointments";
 import AddVideos from "./components/Dashboard/AddVideos";
+import RequireAdmin from "./components/ProtectedRoute";
 
 const MainLayout = () => (
   <div className="lg:mx-auto lg:max-w-[1536px]">
@@ -82,14 +83,70 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: <AdminLayout />,
     children: [
-      { path: "", element: <Dashboard /> },
-      { path: "/dashboard/products", element: <Products /> },
-      { path: "/dashboard/customers", element: <Customers /> },
-      { path: "/dashboard/orders", element: <Orders /> },
-      { path: "/dashboard/courses", element: <Courses /> },
-      { path: "/dashboard/students", element: <Students /> },
-      { path: "/dashboard/appointments", element: <Appointments /> },
-      { path: "/dashboard/add-videos", element: <AddVideos /> },
+      {
+        path: "",
+        element: (
+          <RequireAdmin>
+            <Dashboard />
+          </RequireAdmin>
+        ),
+      },
+      {
+        path: "/dashboard/products",
+        element: (
+          <RequireAdmin>
+            <Products />
+          </RequireAdmin>
+        ),
+      },
+      {
+        path: "/dashboard/customers",
+        element: (
+          <RequireAdmin>
+            <Customers />
+          </RequireAdmin>
+        ),
+      },
+      {
+        path: "/dashboard/orders",
+        element: (
+          <RequireAdmin>
+            <Orders />
+          </RequireAdmin>
+        ),
+      },
+      {
+        path: "/dashboard/courses",
+        element: (
+          <RequireAdmin>
+            <Courses />
+          </RequireAdmin>
+        ),
+      },
+      {
+        path: "/dashboard/students",
+        element: (
+          <RequireAdmin>
+            <Students />
+          </RequireAdmin>
+        ),
+      },
+      {
+        path: "/dashboard/appointments",
+        element: (
+          <RequireAdmin>
+            <Appointments />
+          </RequireAdmin>
+        ),
+      },
+      {
+        path: "/dashboard/add-videos",
+        element: (
+          <RequireAdmin>
+            <AddVideos />
+          </RequireAdmin>
+        ),
+      },
     ],
   },
 ]);

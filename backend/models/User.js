@@ -22,8 +22,7 @@ const userSchema = new mongoose.Schema(
     appointments: [
       { type: mongoose.Schema.Types.ObjectId, ref: "Appointment" },
     ],
-    orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
-    enrolledCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }],
+    purchasedCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }],
 
     savedCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }],
   },

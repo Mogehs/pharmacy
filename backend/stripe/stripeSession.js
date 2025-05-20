@@ -19,7 +19,6 @@ export const createCheckoutSession = async (req, res) => {
       quantity: item.quantity,
     }));
 
-    // Create the Order FIRST
     const newOrder = await Order.create({
       user: userId,
       items: items.map(({ productId, quantity }) => ({
@@ -34,7 +33,6 @@ export const createCheckoutSession = async (req, res) => {
       paymentMethod: "Stripe",
     });
 
-    // Now use newOrder._id in metadata
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: lineItems,
@@ -44,7 +42,7 @@ export const createCheckoutSession = async (req, res) => {
       metadata: {
         type: "order",
         userId,
-        orderId: newOrder._id.toString(), // ✅ send orderId
+        orderId: newOrder._id.toString(),
       },
     });
 
